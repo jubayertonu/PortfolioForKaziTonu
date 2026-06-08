@@ -355,7 +355,7 @@ export default function App() {
         <motion.video
           key="video-default"
           className="absolute inset-0 w-full h-full object-cover"
-          src="/api/video"
+          src="https://res.cloudinary.com/dqtyuf02y/video/upload/v1780853514/gemini_generated_video_8b15deec_ifrrms.mp4"
           autoPlay
           loop
           muted
@@ -366,7 +366,7 @@ export default function App() {
         <motion.video
           key="video-about"
           className="absolute inset-0 w-full h-full object-cover"
-          src="/api/video-about"
+          src="https://res.cloudinary.com/dqtyuf02y/video/upload/v1780853433/gemini_generated_video_fbb884cc_oo3f8m.mp4"
           autoPlay
           loop
           muted
@@ -377,7 +377,7 @@ export default function App() {
         <motion.video
           key="video-certs"
           className="absolute inset-0 w-full h-full object-cover"
-          src="/api/video-certs"
+          src="https://res.cloudinary.com/dqtyuf02y/video/upload/v1780853432/Make_character_alive_blinking_br__202606072030_onzb7e.mp4"
           autoPlay
           loop
           muted
@@ -388,7 +388,7 @@ export default function App() {
         <motion.video
           key="video-contact"
           className="absolute inset-0 w-full h-full object-cover"
-          src="/api/video-contact"
+          src="https://res.cloudinary.com/dqtyuf02y/video/upload/v1780853433/gemini_generated_video_2c0a1bca_hpbmpi.mp4"
           autoPlay
           loop
           muted
