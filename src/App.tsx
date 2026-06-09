@@ -31,6 +31,7 @@ import { TypingText } from "./components/TypingText";
 export default function App() {
   const [activeView, setActiveView] = useState<"hero" | "about" | "resume" | "certs" | "contact">("hero");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const navItems = [
     { label: "Home", value: "hero" },
@@ -186,7 +187,18 @@ export default function App() {
       setFormData({ name: "", email: "", message: "" });
     }, 1200);
   };
-
+  // Check if user is on a mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+  
   useEffect(() => {
     if (activeView !== "hero") return;
     const interval = setInterval(() => {
