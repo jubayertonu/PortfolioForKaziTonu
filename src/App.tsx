@@ -187,7 +187,8 @@ export default function App() {
       setFormData({ name: "", email: "", message: "" });
     }, 1200);
   };
-  // Check if user is on a mobile device
+
+  // Check if user is on a mobile device window constraint
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -195,10 +196,9 @@ export default function App() {
     
     checkMobile();
     window.addEventListener("resize", checkMobile);
-    
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
-  
+
   useEffect(() => {
     if (activeView !== "hero") return;
     const interval = setInterval(() => {
@@ -252,7 +252,7 @@ export default function App() {
     }
   };
 
-  // Resume details for Kazi Tonu
+  // Resume details
   const resumeDetails = {
     name: "Kazi Tonu",
     title: "Workplace Safety and Health Coordinator",
@@ -362,12 +362,14 @@ export default function App() {
 
   return (
     <div className={`relative min-h-screen text-white font-sans selection:bg-white selection:text-black overflow-x-hidden flex flex-col justify-between transition-all duration-1000 ${(activeView === "about" || activeView === "certs" || activeView === "contact") ? "bg-transparent" : "bg-black"}`}>
-      {/* Background Loop Videos with Smooth Crossfade */}
+      {/* Background Loop Videos with Smooth Responsive Crossfade */}
       <div className="fixed inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
         <motion.video
           key="video-default"
           className="absolute inset-0 w-full h-full object-cover"
-          src="https://res.cloudinary.com/dqtyuf02y/video/upload/v1780853514/gemini_generated_video_8b15deec_ifrrms.mp4"
+          src={isMobile 
+            ? "https://res.cloudinary.com/dqtyuf02y/video/upload/v1781023576/HnVideoEditor_2026_06_10_004448194_lso0dp.mp4" 
+            : "https://res.cloudinary.com/dqtyuf02y/video/upload/v1780853514/gemini_generated_video_8b15deec_ifrrms.mp4"}
           autoPlay
           loop
           muted
@@ -378,7 +380,9 @@ export default function App() {
         <motion.video
           key="video-about"
           className="absolute inset-0 w-full h-full object-cover"
-          src="https://res.cloudinary.com/dqtyuf02y/video/upload/v1780853433/gemini_generated_video_fbb884cc_oo3f8m.mp4"
+          src={isMobile 
+            ? "https://res.cloudinary.com/dqtyuf02y/video/upload/v1781023581/HnVideoEditor_2026_06_10_004413527_h17cuf.mp4" 
+            : "https://res.cloudinary.com/dqtyuf02y/video/upload/v1780853433/gemini_generated_video_fbb884cc_oo3f8m.mp4"}
           autoPlay
           loop
           muted
@@ -389,7 +393,9 @@ export default function App() {
         <motion.video
           key="video-certs"
           className="absolute inset-0 w-full h-full object-cover"
-          src="https://res.cloudinary.com/dqtyuf02y/video/upload/v1780853432/Make_character_alive_blinking_br__202606072030_onzb7e.mp4"
+          src={isMobile 
+            ? "https://res.cloudinary.com/dqtyuf02y/video/upload/v1781023581/HnVideoEditor_2026_06_10_004330226_gdoktp.mp4" 
+            : "https://res.cloudinary.com/dqtyuf02y/video/upload/v1780853432/Make_character_alive_blinking_br__202606072030_onzb7e.mp4"}
           autoPlay
           loop
           muted
@@ -400,7 +406,9 @@ export default function App() {
         <motion.video
           key="video-contact"
           className="absolute inset-0 w-full h-full object-cover"
-          src="https://res.cloudinary.com/dqtyuf02y/video/upload/v1780853433/gemini_generated_video_2c0a1bca_hpbmpi.mp4"
+          src={isMobile 
+            ? "https://res.cloudinary.com/dqtyuf02y/video/upload/v1781023584/HnVideoEditor_2026_06_10_004224069_rnmhex.mp4" 
+            : "https://res.cloudinary.com/dqtyuf02y/video/upload/v1780853433/gemini_generated_video_2c0a1bca_hpbmpi.mp4"}
           autoPlay
           loop
           muted
@@ -544,7 +552,7 @@ export default function App() {
           </motion.div>
         </section>
 
-        {/* ABOUT ME SECTION - Matches background transparency & custom video requested */}
+        {/* ABOUT ME SECTION */}
         <section id="about" className="w-full min-h-[75vh] flex items-center justify-center scroll-mt-24 py-12 md:py-20">
           <motion.div
             initial={{ opacity: 0, x: 40 }}
@@ -553,7 +561,7 @@ export default function App() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="w-full flex flex-col md:grid md:grid-cols-12 gap-8 items-center"
           >
-            {/* Left side spacer - empty as per reference image */}
+            {/* Left side spacer */}
             <div className="hidden md:block md:col-span-4 lg:col-span-5" />
 
             {/* Right side content */}
@@ -580,7 +588,7 @@ export default function App() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="w-full flex flex-col md:grid md:grid-cols-12 gap-8 items-start"
           >
-            {/* Left side spacer - preserves Kazi's alignment signature */}
+            {/* Left side spacer */}
             <div className="hidden md:block md:col-span-3 lg:col-span-4" />
 
             {/* Right side content */}
