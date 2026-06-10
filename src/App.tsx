@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { 
   FileText, 
   X, 
@@ -335,6 +335,7 @@ export default function App() {
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
     }
+    setMenuOpen(false); // Close mobile menu drawer automatically after clicking a route
   };
 
   useEffect(() => {
@@ -416,7 +417,7 @@ export default function App() {
           animate={{ opacity: activeView === "contact" ? 1.0 : 0 }}
           transition={{ duration: 1.0, ease: "easeInOut" }}
         />
-        {/* Subtle vignette/shading overlay - fades out in About, Certs and Contact view to make video perfectly clear */}
+        {/* Subtle vignette/shading overlay */}
         <motion.div 
           className="absolute inset-0 bg-black/25 bg-gradient-to-b from-black/40 via-transparent to-black/40" 
           animate={{ opacity: (activeView === "about" || activeView === "certs" || activeView === "contact") ? 0 : 1.0 }}
@@ -424,35 +425,31 @@ export default function App() {
         />
       </div>
 
-      {/* 1. HEADER SECTION (STICKY & BLURRED FOR CONTINUOUS SCROLL MODE) */}
+      {/* 1. HEADER SECTION */}
       <motion.header 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="sticky top-0 z-50 w-full bg-black/45 backdrop-blur-md border-b border-white/5 py-6 transition-all duration-300"
       >
-        <div className="w-full max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+        <div className="w-full max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center relative">
           {/* LOGO */}
           <button 
-            onClick={() => {
-              handleNavClick("hero");
-            }}
-            className="text-2xl font-black tracking-tighter text-white select-none cursor-pointer hover:opacity-80 transition-opacity"
+            onClick={() => handleNavClick("hero")}
+            className="text-2xl font-black tracking-tighter text-white select-none cursor-pointer hover:opacity-80 transition-opacity z-50"
           >
             KT
           </button>
 
-          {/* NAVIGATION */}
-          <nav className="flex items-center flex-wrap justify-end gap-x-4 sm:gap-x-6 md:gap-x-8 gap-y-2 max-w-[85%] md:max-w-none">
+          {/* DESKTOP NAVIGATION (Hidden on mobile screens) */}
+          <nav className="hidden md:flex items-center gap-x-8">
             {navItems.map((item) => {
               const isActive = activeView === item.value;
               return (
                 <button
                   key={item.value}
-                  onClick={() => {
-                    handleNavClick(item.value);
-                  }}
-                  className={`text-[10px] sm:text-xs md:text-sm font-bold tracking-wider sm:tracking-widest transition-colors duration-300 relative py-1 group uppercase cursor-pointer ${
+                  onClick={() => handleNavClick(item.value)}
+                  className={`text-sm font-bold tracking-widest transition-colors duration-300 relative py-1 group uppercase cursor-pointer ${
                     isActive ? "text-white" : "text-zinc-400 hover:text-white"
                   }`}
                 >
@@ -464,10 +461,49 @@ export default function App() {
               );
             })}
           </nav>
+
+          {/* MOBILE MENU BUTTON (Only shows up on mobile viewports) */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="md:hidden text-white hover:text-[#41B3A3] transition-colors p-1 focus:outline-none z-50 cursor-pointer"
+            aria-label="Toggle navigation menu"
+          >
+            {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+
+          {/* MOBILE NAVIGATION DRAWER (Slides down fluidly on tap) */}
+          <AnimatePresence>
+            {menuOpen && (
+              <motion.nav
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="absolute top-full left-0 w-full bg-black/95 backdrop-blur-lg border-b border-white/10 flex flex-col items-center py-8 space-y-5 md:hidden z-40 shadow-2xl"
+              >
+                {navItems.map((item) => {
+                  const isActive = activeView === item.value;
+                  return (
+                    <button
+                      key={item.value}
+                      onClick={() => handleNavClick(item.value)}
+                      className={`text-sm font-bold tracking-widest uppercase transition-all duration-300 py-2 px-6 rounded-xl w-[80%] text-center ${
+                        isActive 
+                          ? "text-black bg-[#41B3A3] shadow-lg shadow-[#41B3A3]/25" 
+                          : "text-zinc-300 hover:text-white hover:bg-white/5"
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  );
+                })}
+              </motion.nav>
+            )}
+          </AnimatePresence>
         </div>
       </motion.header>
 
-      {/* 2. MAIN HUB VIEWPORT (VERTICALLY STACKED WITH INTERSECTION OBSERVATION AND BREATHING ROOM) */}
+      {/* 2. MAIN HUB VIEWPORT */}
       <main className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 flex-grow flex flex-col py-12 md:py-20 space-y-32 md:space-y-48">
         
         {/* HERO SECTION */}
@@ -1040,7 +1076,7 @@ export default function App() {
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                           placeholder="YOUR.EMAIL@DOMAIN.COM"
-                          className="w-full bg-white/[0.02] border border-white/10 hover:border-white/20 focus:border-[#41B3A3] focus:bg-black/60 rounded-xl pl-11 pr-4 py-3 text-sm text-white placeholder-zinc-650 focus:outline-none transition-all duration-300 uppercase tracking-wider font-mono text-xs focus:ring-2 focus:ring-[#41B3A3]/40 focus:shadow-[0_0_15px_rgba(65,179,163,0.3)]"
+                          className="w-full bg-white/[0.02] border border-white/10 hover:border-white/20 focus:border-white focus:bg-black/60 rounded-xl pl-11 pr-4 py-3 text-sm text-white placeholder-zinc-650 focus:outline-none transition-all duration-300 uppercase tracking-wider font-mono text-xs focus:ring-2 focus:ring-[#41B3A3]/40 focus:shadow-[0_0_15px_rgba(65,179,163,0.3)]"
                         />
                       </div>
                     </div>
