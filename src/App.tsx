@@ -66,7 +66,6 @@ export default function App() {
   };
 
   useEffect(() => {
-    // Disable scroll during loading to prevent background scrolling
     if (isLoading) {
       document.body.style.overflow = "hidden";
     } else {
@@ -78,17 +77,16 @@ export default function App() {
   }, [isLoading]);
 
   useEffect(() => {
-    // Simulate high-fidelity loading progress
     const interval = setInterval(() => {
       setLoadingProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
           setTimeout(() => {
             setIsLoading(false);
-          }, 450); // Small delay to let user see "100% / COMPLIANT SYSTEM READY"
+          }, 450);
           return 100;
         }
-        const step = Math.floor(Math.random() * 8) + 4; // increment by 4 to 11%
+        const step = Math.floor(Math.random() * 8) + 4;
         return Math.min(prev + step, 100);
       });
     }, 85 + Math.random() * 50);
@@ -117,7 +115,7 @@ export default function App() {
         pulse: false,
       };
     }
-    const today = new Date("2026-06-11"); // Lock system base date matching environment local time (June 2026)
+    const today = new Date("2026-06-11");
     const expiry = new Date(expiryDate);
     const diffMs = expiry.getTime() - today.getTime();
     const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
@@ -135,7 +133,6 @@ export default function App() {
       };
     }
 
-    // Standard baseline duration is 3 years (1095 days) for visual scaling
     const totalDuration = 1095; 
     const percent = Math.min(100, Math.max(10, (diffDays / totalDuration) * 100));
     
@@ -304,15 +301,12 @@ export default function App() {
     }
   ];
 
-
   const [animationKey, setAnimationKey] = useState(0);
   const [animationStyle, setAnimationStyle] = useState(0);
 
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-  const [inquiryType, setInquiryType] = useState<"audits" | "hiring" | "drills">("hiring");
-  const [complianceChecked, setComplianceChecked] = useState(false);
 
   const [activeResumeTab, setActiveResumeTab] = useState<"experience" | "competencies">("experience");
   const [selectedRoleIdx, setSelectedRoleIdx] = useState(0);
@@ -342,45 +336,43 @@ export default function App() {
     return () => clearInterval(interval);
   }, [activeView]);
 
-  // Dynamic variants helper
   const getInitialVariant = (style: number, element: "g" | "k" | "t" | "sh" | "c") => {
     switch (style) {
-      case 0: // Slide Up
+      case 0:
         if (element === "g") return { y: 20, opacity: 0, x: 0, scale: 1, rotate: 0 };
         if (element === "k" || element === "t") return { y: "110%", opacity: 0, x: 0, scale: 1, rotate: 0 };
         if (element === "sh") return { y: 15, opacity: 0, x: 0, scale: 1, rotate: 0 };
-        return { y: "110%", opacity: 0, x: 0, scale: 1, rotate: 0 }; // c
-      case 1: // Slide Down
+        return { y: "110%", opacity: 0, x: 0, scale: 1, rotate: 0 };
+      case 1:
         if (element === "g") return { y: -20, opacity: 0, x: 0, scale: 1, rotate: 0 };
         if (element === "k" || element === "t") return { y: "-110%", opacity: 0, x: 0, scale: 1, rotate: 0 };
         if (element === "sh") return { y: -15, opacity: 0, x: 0, scale: 1, rotate: 0 };
-        return { y: "-110%", opacity: 0, x: 0, scale: 1, rotate: 0 }; // c
-      case 2: // Slide Left
+        return { y: "-110%", opacity: 0, x: 0, scale: 1, rotate: 0 };
+      case 2:
         if (element === "g") return { x: -30, opacity: 0, y: 0, scale: 1, rotate: 0 };
         if (element === "k" || element === "t") return { x: "-100%", opacity: 0, y: 0, scale: 1, rotate: 0 };
         if (element === "sh") return { x: -30, opacity: 0, y: 0, scale: 1, rotate: 0 };
-        return { x: "-100%", opacity: 0, y: 0, scale: 1, rotate: 0 }; // c
-      case 3: // Slide Right
+        return { x: "-100%", opacity: 0, y: 0, scale: 1, rotate: 0 };
+      case 3:
         if (element === "g") return { x: 30, opacity: 0, y: 0, scale: 1, rotate: 0 };
         if (element === "k" || element === "t") return { x: "100%", opacity: 0, y: 0, scale: 1, rotate: 0 };
         if (element === "sh") return { x: 30, opacity: 0, y: 0, scale: 1, rotate: 0 };
-        return { x: "100%", opacity: 0, y: 0, scale: 1, rotate: 0 }; // c
-      case 4: // Zoom / Scale In
+        return { x: "100%", opacity: 0, y: 0, scale: 1, rotate: 0 };
+      case 4:
         if (element === "g") return { scale: 0.8, opacity: 0, x: 0, y: 0, rotate: 0 };
         if (element === "k" || element === "t") return { scale: 0.85, opacity: 0, x: 0, y: 0, rotate: 0 };
         if (element === "sh") return { scale: 0.85, opacity: 0, x: 0, y: 0, rotate: 0 };
-        return { scale: 0.85, opacity: 0, x: 0, y: 0, rotate: 0 }; // c
-      case 5: // Rotate & Scale
+        return { scale: 0.85, opacity: 0, x: 0, y: 0, rotate: 0 };
+      case 5:
         if (element === "g") return { rotate: -4, scale: 0.95, opacity: 0, x: 0, y: 0 };
         if (element === "k" || element === "t") return { rotate: 3, scale: 0.9, opacity: 0, x: 0, y: 0 };
         if (element === "sh") return { rotate: -2, scale: 0.95, opacity: 0, x: 0, y: 0 };
-        return { rotate: -3, scale: 0.9, opacity: 0, x: 0, y: 0 }; // c
+        return { rotate: -3, scale: 0.9, opacity: 0, x: 0, y: 0 };
       default:
         return { y: 20, opacity: 0, x: 0, scale: 1, rotate: 0 };
     }
   };
 
-  // Resume details for Kazi Tonu
   const resumeDetails = {
     name: "Kazi Tonu",
     title: "Workplace Safety and Health Coordinator",
@@ -415,29 +407,6 @@ export default function App() {
           "Acquired strong hands-on insight into site layouts, technical equipment, and essential safety procedures."
         ]
       }
-    ],
-    skills: [
-      "WSH Act & MOM Compliance",
-      "Hazard Mitigation & HIRA",
-      "Safety Audits & Inspections",
-      "Work-at-Height Supervision",
-      "BoomLift & Confined Spaces",
-      "Incident & RCA Investigation",
-      "Toolbox Talks & Briefings",
-      "Crisis Triage & Team Sync"
-    ],
-    certifications: [
-      "Advance Certificate in Workplace Safety and Health (Greensafe)",
-      "Develop a Risk Management Implementation Plan (BizSAFE2)",
-      "Workplace Safety and Health Management in Construction Industry",
-      "Manage Work at Height (Eversafe)",
-      "Operate BoomLift (AAT Training Hub)",
-      "Perform Work in Confined Space Operation (Eversafe)",
-      "Standard First Aid Provider (Singapore Red Cross)",
-      "Psychological First Aid & Befriender Training (Red Cross)",
-      "Introduction to OSHA: Safety Standards and Compliance (Coursera)",
-      "Psychological Safety (Coursera)",
-      "Creating a Healthy Culture: Addressing Workplace Bullying (Coursera)"
     ],
     education: [
       {
@@ -504,27 +473,20 @@ export default function App() {
             }}
             className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#070707] text-white"
           >
-            {/* Ambient Background Glow */}
             <div className="absolute inset-x-0 top-1/4 h-80 bg-[radial-gradient(circle_at_center,rgba(65,179,163,0.07)_0%,transparent_65%)] pointer-events-none" />
 
             <div className="relative flex flex-col items-center max-w-sm px-6 text-center select-none">
-              {/* Spinning Ring & Logo */}
               <div className="relative w-24 h-24 mb-8 flex items-center justify-center">
-                {/* Slow Spinning Outer Ring */}
                 <motion.div 
                   className="absolute inset-0 border border-dashed border-white/10 rounded-full"
                   animate={{ rotate: 360 }}
                   transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
                 />
-                
-                {/* Fast Pulse Inner Ring */}
                 <motion.div 
                   className="absolute inset-2 border border-[#41B3A3]/20 rounded-full"
                   animate={{ scale: [1, 1.06, 1] }}
                   transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
                 />
-
-                {/* Main Logo Centerpiece */}
                 <motion.div 
                   className="w-14 h-14 bg-white/[0.02] border border-[#41B3A3]/40 rounded-full flex items-center justify-center text-xl font-black text-white shadow-[0_0_30px_rgba(65,179,163,0.15)] relative"
                   initial={{ scale: 0.8, opacity: 0 }}
@@ -536,7 +498,6 @@ export default function App() {
                 </motion.div>
               </div>
 
-              {/* Names */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -550,7 +511,6 @@ export default function App() {
                 </p>
               </motion.div>
 
-              {/* Loader Slider */}
               <div className="w-48 sm:w-60 mb-6 flex flex-col items-center">
                 <div className="w-full h-[1.5px] bg-white/5 relative overflow-hidden rounded-full mb-3">
                   <motion.div 
@@ -559,8 +519,6 @@ export default function App() {
                     transition={{ ease: "easeOut" }}
                   />
                 </div>
-                
-                {/* Percentage & Terminal log */}
                 <div className="w-full flex justify-between items-center text-[9px] font-mono text-zinc-500">
                   <span className="text-[#41B3A3]/80 tracking-wider text-left">
                     {loadingProgress < 20 && "STAGING_PORTFOLIO_CORE"}
@@ -581,104 +539,86 @@ export default function App() {
       </AnimatePresence>
 
       <div className={`relative min-h-screen text-white font-sans selection:bg-white selection:text-black overflow-x-hidden flex flex-col justify-between transition-all duration-1000 ${(activeView === "about" || activeView === "certs" || activeView === "contact") ? "bg-transparent" : "bg-black"}`}>
-      {/* Fixed Scroll Progress Indicator */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-[3px] bg-[#41B3A3] origin-left z-[100] shadow-[0_0_10px_#41B3A3]"
         style={{ scaleX }}
       />
 
-      {/* Background Loop Videos with Smooth Crossfade */}
+      {/* Background Loop Videos with Smooth Responsive Cloudinary Crossfade */}
       <div className="fixed inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
         <motion.video
           key="video-default"
           className="absolute inset-0 w-full h-full object-cover"
-          src={isMobile ? "/api/video?mobile=true" : "/api/video"}
-          autoPlay
-          loop
-          muted
-          playsInline
+          src={isMobile 
+            ? "https://res.cloudinary.com/dqtyuf02y/video/upload/v1781023576/HnVideoEditor_2026_06_10_004448194_lso0dp.mp4" 
+            : "https://res.cloudinary.com/dqtyuf02y/video/upload/v1780853514/gemini_generated_video_8b15deec_ifrrms.mp4"}
+          autoPlay loop muted playsInline
           animate={{ opacity: (activeView === "about" || activeView === "certs" || activeView === "contact") ? 0 : 0.6 }}
           transition={{ duration: 1.0, ease: "easeInOut" }}
         />
         <motion.video
           key="video-about"
           className="absolute inset-0 w-full h-full object-cover"
-          src={isMobile ? "/api/video-about?mobile=true" : "/api/video-about"}
-          autoPlay
-          loop
-          muted
-          playsInline
+          src={isMobile 
+            ? "https://res.cloudinary.com/dqtyuf02y/video/upload/v1781023581/HnVideoEditor_2026_06_10_004413527_h17cuf.mp4" 
+            : "https://res.cloudinary.com/dqtyuf02y/video/upload/v1780853433/gemini_generated_video_fbb884cc_oo3f8m.mp4"}
+          autoPlay loop muted playsInline
           animate={{ opacity: activeView === "about" ? 1.0 : 0 }}
           transition={{ duration: 1.0, ease: "easeInOut" }}
         />
         <motion.video
           key="video-certs"
           className="absolute inset-0 w-full h-full object-cover"
-          src={isMobile ? "/api/video-certs?mobile=true" : "/api/video-certs"}
-          autoPlay
-          loop
-          muted
-          playsInline
+          src={isMobile 
+            ? "https://res.cloudinary.com/dqtyuf02y/video/upload/v1781023581/HnVideoEditor_2026_06_10_004330226_gdoktp.mp4" 
+            : "https://res.cloudinary.com/dqtyuf02y/video/upload/v1780853432/Make_character_alive_blinking_br__202606072030_onzb7e.mp4"}
+          autoPlay loop muted playsInline
           animate={{ opacity: activeView === "certs" ? 1.0 : 0 }}
           transition={{ duration: 1.0, ease: "easeInOut" }}
         />
         <motion.video
           key="video-contact"
           className="absolute inset-0 w-full h-full object-cover"
-          src={isMobile ? "/api/video-contact?mobile=true" : "/api/video-contact"}
-          autoPlay
-          loop
-          muted
-          playsInline
+          src={isMobile 
+            ? "https://res.cloudinary.com/dqtyuf02y/video/upload/v1781023584/HnVideoEditor_2026_06_10_004224069_rnmhex.mp4" 
+            : "https://res.cloudinary.com/dqtyuf02y/video/upload/v1780853433/gemini_generated_video_2c0a1bca_hpbmpi.mp4"}
+          autoPlay loop muted playsInline
           animate={{ opacity: activeView === "contact" ? 1.0 : 0 }}
           transition={{ duration: 1.0, ease: "easeInOut" }}
         />
-        {/* Subtle vignette/shading overlay - fades out in About, Certs and Contact view to make video perfectly clear */}
         <motion.div 
-          className="absolute inset-0 bg-black/25 bg-gradient-to-b from-black/40 via-transparent to-black/40" 
-          animate={{ opacity: (activeView === "about" || activeView === "certs" || activeView === "contact") ? 0 : 1.0 }}
+          className="absolute inset-0 bg-black/35 bg-gradient-to-b from-black/50 via-transparent to-black/50" 
+          animate={{ opacity: (activeView === "about" || activeView === "certs" || activeView === "contact") ? 0.7 : 1.0 }}
           transition={{ duration: 1.0, ease: "easeInOut" }}
         />
       </div>
 
-      {/* 1. HEADER SECTION (STICKY & BLURRED FOR CONTINUOUS SCROLL MODE) */}
+      {/* 1. HEADER SECTION */}
       <motion.header 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="sticky top-0 z-50 w-full bg-black/45 backdrop-blur-md border-b border-white/5 py-6 transition-all duration-300"
+        className="sticky top-0 z-50 w-full bg-black/60 backdrop-blur-md border-b border-white/10 py-6 transition-all duration-300"
       >
-        <div className="w-full max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
-          {/* LOGO */}
+        <div className="w-full max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center relative">
           <motion.button 
-            onClick={() => {
-              handleNavClick("hero");
-            }}
-            className="text-2xl font-black tracking-tighter text-white select-none cursor-pointer hover:opacity-80 transition-opacity inline-block"
-            animate={{
-              y: [0, -4, 0]
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
+            onClick={() => handleNavClick("hero")}
+            className="text-2xl font-black tracking-tighter text-white select-none cursor-pointer hover:opacity-80 transition-opacity z-50 inline-block"
+            animate={{ y: [0, -4, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           >
             KT
           </motion.button>
 
           {/* DESKTOP NAVIGATION */}
-          <nav className="hidden md:flex items-center flex-wrap justify-end gap-x-4 sm:gap-x-6 md:gap-x-8 gap-y-2 max-w-[85%] md:max-w-none">
+          <nav className="hidden md:flex items-center gap-x-8">
             {navItems.map((item) => {
               const isActive = activeView === item.value;
               return (
                 <button
                   key={item.value}
-                  id={`nav-item-${item.value}`}
-                  onClick={() => {
-                    handleNavClick(item.value);
-                  }}
-                  className={`text-[10px] sm:text-xs md:text-sm font-bold tracking-wider sm:tracking-widest transition-colors duration-300 relative py-1 group uppercase cursor-pointer ${
+                  onClick={() => handleNavClick(item.value)}
+                  className={`text-sm font-bold tracking-widest transition-colors duration-300 relative py-1 group uppercase cursor-pointer ${
                     isActive ? "text-white" : "text-zinc-400 hover:text-white"
                   }`}
                 >
@@ -691,78 +631,51 @@ export default function App() {
             })}
           </nav>
 
-          {/* MOBILE DIGITAL MENU BUTTON */}
-          <div className="flex md:hidden items-center">
-            <button
-              id="mobile-menu-trigger"
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="p-2 rounded-lg text-zinc-400 hover:text-white active:scale-95 transition-all cursor-pointer hover:bg-white/5"
-              aria-label="Toggle Menu"
-            >
-              {menuOpen ? (
-                <X className="w-5 h-5" />
-              ) : (
-                <Menu className="w-5 h-5" />
-              )}
-            </button>
-          </div>
-        </div>
+          {/* MOBILE TOGGLE NAVIGATION TRIGGER BUTTON */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="md:hidden text-white hover:text-[#41B3A3] transition-colors p-1 focus:outline-none z-50 cursor-pointer"
+            aria-label="Toggle navigation menu"
+          >
+            {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
 
-        {/* MOBILE NAV PANEL DRAWER */}
-        <AnimatePresence>
-          {menuOpen && (
-            <motion.div
-              id="mobile-nav-panel"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="md:hidden absolute top-full left-0 right-0 z-40 bg-black/95 border-b border-white/5 backdrop-blur-xl overflow-hidden shadow-2xl"
-            >
-              <div className="px-6 py-4 flex flex-col space-y-3">
-                <div className="flex flex-col space-y-1">
-                  {navItems.map((item, idx) => {
-                    const isActive = activeView === item.value;
-                    return (
-                      <motion.button
-                        key={item.value}
-                        id={`mobile-nav-item-${item.value}`}
-                        initial={{ x: -25, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        exit={{ x: -15, opacity: 0 }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 180,
-                          damping: 18,
-                          mass: 0.8,
-                          delay: idx * 0.05
-                        }}
-                        onClick={() => {
-                          handleNavClick(item.value);
-                          setMenuOpen(false);
-                        }}
-                        className="w-full text-left py-3 px-3 rounded-xl flex items-center justify-between group cursor-pointer transition-all duration-200 hover:bg-white/5"
-                      >
-                        <span className={`text-xs font-bold uppercase tracking-widest transition-colors ${
-                          isActive ? "text-[#41B3A3]" : "text-zinc-400 group-hover:text-white"
-                        }`}>
-                          {item.label}
-                        </span>
-                        
-                        {isActive && (
-                          <div className="w-1.5 h-1.5 rounded-full bg-[#41B3A3] shadow-[0_0_8px_#41B3A3]" />
-                        )}
-                      </motion.button>
-                    );
-                  })}
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+          {/* MOBILE NAV PANEL DRAWER COLLAPSE BOX */}
+          <AnimatePresence>
+            {menuOpen && (
+              <motion.nav
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="absolute top-full left-0 w-full bg-black/95 backdrop-blur-lg border-b border-white/10 flex flex-col items-center py-8 space-y-5 md:hidden z-40 shadow-2xl"
+              >
+                {navItems.map((item) => {
+                  const isActive = activeView === item.value;
+                  return (
+                    <button
+                      key={item.value}
+                      onClick={() => {
+                        handleNavClick(item.value);
+                        setMenuOpen(false);
+                      }}
+                      className={`text-sm font-bold tracking-widest uppercase transition-all duration-300 py-3 px-6 rounded-xl w-[80%] text-center ${
+                        isActive 
+                          ? "text-black bg-[#41B3A3] shadow-lg shadow-[#41B3A3]/25" 
+                          : "text-zinc-300 hover:text-white hover:bg-white/5"
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  );
+                })}
+              </motion.nav>
+            )}
+          </AnimatePresence>
+        </div>
       </motion.header>
 
-      {/* 2. MAIN HUB VIEWPORT (VERTICALLY STACKED WITH INTERSECTION OBSERVATION AND BREATHING ROOM) */}
+      {/* 2. MAIN HUB VIEWPORT */}
       <main className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 flex-grow flex flex-col py-12 md:py-20 space-y-32 md:space-y-48">
         
         {/* HERO SECTION */}
@@ -774,9 +687,7 @@ export default function App() {
             transition={{ duration: 0.8 }}
             className="flex flex-col items-start text-left w-full max-w-5xl space-y-8 md:space-y-12"
           >
-            {/* UPSIDE: GREETING & NAME */}
             <div className="flex flex-col">
-              {/* GREETING */}
               <motion.div 
                 key={`g-${animationKey}`}
                 initial={getInitialVariant(animationStyle, "g")}
@@ -787,7 +698,6 @@ export default function App() {
                 Hello! I'm
               </motion.div>
 
-              {/* BIG BOLD NAME */}
               <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] font-black uppercase tracking-tight leading-[0.85] text-white flex flex-col select-none">
                 <span className="block overflow-hidden relative">
                   <motion.span
@@ -814,10 +724,8 @@ export default function App() {
               </h1>
             </div>
 
-            {/* DOWNSIDE: ROLE & FIELD */}
             <div className="flex flex-col pt-6 md:pt-8 border-t border-white/5 w-full items-end text-right">
               <div className="max-w-3xl flex flex-col items-end text-right">
-                {/* UPPER TEXT */}
                 <div className="overflow-hidden mb-2">
                   <motion.div 
                     key={`sh-${animationKey}`}
@@ -830,7 +738,6 @@ export default function App() {
                   </motion.div>
                 </div>
 
-                {/* LOWER BOLD ROLE */}
                 <div className="overflow-hidden">
                   <motion.h2 
                     key={`c-${animationKey}`}
@@ -847,7 +754,7 @@ export default function App() {
           </motion.div>
         </section>
 
-        {/* ABOUT ME SECTION - Matches background transparency & custom video requested */}
+        {/* ABOUT ME SECTION */}
         <section id="about" className="w-full min-h-[75vh] flex items-center justify-center scroll-mt-24 py-12 md:py-20">
           <motion.div
             initial={{ opacity: 0, x: 40 }}
@@ -856,14 +763,10 @@ export default function App() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="w-full flex flex-col md:grid md:grid-cols-12 gap-8 items-center"
           >
-            {/* Left side spacer - empty as per reference image */}
             <div className="hidden md:block md:col-span-4 lg:col-span-5" />
 
-            {/* Right side content */}
-            <div className="col-span-12 md:col-span-8 lg:col-span-7 flex flex-col justify-center text-left space-y-6 bg-black/50 border border-white/10 p-6 sm:p-10 md:p-12 rounded-3xl relative overflow-hidden backdrop-blur-md shadow-2xl transition-all duration-500 hover:border-[#41B3A3]/20 w-full">
-              <div 
-                className="text-[#41B3A3] text-sm md:text-base font-semibold tracking-[0.25em] uppercase"
-              >
+            <div className="col-span-12 md:col-span-8 lg:col-span-7 flex flex-col justify-center text-left space-y-6 bg-black/65 border border-white/15 p-6 sm:p-10 md:p-12 rounded-3xl relative overflow-hidden backdrop-blur-lg shadow-2xl transition-all duration-500 hover:border-[#41B3A3]/30 w-full">
+              <div className="text-[#41B3A3] text-sm md:text-base font-semibold tracking-[0.25em] uppercase">
                 ABOUT ME
               </div>
               <TypingText 
@@ -883,13 +786,11 @@ export default function App() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="w-full flex flex-col md:grid md:grid-cols-12 gap-8 items-start"
           >
-            {/* Left side spacer - preserves Kazi's alignment signature */}
             <div className="hidden md:block md:col-span-3 lg:col-span-4" />
 
-            {/* Right side content */}
-            <div className="col-span-12 md:col-span-9 lg:col-span-8 flex flex-col justify-center text-left space-y-6 md:pl-6 max-w-4xl w-full bg-white/[0.01] border border-white/5 p-6 sm:p-8 md:p-10 rounded-3xl relative overflow-hidden backdrop-blur-md">
+            <div className="col-span-12 md:col-span-9 lg:col-span-8 flex flex-col justify-center text-left space-y-6 md:pl-6 max-w-4xl w-full bg-black/55 border border-white/15 p-6 sm:p-8 md:p-10 rounded-3xl relative overflow-hidden backdrop-blur-lg shadow-2xl">
               
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-white/5 pb-6 w-full">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-white/10 pb-6 w-full">
                 <div>
                   <span className="text-[#41B3A3] text-xs font-mono tracking-[0.2em] font-extrabold uppercase">// COMPLIANCE DOSSIER</span>
                   <h3 className="text-3xl sm:text-4xl font-black uppercase text-white mt-1">{resumeDetails.name}</h3>
@@ -904,19 +805,18 @@ export default function App() {
                 </button>
               </div>
 
-              <div className="space-y-2 bg-white/[0.02] border border-white/[0.03] p-4.5 rounded-2xl">
+              <div className="space-y-2 bg-white/[0.03] border border-white/10 p-4.5 rounded-2xl">
                 <h4 className="text-[10px] font-mono font-black uppercase tracking-widest text-[#41B3A3]">// PROFESSIONAL SUMMARY</h4>
-                <p className="text-zinc-300 leading-relaxed text-xs sm:text-sm">{resumeDetails.summary}</p>
+                <p className="text-zinc-200 leading-relaxed text-xs sm:text-sm">{resumeDetails.summary}</p>
               </div>
 
-              {/* Responsive Tab Panel */}
-              <div className="grid grid-cols-2 gap-2 p-1.5 bg-white/[0.02] border border-white/5 rounded-2xl w-full font-mono">
+              <div className="grid grid-cols-2 gap-2 p-1.5 bg-white/[0.03] border border-white/10 rounded-2xl w-full font-mono">
                 <button
                   onClick={() => setActiveResumeTab("experience")}
                   className={`py-3 px-1 text-[9px] sm:text-xs font-bold uppercase rounded-xl tracking-wider transition-all cursor-pointer text-center flex flex-col sm:flex-row items-center justify-center gap-1.5 ${
                     activeResumeTab === "experience" 
                       ? "bg-[#41B3A3] text-black shadow-lg shadow-[#41B3A3]/10" 
-                      : "text-zinc-400 hover:text-white hover:bg-white/[0.02]"
+                      : "text-zinc-400 hover:text-white hover:bg-white/[0.03]"
                   }`}
                 >
                   <Briefcase className="w-3.5 h-3.5 shrink-0" />
@@ -927,7 +827,7 @@ export default function App() {
                   className={`py-3 px-1 text-[9px] sm:text-xs font-bold uppercase rounded-xl tracking-wider transition-all cursor-pointer text-center flex flex-col sm:flex-row items-center justify-center gap-1.5 ${
                     activeResumeTab === "competencies" 
                       ? "bg-[#41B3A3] text-black shadow-lg shadow-[#41B3A3]/10" 
-                      : "text-zinc-400 hover:text-white hover:bg-white/[0.02]"
+                      : "text-zinc-400 hover:text-white hover:bg-white/[0.03]"
                   }`}
                 >
                   <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
@@ -935,10 +835,7 @@ export default function App() {
                 </button>
               </div>
 
-              {/* TAB CONTENT BLOCK */}
               <div className="min-h-[300px] w-full pt-2">
-                
-                {/* 1. TIMELINE OF EXPERIENCE */}
                 {activeResumeTab === "experience" && (
                   <motion.div 
                     initial={{ opacity: 0, y: 10 }}
@@ -946,7 +843,6 @@ export default function App() {
                     transition={{ duration: 0.4 }}
                     className="grid grid-cols-1 md:grid-cols-12 gap-6 w-full"
                   >
-                    {/* Left Timeline Selection Nodes */}
                     <div className="md:col-span-5 flex flex-col space-y-3">
                       <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#41B3A3] mb-1 leading-none">// CLICK TO INVESTIGATE ROLES</div>
                       
@@ -958,15 +854,15 @@ export default function App() {
                             onClick={() => setSelectedRoleIdx(idx)}
                             className={`p-4 rounded-xl text-left border transition-all duration-300 relative group cursor-pointer flex flex-col justify-between ${
                               isSelected 
-                                ? "bg-white/[0.04] border-[#41B3A3]/40 shadow-md shadow-[#41B3A3]/5" 
-                                : "bg-transparent border-white/5 hover:border-white/10 hover:bg-white/[0.01]"
+                                ? "bg-white/[0.06] border-[#41B3A3]/50 shadow-md" 
+                                : "bg-white/[0.02] border-white/5 hover:border-white/10 hover:bg-white/[0.04]"
                             }`}
                           >
                             <div className="flex justify-between items-start gap-2">
                               <span className={`text-[11px] sm:text-xs font-black uppercase tracking-wider transition-colors ${isSelected ? "text-white" : "text-zinc-400 group-hover:text-zinc-300"}`}>
                                 {exp.role === "Workplace Safety and Health Coordinator" ? "WSH Coordinator" : exp.role}
                               </span>
-                              <span className="text-[9px] font-mono text-zinc-500 pr-1 shrink-0 font-bold">{exp.period}</span>
+                              <span className="text-[9px] font-mono text-zinc-400 pr-1 shrink-0 font-bold">{exp.period}</span>
                             </div>
                             <div className="flex items-center justify-between mt-3">
                               <span className="text-[10px] font-mono uppercase tracking-wide text-[#41B3A3] font-bold">{exp.company.replace(" Pte Ltd.", "")}</span>
@@ -977,8 +873,7 @@ export default function App() {
                       })}
                     </div>
 
-                    {/* Right Role-specific Detail Panel */}
-                    <div className="md:col-span-7 bg-white/[0.02] border border-white/5 rounded-2xl p-5 sm:p-6 flex flex-col justify-between space-y-4">
+                    <div className="md:col-span-7 bg-white/[0.03] border border-white/10 rounded-2xl p-5 sm:p-6 flex flex-col justify-between space-y-4">
                       {(() => {
                         const activeJob = resumeDetails.experience[selectedRoleIdx];
                         return (
@@ -990,13 +885,12 @@ export default function App() {
                             className="space-y-4 h-full flex flex-col justify-between"
                           >
                             <div className="space-y-3.5">
-                              {/* Job Era Metadata Badges */}
-                              <div className="flex items-center justify-between pb-3 border-b border-white/5">
+                              <div className="flex items-center justify-between pb-3 border-b border-white/10">
                                 <span className="text-[9px] font-mono font-bold uppercase px-2.5 py-1 rounded bg-[#41B3A3]/10 text-[#41B3A3] tracking-widest font-black">
                                   {selectedRoleIdx === 0 ? "CURRENT / MANAGEMENT" : selectedRoleIdx === 1 ? "FIELD SUPERVISOR" : "FIELD EXPERTISE"}
                                 </span>
-                                <div className="flex items-center space-x-1.5 text-[10px] text-zinc-400 font-mono">
-                                  <Calendar className="w-3.5 h-3.5 text-zinc-500" />
+                                <div className="flex items-center space-x-1.5 text-[10px] text-zinc-300 font-mono">
+                                  <Calendar className="w-3.5 h-3.5 text-zinc-400" />
                                   <span>{activeJob.period}</span>
                                 </div>
                               </div>
@@ -1007,10 +901,10 @@ export default function App() {
                               </div>
 
                               <div className="space-y-2 pt-2.5">
-                                <div className="text-[9px] font-mono font-bold uppercase tracking-widest text-zinc-500">// KEY DELIVERABLES & ACCOMPLISHMENTS</div>
+                                <div className="text-[9px] font-mono font-bold uppercase tracking-widest text-zinc-400">// KEY DELIVERABLES & ACCOMPLISHMENTS</div>
                                 <ul className="space-y-2.5">
                                   {activeJob.bullets.map((bullet, bIdx) => (
-                                    <li key={bIdx} className="flex items-start space-x-2 text-zinc-300 text-xs sm:text-xs leading-relaxed font-sans">
+                                    <li key={bIdx} className="flex items-start space-x-2 text-zinc-200 text-xs sm:text-xs leading-relaxed font-sans">
                                       <span className="text-[#41B3A3] shrink-0 font-bold mt-1.5">•</span>
                                       <span>{bullet.trim()}</span>
                                     </li>
@@ -1019,10 +913,9 @@ export default function App() {
                               </div>
                             </div>
 
-                            {/* Additional validation footnote */}
-                            <div className="pt-3 border-t border-white/5 text-[9px] font-mono text-zinc-500 flex justify-between items-center bg-white/[0.01] px-3 py-2 rounded-xl mt-4">
+                            <div className="pt-3 border-t border-white/10 text-[9px] font-mono text-zinc-400 flex justify-between items-center bg-white/[0.02] px-3 py-2 rounded-xl mt-4">
                               <span>SINGAPORE MOM PROTOCOLS:</span>
-                              <span className="text-zinc-300 font-black">100% REGULATORY LAW COMPLIANT</span>
+                              <span className="text-zinc-200 font-black">100% REGULATORY LAW COMPLIANT</span>
                             </div>
                           </motion.div>
                         );
@@ -1031,7 +924,6 @@ export default function App() {
                   </motion.div>
                 )}
 
-                {/* 2. SPECIALIZED COMPETENCIES */}
                 {activeResumeTab === "competencies" && (
                   <motion.div 
                     initial={{ opacity: 0, y: 10 }}
@@ -1042,7 +934,6 @@ export default function App() {
                     <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#41B3A3] mb-1 leading-none">// MOM & WORKPLACE COMPLIANCE SKILLS MATRIX</div>
                     
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-                      {/* Left Block: Modern Interactive D3 Radar Chart */}
                       <div className="lg:col-span-5 flex w-full">
                         <WshRadarChart 
                           hoveredIndex={hoveredSkillIndex} 
@@ -1050,7 +941,6 @@ export default function App() {
                         />
                       </div>
 
-                      {/* Right Block: Augmented Core Competency Cards synced with Radar */}
                       <div className="lg:col-span-7 flex flex-col justify-between gap-3 w-full">
                         {specializedSkillsList.map((skill, idx) => {
                           const isHovered = hoveredSkillIndex === idx;
@@ -1078,16 +968,15 @@ export default function App() {
                                     {skill.percentage}%
                                   </span>
                                 </div>
-                                <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider font-bold">
+                                <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider font-bold">
                                   {skill.metrics}
                                 </div>
-                                <p className="text-[11px] text-zinc-400 leading-relaxed font-sans">
+                                <p className="text-[11px] text-zinc-300 leading-relaxed font-sans">
                                   {skill.description}
                                 </p>
                               </div>
                               
-                              {/* Horizontal mini-progress indicators for auxiliary parameters */}
-                              <div className="w-full h-[2px] bg-white/5 rounded-full overflow-hidden relative">
+                              <div className="w-full h-[2px] bg-white/10 rounded-full overflow-hidden relative">
                                 <motion.div 
                                   initial={false}
                                   animate={{ 
@@ -1099,7 +988,6 @@ export default function App() {
                                 />
                               </div>
 
-                              {/* Skill aspect tags */}
                               <div className="flex flex-wrap gap-1.5 font-mono pt-0.5">
                                 {skill.aspects.map((aspect, aIdx) => (
                                   <span 
@@ -1121,12 +1009,9 @@ export default function App() {
                     </div>
                   </motion.div>
                 )}
-
-
               </div>
 
-              {/* Educational Background */}
-              <div className="w-full pt-6 border-t border-white/5 mt-4">
+              <div className="w-full pt-6 border-t border-white/10 mt-4">
                 <div className="space-y-3 max-w-2xl">
                   <h4 className="text-[10px] font-mono font-bold uppercase tracking-[0.15em] text-[#41B3A3] flex items-center space-x-1.5 font-bold">
                     <GraduationCap className="w-4 h-4" />
@@ -1134,19 +1019,17 @@ export default function App() {
                   </h4>
                   <div className="space-y-3">
                     {resumeDetails.education.map((edu, eduIdx) => (
-                      <div key={eduIdx} className="space-y-0.5 border-l border-[#41B3A3]/25 pl-3 hover:border-l-2 hover:border-[#41B3A3] transition-all duration-200">
+                      <div key={eduIdx} className="space-y-0.5 border-l border-[#41B3A3]/30 pl-3 hover:border-l-2 hover:border-[#41B3A3] transition-all duration-200">
                         <div className="flex justify-between items-center text-xs">
                           <span className="font-bold text-white uppercase tracking-wider text-[11px]">{edu.degree}</span>
-                          <span className="text-zinc-500 font-mono text-[9px] font-bold">{edu.period}</span>
+                          <span className="text-zinc-400 font-mono text-[9px] font-bold">{edu.period}</span>
                         </div>
-                        <p className="text-[11px] font-sans text-zinc-400 font-medium">{edu.institution}</p>
+                        <p className="text-[11px] font-sans text-zinc-300 font-medium">{edu.institution}</p>
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
-
-
 
             </div>
           </motion.div>
@@ -1161,25 +1044,19 @@ export default function App() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="w-full flex flex-col md:grid md:grid-cols-12 gap-8 items-center"
           >
-            {/* Left side spacer */}
             <div className="hidden md:block md:col-span-4 lg:col-span-5" />
 
-            {/* Right side content */}
             <div className="col-span-12 md:col-span-8 lg:col-span-7 flex flex-col justify-center text-left space-y-6 md:pl-6 w-full animate-fadeIn">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 w-full">
-                <div 
-                  className="text-[#41B3A3] text-sm md:text-base font-semibold tracking-[0.25em] uppercase"
-                >
+                <div className="text-[#41B3A3] text-sm md:text-base font-semibold tracking-[0.25em] uppercase">
                   CERTS & LICENSES
                 </div>
-                
-                <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest leading-none">
+                <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest leading-none font-bold">
                   // VALIDATION INTEGRITY REPORT
                 </span>
               </div>
 
-              {/* Dynamic Credential Filter/Status Dashboard */}
-              <div id="cert-filter-controls" className="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full p-1 bg-white/[0.02] border border-white/5 rounded-2xl font-mono text-[10px]">
+              <div id="cert-filter-controls" className="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full p-1 bg-white/[0.03] border border-white/10 rounded-2xl font-mono text-[10px]">
                 <button
                   id="filter-all"
                   onClick={() => setCertFilter("all")}
@@ -1190,7 +1067,7 @@ export default function App() {
                   }`}
                 >
                   <span>ALL CERTS</span>
-                  <span className="text-zinc-500 text-[9px]">{certificationsList.length}</span>
+                  <span className="text-zinc-400 text-[9px] font-bold">{certificationsList.length}</span>
                 </button>
                 <button
                   id="filter-lifetime"
@@ -1202,7 +1079,7 @@ export default function App() {
                   }`}
                 >
                   <span>LIFETIME</span>
-                  <span className="text-zinc-500 text-[9px]">
+                  <span className="text-zinc-400 text-[9px] font-bold">
                     {certificationsList.filter(c => getValidityDetails(c.expiryDate).status === 'lifetime').length}
                   </span>
                 </button>
@@ -1216,7 +1093,7 @@ export default function App() {
                   }`}
                 >
                   <span>ACTIVE VALID</span>
-                  <span className="text-zinc-500 text-[9px]">
+                  <span className="text-zinc-400 text-[9px] font-bold">
                     {certificationsList.filter(c => getValidityDetails(c.expiryDate).status === 'valid').length}
                   </span>
                 </button>
@@ -1230,7 +1107,7 @@ export default function App() {
                   }`}
                 >
                   <span>URGENT ACTIONS</span>
-                  <span className="text-zinc-500 text-[9px]">
+                  <span className="text-zinc-400 text-[9px] font-bold">
                     {certificationsList.filter(c => {
                       const s = getValidityDetails(c.expiryDate).status;
                       return s === 'expiring' || s === 'expired';
@@ -1239,10 +1116,7 @@ export default function App() {
                 </button>
               </div>
               
-              <motion.div 
-                className="space-y-4 max-w-2xl w-full"
-                layout
-              >
+              <motion.div className="space-y-4 max-w-2xl w-full" layout>
                 {certificationsList
                   .filter((cert) => {
                     const details = getValidityDetails(cert.expiryDate);
@@ -1262,43 +1136,36 @@ export default function App() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-40px" }}
                         exit={{ opacity: 0, y: -20 }}
-                        transition={{ 
-                          duration: 0.5, 
-                          delay: index * 0.05,
-                          ease: [0.16, 1, 0.3, 1] 
-                        }}
-                        className="p-5 rounded-2xl bg-black/40 hover:bg-black/60 border border-white/5 hover:border-[#41B3A3]/20 backdrop-blur-md hover:backdrop-blur-lg transition-all duration-300 flex flex-col space-y-4 group shadow-lg hover:shadow-[#41B3A3]/5"
+                        transition={{ duration: 0.5, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                        className="p-5 rounded-2xl bg-black/65 backdrop-blur-md border border-white/15 hover:border-[#41B3A3]/30 transition-all duration-300 flex flex-col space-y-4 group shadow-xl"
                       >
                         <div className="flex items-start space-x-4">
-                          <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center shrink-0 border border-white/5 group-hover:border-white/20 group-hover:bg-white/[0.08] transition-all">
+                          <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0 border border-white/5 group-hover:border-white/20 group-hover:bg-white/[0.12] transition-all">
                             <Award className="w-5 h-5 text-[#41B3A3] group-hover:scale-110 transition-transform" />
                           </div>
                           <div className="flex-grow space-y-1">
                             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1">
                               <h4 className="text-sm font-bold text-white uppercase tracking-wider">{cert.title}</h4>
-                              <span className="text-[10px] font-mono text-zinc-500 uppercase shrink-0">{cert.date}</span>
+                              <span className="text-[10px] font-mono text-zinc-400 uppercase shrink-0 font-bold">{cert.date}</span>
                             </div>
-                            <p className="text-[11px] font-mono text-[#41B3A3] uppercase tracking-wide">{cert.authority}</p>
-                            <p className="text-xs text-zinc-400 font-sans leading-relaxed pt-1">{cert.description}</p>
+                            <p className="text-[11px] font-mono text-[#41B3A3] uppercase tracking-wide font-bold">{cert.authority}</p>
+                            <p className="text-xs text-zinc-200 font-sans leading-relaxed pt-1">{cert.description}</p>
                           </div>
                         </div>
 
-                        {/* Validation Health Bar */}
-                        <div className="pt-3 border-t border-white/5 space-y-1.5">
+                        <div className="pt-3 border-t border-white/10 space-y-1.5">
                           <div className="flex justify-between items-center text-[10px] font-mono">
                             <span className="text-zinc-500 uppercase tracking-widest">// VALIDATION HEALTH</span>
                             <span className={`px-2 py-0.5 rounded-full border text-[9px] font-black tracking-wider ${validity.badgeColor}`}>
                               {validity.labelText.toUpperCase()}
                             </span>
                           </div>
-                          <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden relative">
+                          <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden relative">
                             <motion.div
                               initial={{ width: 0 }}
                               animate={{ width: `${validity.percent}%` }}
                               transition={{ duration: 0.6, ease: "easeOut" }}
-                              className={`h-full rounded-full ${validity.barColor} ${
-                                validity.pulse ? "animate-pulse" : ""
-                              }`}
+                              className={`h-full rounded-full ${validity.barColor} ${validity.pulse ? "animate-pulse" : ""}`}
                               style={{
                                 boxShadow: validity.percent > 0 
                                   ? `0 0 10px ${validity.barColor === 'bg-amber-500' ? 'rgba(245,158,11,0.4)' : validity.barColor === 'bg-red-500' ? 'rgba(239,68,68,0.4)' : 'rgba(65,179,163,0.4)'}` 
@@ -1324,35 +1191,29 @@ export default function App() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="w-full flex flex-col md:grid md:grid-cols-12 gap-8 items-center"
           >
-            {/* Left side spacer to keep space for the background video avatar */}
             <div className="hidden md:block md:col-span-4 lg:col-span-5" />
 
-            {/* Right side content */}
             <div className="col-span-12 md:col-span-8 lg:col-span-7 flex flex-col justify-center text-left space-y-6 md:pl-6 w-full">
               <div className="space-y-2">
-                <div 
-                  className="text-[#41B3A3] text-sm md:text-base font-semibold tracking-[0.25em] uppercase"
-                >
+                <div className="text-[#41B3A3] text-sm md:text-base font-semibold tracking-[0.25em] uppercase">
                   GET IN TOUCH
                 </div>
                 <h3 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-white">
                   LET'S COLLABORATE
                 </h3>
-                <p className="text-xs sm:text-sm text-zinc-400 font-sans max-w-xl leading-relaxed">
+                <p className="text-xs sm:text-sm text-zinc-300 font-sans max-w-xl leading-relaxed">
                   Have any inquiries, project suggestions, or recruitment proposals? Reach out directly through one of my verified secure digital communication channels below.
                 </p>
               </div>
 
-              {/* Direct Digital Channels Portal Card */}
-              <div id="contact-channels-card" className="w-full max-w-xl bg-black/60 border border-white/10 hover:border-[#41B3A3]/20 p-5 sm:p-8 rounded-2xl sm:rounded-3xl relative overflow-hidden backdrop-blur-xl transition-all duration-500 shadow-2xl flex flex-col space-y-4">
+              <div id="contact-channels-card" className="w-full max-w-xl bg-black/75 border border-white/15 hover:border-[#41B3A3]/30 p-5 sm:p-8 rounded-2xl sm:rounded-3xl relative overflow-hidden backdrop-blur-lg transition-all duration-500 shadow-2xl flex flex-col space-y-4">
                 
-                {/* Email Channel */}
                 <motion.div 
                   initial={{ opacity: 0, y: 25 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{ duration: 0.5, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-                  className="group/item relative bg-white/[0.01] hover:bg-white/[0.03] border border-white/5 hover:border-[#41B3A3]/40 active:border-[#41B3A3]/60 p-4 rounded-xl flex items-center justify-between transition-all duration-300 hover:scale-[1.015] hover:shadow-[0_0_15px_rgba(65,179,163,0.12)]"
+                  className="group/item relative bg-white/[0.03] border border-white/10 hover:border-[#41B3A3]/40 active:border-[#41B3A3]/60 p-4 rounded-xl flex items-center justify-between transition-all duration-300 hover:scale-[1.015] hover:shadow-[0_0_15px_rgba(65,179,163,0.12)]"
                 >
                   <div className="flex items-center space-x-3 sm:space-x-4 min-w-0">
                     <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
@@ -1360,7 +1221,7 @@ export default function App() {
                     </div>
                     <div className="min-w-0">
                       <div className="text-[9px] font-mono font-bold text-zinc-500 uppercase tracking-widest">// SECURE EMAIL</div>
-                      <a href="mailto:tonukazi@gmail.com" className="text-xs sm:text-sm font-bold text-white hover:text-[#41B3A3] transition-colors break-all block">
+                      <a href="mailto:tonukazi@gmail.com" className="text-xs sm:text-sm font-bold text-white hover:text-[#41B3A3] transition-colors break-all block text-zinc-300">
                         tonukazi@gmail.com
                       </a>
                     </div>
@@ -1369,7 +1230,6 @@ export default function App() {
                     <button
                       onClick={() => handleCopyToClipboard("tonukazi@gmail.com", "email")}
                       className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-all cursor-pointer active:scale-95"
-                      title="Copy email to clipboard"
                     >
                       {copiedText === "email" ? (
                         <Check className="w-3.5 h-3.5 text-emerald-400" />
@@ -1377,23 +1237,18 @@ export default function App() {
                         <Copy className="w-3.5 h-3.5" />
                       )}
                     </button>
-                    <a
-                      href="mailto:tonukazi@gmail.com"
-                      className="p-2 rounded-lg bg-[#41B3A3]/10 hover:bg-[#41B3A3] text-[#41B3A3] hover:text-black transition-all cursor-pointer active:scale-95"
-                      title="Open Mail Client"
-                    >
+                    <a href="mailto:tonukazi@gmail.com" className="p-2 rounded-lg bg-[#41B3A3]/10 hover:bg-[#41B3A3] text-[#41B3A3] hover:text-black transition-all cursor-pointer active:scale-95">
                       <ArrowUpRight className="w-3.5 h-3.5 font-bold" />
                     </a>
                   </div>
                 </motion.div>
 
-                {/* WhatsApp Channel */}
                 <motion.div 
                   initial={{ opacity: 0, y: 25 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{ duration: 0.5, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
-                  className="group/item relative bg-white/[0.01] hover:bg-white/[0.03] border border-white/5 hover:border-[#41B3A3]/40 active:border-[#41B3A3]/60 p-4 rounded-xl flex items-center justify-between transition-all duration-300 hover:scale-[1.015] hover:shadow-[0_0_15px_rgba(65,179,163,0.12)]"
+                  className="group/item relative bg-white/[0.03] border border-white/10 hover:border-[#41B3A3]/40 active:border-[#41B3A3]/60 p-4 rounded-xl flex items-center justify-between transition-all duration-300 hover:scale-[1.015] hover:shadow-[0_0_15px_rgba(65,179,163,0.12)]"
                 >
                   <div className="flex items-center space-x-3 sm:space-x-4 min-w-0">
                     <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
@@ -1401,12 +1256,7 @@ export default function App() {
                     </div>
                     <div className="min-w-0">
                       <div className="text-[9px] font-mono font-bold text-zinc-500 uppercase tracking-widest">// WHATSAPP CHAT</div>
-                      <a 
-                        href="https://wa.me/6580627387" 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="text-xs sm:text-sm font-bold text-white hover:text-[#41B3A3] transition-colors block"
-                      >
+                      <a href="https://wa.me/6580627387" target="_blank" rel="noopener noreferrer" className="text-xs sm:text-sm font-bold text-white hover:text-[#41B3A3] transition-colors block text-zinc-300">
                         +65 8062 7387
                       </a>
                     </div>
@@ -1415,7 +1265,6 @@ export default function App() {
                     <button
                       onClick={() => handleCopyToClipboard("+6580627387", "phone")}
                       className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-all cursor-pointer active:scale-95"
-                      title="Copy number to clipboard"
                     >
                       {copiedText === "phone" ? (
                         <Check className="w-3.5 h-3.5 text-emerald-400" />
@@ -1423,25 +1272,18 @@ export default function App() {
                         <Copy className="w-3.5 h-3.5" />
                       )}
                     </button>
-                    <a
-                      href="https://wa.me/6580627387"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 rounded-lg bg-[#41B3A3]/10 hover:bg-[#41B3A3] text-[#41B3A3] hover:text-black transition-all cursor-pointer active:scale-95"
-                      title="Open WhatsApp Chat"
-                    >
+                    <a href="https://wa.me/6580627387" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-[#41B3A3]/10 hover:bg-[#41B3A3] text-[#41B3A3] hover:text-black transition-all cursor-pointer active:scale-95">
                       <ArrowUpRight className="w-3.5 h-3.5 font-bold" />
                     </a>
                   </div>
                 </motion.div>
 
-                {/* LinkedIn Gateway */}
                 <motion.div 
                   initial={{ opacity: 0, y: 25 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{ duration: 0.5, delay: 0.19, ease: [0.16, 1, 0.3, 1] }}
-                  className="group/item relative bg-white/[0.01] hover:bg-white/[0.03] border border-white/5 hover:border-[#41B3A3]/40 active:border-[#41B3A3]/60 p-4 rounded-xl flex items-center justify-between transition-all duration-300 hover:scale-[1.015] hover:shadow-[0_0_15px_rgba(65,179,163,0.12)]"
+                  className="group/item relative bg-white/[0.03] border border-white/10 hover:border-[#41B3A3]/40 active:border-[#41B3A3]/60 p-4 rounded-xl flex items-center justify-between transition-all duration-300 hover:scale-[1.015] hover:shadow-[0_0_15px_rgba(65,179,163,0.12)]"
                 >
                   <div className="flex items-center space-x-3 sm:space-x-4 min-w-0">
                     <div className="w-10 h-10 rounded-lg bg-[#41B3A3]/10 border border-[#41B3A3]/25 flex items-center justify-center shrink-0">
@@ -1449,30 +1291,18 @@ export default function App() {
                     </div>
                     <div className="min-w-0">
                       <div className="text-[9px] font-mono font-bold text-zinc-500 uppercase tracking-widest">// PROFESSIONAL LINKEDIN</div>
-                      <a 
-                        href="https://linkedin.com/in/kazitonu" 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="text-xs sm:text-sm font-bold text-white hover:text-[#41B3A3] transition-colors break-all block"
-                      >
+                      <a href="https://linkedin.com/in/kazitonu" target="_blank" rel="noopener noreferrer" className="text-xs sm:text-sm font-bold text-white hover:text-[#41B3A3] transition-colors break-all block text-zinc-300">
                         linkedin/in/kazitonu
                       </a>
                     </div>
                   </div>
                   <div className="flex items-center space-x-1.5 shrink-0">
-                    <a
-                      href="https://linkedin.com/in/kazitonu"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 rounded-lg bg-[#41B3A3]/10 hover:bg-[#41B3A3] text-[#41B3A3] hover:text-black transition-all cursor-pointer active:scale-95"
-                      title="Visit LinkedIn Profile"
-                    >
+                    <a href="https://linkedin.com/in/kazitonu" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-[#41B3A3]/10 hover:bg-[#41B3A3] text-[#41B3A3] hover:text-black transition-all cursor-pointer active:scale-95">
                       <ArrowUpRight className="w-3.5 h-3.5 font-bold" />
                     </a>
                   </div>
                 </motion.div>
 
-                {/* Copied notification alert label */}
                 <AnimatePresence>
                   {copiedText && (
                     <motion.div
@@ -1485,23 +1315,17 @@ export default function App() {
                     </motion.div>
                   )}
                 </AnimatePresence>
-                
               </div>
 
-              {/* Simple Direct Links Footer info */}
               <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-4">
-                <div 
-                  className="bg-black/50 border border-white/5 backdrop-blur-md py-2.5 px-4 rounded-xl flex items-center space-x-2.5 text-xs text-zinc-400 font-mono shadow-md select-none"
-                >
+                <div className="bg-black/60 border border-white/10 backdrop-blur-md py-2.5 px-4 rounded-xl flex items-center space-x-2.5 text-xs text-zinc-300 font-mono shadow-md select-none">
                   <MapPin className="w-3.5 h-3.5 text-[#41B3A3]" />
                   <span className="flex items-center gap-1.5">
                     Singapore Base
                     <span className="text-sm" role="img" aria-label="Singapore">🇸🇬</span>
                   </span>
                 </div>
-                <div 
-                  className="bg-black/50 border border-white/5 backdrop-blur-md py-2.5 px-4 rounded-xl flex items-center space-x-2.5 text-xs text-zinc-400 font-mono shadow-md select-none"
-                >
+                <div className="bg-black/60 border border-white/10 backdrop-blur-md py-2.5 px-4 rounded-xl flex items-center space-x-2.5 text-xs text-zinc-300 font-mono shadow-md select-none">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#41B3A3] animate-pulse" />
                   <span>Available for Global Placement</span>
                 </div>
