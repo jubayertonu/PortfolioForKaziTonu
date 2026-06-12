@@ -1494,7 +1494,10 @@ export default function App() {
                   className="bg-black/50 border border-white/5 backdrop-blur-md py-2.5 px-4 rounded-xl flex items-center space-x-2.5 text-xs text-zinc-400 font-mono shadow-md select-none"
                 >
                   <MapPin className="w-3.5 h-3.5 text-[#41B3A3]" />
-                  <span>Singapore Base</span>
+                  <span className="flex items-center gap-1.5">
+                    Singapore Base
+                    <span className="text-sm" role="img" aria-label="Singapore">🇸🇬</span>
+                  </span>
                 </div>
                 <div 
                   className="bg-black/50 border border-white/5 backdrop-blur-md py-2.5 px-4 rounded-xl flex items-center space-x-2.5 text-xs text-zinc-400 font-mono shadow-md select-none"
