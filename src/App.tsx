@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useScroll, useSpring } from "motion/react";
 import { 
   FileText, 
   X, 
@@ -24,14 +24,77 @@ import {
   Calendar,
   ChevronRight,
   User,
-  MessageSquare
+  MessageSquare,
+  Linkedin,
+  MessageCircle,
+  Copy,
+  Check
 } from "lucide-react";
 import { TypingText } from "./components/TypingText";
+import { WshRadarChart } from "./components/WshRadarChart";
 
 export default function App() {
   const [activeView, setActiveView] = useState<"hero" | "about" | "resume" | "certs" | "contact">("hero");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadingProgress, setLoadingProgress] = useState(0);
+  const [hoveredSkillIndex, setHoveredSkillIndex] = useState<number | null>(null);
+  const [certFilter, setCertFilter] = useState<"all" | "lifetime" | "valid" | "expiring">("all");
+  const [copiedText, setCopiedText] = useState("");
   const [isMobile, setIsMobile] = useState(false);
+
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 24,
+    restDelta: 0.001
+  });
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const handleCopyToClipboard = (text: string, label: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedText(label);
+    setTimeout(() => setCopiedText(""), 2000);
+  };
+
+  useEffect(() => {
+    // Disable scroll during loading to prevent background scrolling
+    if (isLoading) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isLoading]);
+
+  useEffect(() => {
+    // Simulate high-fidelity loading progress
+    const interval = setInterval(() => {
+      setLoadingProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 450); // Small delay to let user see "100% / COMPLIANT SYSTEM READY"
+          return 100;
+        }
+        const step = Math.floor(Math.random() * 8) + 4; // increment by 4 to 11%
+        return Math.min(prev + step, 100);
+      });
+    }, 85 + Math.random() * 50);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const navItems = [
     { label: "Home", value: "hero" },
@@ -41,6 +104,66 @@ export default function App() {
     { label: "Contact", value: "contact" }
   ];
 
+  const getValidityDetails = (expiryDate: string | null) => {
+    if (!expiryDate) {
+      return {
+        status: "lifetime" as const,
+        percent: 100,
+        labelText: "Unlimited • No Expiry",
+        daysLeft: null,
+        badgeColor: "bg-emerald-500/10 text-[#41B3A3] border-[#41B3A3]/20",
+        barColor: "bg-[#41B3A3]",
+        shadowColor: "shadow-[#41B3A3]/20",
+        pulse: false,
+      };
+    }
+    const today = new Date("2026-06-11"); // Lock system base date matching environment local time (June 2026)
+    const expiry = new Date(expiryDate);
+    const diffMs = expiry.getTime() - today.getTime();
+    const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+    
+    if (diffDays <= 0) {
+      return {
+        status: "expired" as const,
+        percent: 0,
+        labelText: "Expired / Needs Renewal",
+        daysLeft: diffDays,
+        badgeColor: "bg-red-500/10 text-red-400 border-red-500/20",
+        barColor: "bg-red-500",
+        shadowColor: "shadow-red-500/30",
+        pulse: false,
+      };
+    }
+
+    // Standard baseline duration is 3 years (1095 days) for visual scaling
+    const totalDuration = 1095; 
+    const percent = Math.min(100, Math.max(10, (diffDays / totalDuration) * 100));
+    
+    if (diffDays <= 60) {
+      return {
+        status: "expiring" as const,
+        percent,
+        labelText: `${diffDays} Days Left (Renew Soon)`,
+        daysLeft: diffDays,
+        badgeColor: "bg-amber-500/15 text-amber-500 border-amber-500/30 animate-pulse",
+        barColor: "bg-amber-500",
+        shadowColor: "shadow-amber-500/40",
+        pulse: true,
+      };
+    }
+
+    return {
+      status: "valid" as const,
+      percent,
+      labelText: `${diffDays} Days Left`,
+      daysLeft: diffDays,
+      badgeColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+      barColor: "bg-emerald-500",
+      shadowColor: "shadow-emerald-500/20",
+      pulse: false,
+    };
+  };
+
   const certificationsList = [
     {
       title: "Advanced Certificate in Workplace Safety and Health",
@@ -48,7 +171,8 @@ export default function App() {
       code: "GS-WSH-ADV-9021",
       date: "Issued 2023",
       description: "Comprehensive qualification mapping safety standards, advanced compliance management rules, and construction safety control systems.",
-      color: "#41B3A3"
+      color: "#41B3A3",
+      expiryDate: null
     },
     {
       title: "Develop a Risk Management Implementation Plan (BizSAFE2)",
@@ -56,7 +180,8 @@ export default function App() {
       code: "GS-BIZSAFE-2-88219",
       date: "Issued 2023",
       description: "Focused training on risk prevention, forming dynamic risk matrices, and drafting compliance-proof bizSAFE hazard actions.",
-      color: "#41B3A3"
+      color: "#41B3A3",
+      expiryDate: null
     },
     {
       title: "Workplace Safety and Health Management in Construction Industry",
@@ -64,7 +189,8 @@ export default function App() {
       code: "EV-WAH-CON-4712",
       date: "Issued 2023",
       description: "Construction-specific regulations training covering active operations, heavy load staging, and field hazard isolation controls.",
-      color: "#41B3A3"
+      color: "#41B3A3",
+      expiryDate: null
     },
     {
       title: "Manage Work at Height",
@@ -72,7 +198,8 @@ export default function App() {
       code: "EV-WAH-MAN-3382",
       date: "Issued 2023",
       description: "Specialized training for supervising elevated locations, implementing solid fall containment, protective setups, and MOM guidelines.",
-      color: "#41B3A3"
+      color: "#41B3A3",
+      expiryDate: null
     },
     {
       title: "Operate BoomLift",
@@ -80,7 +207,8 @@ export default function App() {
       code: "AAT-BOOM-OP-2241",
       date: "Issued 2023",
       description: "Core heavy hydraulics license to navigate high aerial lifts, boom stability controls, safety harnesses, and field operation safety.",
-      color: "#41B3A3"
+      color: "#41B3A3",
+      expiryDate: "2028-05-14"
     },
     {
       title: "Perform Work in Confined Space Operation",
@@ -88,7 +216,8 @@ export default function App() {
       code: "EV-CSO-PERF-97103",
       date: "Issued 2023",
       description: "Gas assessment, toxic ventilation monitoring, closed workspace logging, and rapid extraction emergency logistics.",
-      color: "#41B3A3"
+      color: "#41B3A3",
+      expiryDate: "2027-08-17"
     },
     {
       title: "Standard First Aid Provider",
@@ -96,7 +225,8 @@ export default function App() {
       code: "RC-SFA-PROV-1184",
       date: "Issued 2023",
       description: "Certified trauma first-aid, immediate medical response, CPR/AED coordination, and incident triage on active sites.",
-      color: "#41B3A3"
+      color: "#41B3A3",
+      expiryDate: "2026-07-27"
     },
     {
       title: "Psychological First Aid & Befriender Training",
@@ -104,7 +234,35 @@ export default function App() {
       code: "RC-PFA-BEF-5582",
       date: "Issued 2023",
       description: "Workplace crisis intervention, peer support systems, and active safety culture promotion centered on psychological wellbeing.",
-      color: "#41B3A3"
+      color: "#41B3A3",
+      expiryDate: "2026-07-27"
+    },
+    {
+      title: "Introduction to OSHA: Safety Standards and Compliance",
+      authority: "Coursera",
+      code: "CS-OSHA-COMP",
+      date: "Issued 2024",
+      description: "Foundational training in OSHA safety standards, hazard identification, and regulatory compliance frameworks.",
+      color: "#41B3A3",
+      expiryDate: null
+    },
+    {
+      title: "Psychological Safety",
+      authority: "Coursera",
+      code: "CS-PSYCH-SAFE",
+      date: "Issued 2024",
+      description: "Frameworks for building open, secure safety systems, encouraging open communication, and minimizing workplace operational worries.",
+      color: "#41B3A3",
+      expiryDate: null
+    },
+    {
+      title: "Creating a Healthy Culture: Addressing Workplace Bullying",
+      authority: "Coursera",
+      code: "CS-HLTH-CULT",
+      date: "Issued 2024",
+      description: "Strategic approaches to fostering supportive workplace interactions, active anti-bullying pathways, and overall health culture coordination.",
+      color: "#41B3A3",
+      expiryDate: null
     }
   ];
 
@@ -146,26 +304,7 @@ export default function App() {
     }
   ];
 
-  const safetyChallengesList = [
-    {
-      id: "complacency",
-      title: "Worker Complacency & High-Risk Fatigue",
-      context: "On continuous long-term assignments, machinery operators often run on autopilot, causing minor safety oversights to cascade into major incidents.",
-      approach: "Deploy proactive safety feedback micro-loops, random gamified safety audits, and visual reminders that maintain full hazard focus.",
-    },
-    {
-      id: "compliance",
-      title: "Rapidly Evolving Regulatory Standard Updates",
-      context: "Sudden regional chemical/structural compliance updates can trigger instant training gaps or workplace shutdown mandates.",
-      approach: "Maintain a continuous digitized standards matrix synced to regulatory alerts, ensuring fast policy adjustments and preventative toolbox talks.",
-    },
-    {
-      id: "response",
-      title: "Delayed Emergency Action and Dispatch",
-      context: "Under crisis stress, response teams lose coordination coherence, leading to delayed medical help or hazard containment failures.",
-      approach: "Establish automated site-wide warning communication workflows linked to active response protocols, and conduct unannounced drills.",
-    }
-  ];
+
   const [animationKey, setAnimationKey] = useState(0);
   const [animationStyle, setAnimationStyle] = useState(0);
 
@@ -175,7 +314,7 @@ export default function App() {
   const [inquiryType, setInquiryType] = useState<"audits" | "hiring" | "drills">("hiring");
   const [complianceChecked, setComplianceChecked] = useState(false);
 
-  const [activeResumeTab, setActiveResumeTab] = useState<"experience" | "competencies" | "challenges">("experience");
+  const [activeResumeTab, setActiveResumeTab] = useState<"experience" | "competencies">("experience");
   const [selectedRoleIdx, setSelectedRoleIdx] = useState(0);
 
   const handleContactSubmit = (e: React.FormEvent) => {
@@ -187,17 +326,6 @@ export default function App() {
       setFormData({ name: "", email: "", message: "" });
     }, 1200);
   };
-
-  // Check if user is on a mobile device window constraint
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
 
   useEffect(() => {
     if (activeView !== "hero") return;
@@ -252,7 +380,7 @@ export default function App() {
     }
   };
 
-  // Resume details
+  // Resume details for Kazi Tonu
   const resumeDetails = {
     name: "Kazi Tonu",
     title: "Workplace Safety and Health Coordinator",
@@ -331,11 +459,11 @@ export default function App() {
   };
 
   const handleNavClick = (val: string) => {
+    setActiveView(val as any);
     const el = document.getElementById(val);
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-    setMenuOpen(false); // Close mobile menu drawer automatically after clicking a route
   };
 
   useEffect(() => {
@@ -362,15 +490,109 @@ export default function App() {
   }, []);
 
   return (
-    <div className={`relative min-h-screen text-white font-sans selection:bg-white selection:text-black overflow-x-hidden flex flex-col justify-between transition-all duration-1000 ${(activeView === "about" || activeView === "certs" || activeView === "contact") ? "bg-transparent" : "bg-black"}`}>
-      {/* Background Loop Videos with Smooth Responsive Crossfade */}
+    <>
+      <AnimatePresence mode="wait">
+        {isLoading && (
+          <motion.div
+            key="portfolio-loader"
+            initial={{ opacity: 1 }}
+            exit={{ 
+              opacity: 0,
+              scale: 1.05,
+              filter: "blur(20px)",
+              transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] }
+            }}
+            className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#070707] text-white"
+          >
+            {/* Ambient Background Glow */}
+            <div className="absolute inset-x-0 top-1/4 h-80 bg-[radial-gradient(circle_at_center,rgba(65,179,163,0.07)_0%,transparent_65%)] pointer-events-none" />
+
+            <div className="relative flex flex-col items-center max-w-sm px-6 text-center select-none">
+              {/* Spinning Ring & Logo */}
+              <div className="relative w-24 h-24 mb-8 flex items-center justify-center">
+                {/* Slow Spinning Outer Ring */}
+                <motion.div 
+                  className="absolute inset-0 border border-dashed border-white/10 rounded-full"
+                  animate={{ rotate: 360 }}
+                  transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
+                />
+                
+                {/* Fast Pulse Inner Ring */}
+                <motion.div 
+                  className="absolute inset-2 border border-[#41B3A3]/20 rounded-full"
+                  animate={{ scale: [1, 1.06, 1] }}
+                  transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                />
+
+                {/* Main Logo Centerpiece */}
+                <motion.div 
+                  className="w-14 h-14 bg-white/[0.02] border border-[#41B3A3]/40 rounded-full flex items-center justify-center text-xl font-black text-white shadow-[0_0_30px_rgba(65,179,163,0.15)] relative"
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <span className="relative z-10 text-white tracking-widest pl-0.5">KT</span>
+                  <div className="absolute inset-0 bg-[#41B3A3]/5 rounded-full blur-sm" />
+                </motion.div>
+              </div>
+
+              {/* Names */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.6 }}
+              >
+                <h1 className="text-sm font-extrabold tracking-[0.45em] text-white uppercase mb-1.5 pl-[0.45em]">
+                  KAZI TONU
+                </h1>
+                <p className="text-[9px] sm:text-[10px] font-mono tracking-[0.25em] text-[#41B3A3] uppercase mb-10 pl-[0.25em]">
+                  WSH COORDINATOR INTERFACE
+                </p>
+              </motion.div>
+
+              {/* Loader Slider */}
+              <div className="w-48 sm:w-60 mb-6 flex flex-col items-center">
+                <div className="w-full h-[1.5px] bg-white/5 relative overflow-hidden rounded-full mb-3">
+                  <motion.div 
+                    className="absolute top-0 bottom-0 left-0 bg-[#41B3A3] shadow-[0_0_8px_#41B3A3]"
+                    style={{ width: `${loadingProgress}%` }}
+                    transition={{ ease: "easeOut" }}
+                  />
+                </div>
+                
+                {/* Percentage & Terminal log */}
+                <div className="w-full flex justify-between items-center text-[9px] font-mono text-zinc-500">
+                  <span className="text-[#41B3A3]/80 tracking-wider text-left">
+                    {loadingProgress < 20 && "STAGING_PORTFOLIO_CORE"}
+                    {loadingProgress >= 20 && loadingProgress < 45 && "PARSING_WSH_CREDENTIALS"}
+                    {loadingProgress >= 45 && loadingProgress < 70 && "CACHING_MEDIA_STREAMS"}
+                    {loadingProgress >= 70 && loadingProgress < 90 && "RUNNING_RISK_AUDIT"}
+                    {loadingProgress >= 90 && loadingProgress < 100 && "VERIFYING_COMPLIANCE"}
+                    {loadingProgress === 100 && "COMPLIANT_INTERFACE_READY"}
+                  </span>
+                  <span className="text-zinc-400 font-bold tabular-nums">
+                    {loadingProgress}%
+                  </span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div className={`relative min-h-screen text-white font-sans selection:bg-white selection:text-black overflow-x-hidden flex flex-col justify-between transition-all duration-1000 ${(activeView === "about" || activeView === "certs" || activeView === "contact") ? "bg-transparent" : "bg-black"}`}>
+      {/* Fixed Scroll Progress Indicator */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-[3px] bg-[#41B3A3] origin-left z-[100] shadow-[0_0_10px_#41B3A3]"
+        style={{ scaleX }}
+      />
+
+      {/* Background Loop Videos with Smooth Crossfade */}
       <div className="fixed inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
         <motion.video
           key="video-default"
           className="absolute inset-0 w-full h-full object-cover"
-          src={isMobile 
-            ? "https://res.cloudinary.com/dqtyuf02y/video/upload/v1781023576/HnVideoEditor_2026_06_10_004448194_lso0dp.mp4" 
-            : "https://res.cloudinary.com/dqtyuf02y/video/upload/v1780853514/gemini_generated_video_8b15deec_ifrrms.mp4"}
+          src={isMobile ? "/api/video?mobile=true" : "/api/video"}
           autoPlay
           loop
           muted
@@ -381,9 +603,7 @@ export default function App() {
         <motion.video
           key="video-about"
           className="absolute inset-0 w-full h-full object-cover"
-          src={isMobile 
-            ? "https://res.cloudinary.com/dqtyuf02y/video/upload/v1781023581/HnVideoEditor_2026_06_10_004413527_h17cuf.mp4" 
-            : "https://res.cloudinary.com/dqtyuf02y/video/upload/v1780853433/gemini_generated_video_fbb884cc_oo3f8m.mp4"}
+          src={isMobile ? "/api/video-about?mobile=true" : "/api/video-about"}
           autoPlay
           loop
           muted
@@ -394,9 +614,7 @@ export default function App() {
         <motion.video
           key="video-certs"
           className="absolute inset-0 w-full h-full object-cover"
-          src={isMobile 
-            ? "https://res.cloudinary.com/dqtyuf02y/video/upload/v1781023581/HnVideoEditor_2026_06_10_004330226_gdoktp.mp4" 
-            : "https://res.cloudinary.com/dqtyuf02y/video/upload/v1780853432/Make_character_alive_blinking_br__202606072030_onzb7e.mp4"}
+          src={isMobile ? "/api/video-certs?mobile=true" : "/api/video-certs"}
           autoPlay
           loop
           muted
@@ -407,9 +625,7 @@ export default function App() {
         <motion.video
           key="video-contact"
           className="absolute inset-0 w-full h-full object-cover"
-          src={isMobile 
-            ? "https://res.cloudinary.com/dqtyuf02y/video/upload/v1781023584/HnVideoEditor_2026_06_10_004224069_rnmhex.mp4" 
-            : "https://res.cloudinary.com/dqtyuf02y/video/upload/v1780853433/gemini_generated_video_2c0a1bca_hpbmpi.mp4"}
+          src={isMobile ? "/api/video-contact?mobile=true" : "/api/video-contact"}
           autoPlay
           loop
           muted
@@ -417,7 +633,7 @@ export default function App() {
           animate={{ opacity: activeView === "contact" ? 1.0 : 0 }}
           transition={{ duration: 1.0, ease: "easeInOut" }}
         />
-        {/* Subtle vignette/shading overlay */}
+        {/* Subtle vignette/shading overlay - fades out in About, Certs and Contact view to make video perfectly clear */}
         <motion.div 
           className="absolute inset-0 bg-black/25 bg-gradient-to-b from-black/40 via-transparent to-black/40" 
           animate={{ opacity: (activeView === "about" || activeView === "certs" || activeView === "contact") ? 0 : 1.0 }}
@@ -425,31 +641,44 @@ export default function App() {
         />
       </div>
 
-      {/* 1. HEADER SECTION */}
+      {/* 1. HEADER SECTION (STICKY & BLURRED FOR CONTINUOUS SCROLL MODE) */}
       <motion.header 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="sticky top-0 z-50 w-full bg-black/45 backdrop-blur-md border-b border-white/5 py-6 transition-all duration-300"
       >
-        <div className="w-full max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center relative">
+        <div className="w-full max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
           {/* LOGO */}
-          <button 
-            onClick={() => handleNavClick("hero")}
-            className="text-2xl font-black tracking-tighter text-white select-none cursor-pointer hover:opacity-80 transition-opacity z-50"
+          <motion.button 
+            onClick={() => {
+              handleNavClick("hero");
+            }}
+            className="text-2xl font-black tracking-tighter text-white select-none cursor-pointer hover:opacity-80 transition-opacity inline-block"
+            animate={{
+              y: [0, -4, 0]
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
           >
             KT
-          </button>
+          </motion.button>
 
-          {/* DESKTOP NAVIGATION (Hidden on mobile screens) */}
-          <nav className="hidden md:flex items-center gap-x-8">
+          {/* DESKTOP NAVIGATION */}
+          <nav className="hidden md:flex items-center flex-wrap justify-end gap-x-4 sm:gap-x-6 md:gap-x-8 gap-y-2 max-w-[85%] md:max-w-none">
             {navItems.map((item) => {
               const isActive = activeView === item.value;
               return (
                 <button
                   key={item.value}
-                  onClick={() => handleNavClick(item.value)}
-                  className={`text-sm font-bold tracking-widest transition-colors duration-300 relative py-1 group uppercase cursor-pointer ${
+                  id={`nav-item-${item.value}`}
+                  onClick={() => {
+                    handleNavClick(item.value);
+                  }}
+                  className={`text-[10px] sm:text-xs md:text-sm font-bold tracking-wider sm:tracking-widest transition-colors duration-300 relative py-1 group uppercase cursor-pointer ${
                     isActive ? "text-white" : "text-zinc-400 hover:text-white"
                   }`}
                 >
@@ -462,48 +691,78 @@ export default function App() {
             })}
           </nav>
 
-          {/* MOBILE MENU BUTTON (Only shows up on mobile viewports) */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden text-white hover:text-[#41B3A3] transition-colors p-1 focus:outline-none z-50 cursor-pointer"
-            aria-label="Toggle navigation menu"
-          >
-            {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-
-          {/* MOBILE NAVIGATION DRAWER (Slides down fluidly on tap) */}
-          <AnimatePresence>
-            {menuOpen && (
-              <motion.nav
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="absolute top-full left-0 w-full bg-black/95 backdrop-blur-lg border-b border-white/10 flex flex-col items-center py-8 space-y-5 md:hidden z-40 shadow-2xl"
-              >
-                {navItems.map((item) => {
-                  const isActive = activeView === item.value;
-                  return (
-                    <button
-                      key={item.value}
-                      onClick={() => handleNavClick(item.value)}
-                      className={`text-sm font-bold tracking-widest uppercase transition-all duration-300 py-2 px-6 rounded-xl w-[80%] text-center ${
-                        isActive 
-                          ? "text-black bg-[#41B3A3] shadow-lg shadow-[#41B3A3]/25" 
-                          : "text-zinc-300 hover:text-white hover:bg-white/5"
-                      }`}
-                    >
-                      {item.label}
-                    </button>
-                  );
-                })}
-              </motion.nav>
-            )}
-          </AnimatePresence>
+          {/* MOBILE DIGITAL MENU BUTTON */}
+          <div className="flex md:hidden items-center">
+            <button
+              id="mobile-menu-trigger"
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="p-2 rounded-lg text-zinc-400 hover:text-white active:scale-95 transition-all cursor-pointer hover:bg-white/5"
+              aria-label="Toggle Menu"
+            >
+              {menuOpen ? (
+                <X className="w-5 h-5" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
+            </button>
+          </div>
         </div>
+
+        {/* MOBILE NAV PANEL DRAWER */}
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              id="mobile-nav-panel"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="md:hidden absolute top-full left-0 right-0 z-40 bg-black/95 border-b border-white/5 backdrop-blur-xl overflow-hidden shadow-2xl"
+            >
+              <div className="px-6 py-4 flex flex-col space-y-3">
+                <div className="flex flex-col space-y-1">
+                  {navItems.map((item, idx) => {
+                    const isActive = activeView === item.value;
+                    return (
+                      <motion.button
+                        key={item.value}
+                        id={`mobile-nav-item-${item.value}`}
+                        initial={{ x: -25, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        exit={{ x: -15, opacity: 0 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 180,
+                          damping: 18,
+                          mass: 0.8,
+                          delay: idx * 0.05
+                        }}
+                        onClick={() => {
+                          handleNavClick(item.value);
+                          setMenuOpen(false);
+                        }}
+                        className="w-full text-left py-3 px-3 rounded-xl flex items-center justify-between group cursor-pointer transition-all duration-200 hover:bg-white/5"
+                      >
+                        <span className={`text-xs font-bold uppercase tracking-widest transition-colors ${
+                          isActive ? "text-[#41B3A3]" : "text-zinc-400 group-hover:text-white"
+                        }`}>
+                          {item.label}
+                        </span>
+                        
+                        {isActive && (
+                          <div className="w-1.5 h-1.5 rounded-full bg-[#41B3A3] shadow-[0_0_8px_#41B3A3]" />
+                        )}
+                      </motion.button>
+                    );
+                  })}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.header>
 
-      {/* 2. MAIN HUB VIEWPORT */}
+      {/* 2. MAIN HUB VIEWPORT (VERTICALLY STACKED WITH INTERSECTION OBSERVATION AND BREATHING ROOM) */}
       <main className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 flex-grow flex flex-col py-12 md:py-20 space-y-32 md:space-y-48">
         
         {/* HERO SECTION */}
@@ -588,7 +847,7 @@ export default function App() {
           </motion.div>
         </section>
 
-        {/* ABOUT ME SECTION */}
+        {/* ABOUT ME SECTION - Matches background transparency & custom video requested */}
         <section id="about" className="w-full min-h-[75vh] flex items-center justify-center scroll-mt-24 py-12 md:py-20">
           <motion.div
             initial={{ opacity: 0, x: 40 }}
@@ -597,7 +856,7 @@ export default function App() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="w-full flex flex-col md:grid md:grid-cols-12 gap-8 items-center"
           >
-            {/* Left side spacer */}
+            {/* Left side spacer - empty as per reference image */}
             <div className="hidden md:block md:col-span-4 lg:col-span-5" />
 
             {/* Right side content */}
@@ -624,7 +883,7 @@ export default function App() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="w-full flex flex-col md:grid md:grid-cols-12 gap-8 items-start"
           >
-            {/* Left side spacer */}
+            {/* Left side spacer - preserves Kazi's alignment signature */}
             <div className="hidden md:block md:col-span-3 lg:col-span-4" />
 
             {/* Right side content */}
@@ -651,7 +910,7 @@ export default function App() {
               </div>
 
               {/* Responsive Tab Panel */}
-              <div className="grid grid-cols-3 gap-2 p-1.5 bg-white/[0.02] border border-white/5 rounded-2xl w-full font-mono">
+              <div className="grid grid-cols-2 gap-2 p-1.5 bg-white/[0.02] border border-white/5 rounded-2xl w-full font-mono">
                 <button
                   onClick={() => setActiveResumeTab("experience")}
                   className={`py-3 px-1 text-[9px] sm:text-xs font-bold uppercase rounded-xl tracking-wider transition-all cursor-pointer text-center flex flex-col sm:flex-row items-center justify-center gap-1.5 ${
@@ -673,17 +932,6 @@ export default function App() {
                 >
                   <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
                   <span>2. Core Skills</span>
-                </button>
-                <button
-                  onClick={() => setActiveResumeTab("challenges")}
-                  className={`py-3 px-1 text-[9px] sm:text-xs font-bold uppercase rounded-xl tracking-wider transition-all cursor-pointer text-center flex flex-col sm:flex-row items-center justify-center gap-1.5 ${
-                    activeResumeTab === "challenges" 
-                      ? "bg-[#41B3A3] text-black shadow-lg shadow-[#41B3A3]/10" 
-                      : "text-zinc-400 hover:text-white hover:bg-white/[0.02]"
-                  }`}
-                >
-                  <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
-                  <span>3. Action Center</span>
                 </button>
               </div>
 
@@ -792,91 +1040,94 @@ export default function App() {
                     className="space-y-4 w-full"
                   >
                     <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#41B3A3] mb-1 leading-none">// MOM & WORKPLACE COMPLIANCE SKILLS MATRIX</div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {specializedSkillsList.map((skill, idx) => (
-                        <div 
-                          key={idx} 
-                          className="bg-white/[0.02] border border-white/5 hover:border-white/10 p-5 rounded-2xl flex flex-col justify-between space-y-3.5 group transition-all duration-300"
-                        >
-                          <div className="space-y-2">
-                            <div className="flex justify-between items-start gap-2">
-                              <span className="text-xs font-black text-white uppercase tracking-wider group-hover:text-[#41B3A3] transition-colors">{skill.name}</span>
-                              <span className="text-[10px] font-mono font-black text-[#41B3A3] bg-[#41B3A3]/5 px-2 py-0.5 rounded leading-none">{skill.percentage}%</span>
-                            </div>
-                            <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider font-bold">{skill.metrics}</div>
-                            <p className="text-[11px] text-zinc-400 leading-relaxed font-sans">{skill.description}</p>
-                          </div>
-                          
-                          {/* Progress bar tracks */}
-                          <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden relative">
-                            <motion.div 
-                              initial={{ width: 0 }}
-                              animate={{ width: `${skill.percentage}%` }}
-                              transition={{ duration: 1.2, ease: "easeOut", delay: idx * 0.1 }}
-                              className="h-full bg-[#41B3A3] rounded-full shadow-[0_0_8px_#41B3A3]"
-                            />
-                          </div>
+                    
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                      {/* Left Block: Modern Interactive D3 Radar Chart */}
+                      <div className="lg:col-span-5 flex w-full">
+                        <WshRadarChart 
+                          hoveredIndex={hoveredSkillIndex} 
+                          onHoverIndex={setHoveredSkillIndex} 
+                        />
+                      </div>
 
-                          {/* Skill aspect tags */}
-                          <div className="flex flex-wrap gap-1.5 font-mono pt-1">
-                            {skill.aspects.map((aspect, aIdx) => (
-                              <span key={aIdx} className="text-[8px] sm:text-[9px] bg-white/5 text-zinc-400 border border-white/5 px-2.5 py-0.5 rounded-md uppercase font-bold tracking-wider">
-                                {aspect}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
+                      {/* Right Block: Augmented Core Competency Cards synced with Radar */}
+                      <div className="lg:col-span-7 flex flex-col justify-between gap-3 w-full">
+                        {specializedSkillsList.map((skill, idx) => {
+                          const isHovered = hoveredSkillIndex === idx;
+                          return (
+                            <div 
+                              key={idx} 
+                              onMouseEnter={() => setHoveredSkillIndex(idx)}
+                              onMouseLeave={() => setHoveredSkillIndex(null)}
+                              className={`p-4 rounded-xl border flex flex-col justify-between space-y-3.5 group transition-all duration-300 relative ${
+                                isHovered 
+                                  ? "bg-[#41B3A3]/[0.04] border-[#41B3A3]/30 shadow-[0_0_20px_rgba(65,179,163,0.08)] scale-[1.01]" 
+                                  : "bg-white/[0.01] border-white/5 hover:border-white/10"
+                              }`}
+                            >
+                              <div className="space-y-1.5">
+                                <div className="flex justify-between items-start gap-2">
+                                  <span className={`text-xs font-black uppercase tracking-wider transition-colors duration-200 ${
+                                    isHovered ? "text-[#41B3A3]" : "text-white"
+                                  }`}>
+                                    {skill.name}
+                                  </span>
+                                  <span className={`text-[10px] font-mono font-black px-2 py-0.5 rounded leading-none transition-colors duration-200 ${
+                                    isHovered ? "bg-[#41B3A3] text-black" : "text-[#41B3A3] bg-[#41B3A3]/5"
+                                  }`}>
+                                    {skill.percentage}%
+                                  </span>
+                                </div>
+                                <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider font-bold">
+                                  {skill.metrics}
+                                </div>
+                                <p className="text-[11px] text-zinc-400 leading-relaxed font-sans">
+                                  {skill.description}
+                                </p>
+                              </div>
+                              
+                              {/* Horizontal mini-progress indicators for auxiliary parameters */}
+                              <div className="w-full h-[2px] bg-white/5 rounded-full overflow-hidden relative">
+                                <motion.div 
+                                  initial={false}
+                                  animate={{ 
+                                    width: `${skill.percentage}%`,
+                                    backgroundColor: isHovered ? "#41B3A3" : "rgba(65, 179, 163, 0.4)"
+                                  }}
+                                  transition={{ duration: 0.3 }}
+                                  className="h-full rounded-full"
+                                />
+                              </div>
+
+                              {/* Skill aspect tags */}
+                              <div className="flex flex-wrap gap-1.5 font-mono pt-0.5">
+                                {skill.aspects.map((aspect, aIdx) => (
+                                  <span 
+                                    key={aIdx} 
+                                    className={`text-[8px] border px-2 py-0.5 rounded-sm uppercase font-bold tracking-wider transition-all duration-300 ${
+                                      isHovered 
+                                        ? "bg-[#41B3A3]/10 text-white border-[#41B3A3]/30" 
+                                        : "bg-white/5 text-zinc-400 border-white/5"
+                                    }`}
+                                  >
+                                    {aspect}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
                   </motion.div>
                 )}
 
-                {/* 3. GROUND-LEVEL SCENARIOS */}
-                {activeResumeTab === "challenges" && (
-                  <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4 }}
-                    className="space-y-4 w-full"
-                  >
-                    <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#41B3A3] mb-1 leading-none">// SAFETY COORDINATOR METHODOLOGIES & GROUND-LEVEL RESOLUTIONS</div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      {safetyChallengesList.map((challenge, idx) => (
-                        <div 
-                          key={idx}
-                          className="bg-white/[0.02] border border-white/5 p-5 rounded-2xl flex flex-col justify-between space-y-4 relative group hover:bg-white/[0.03] hover:border-[#41B3A3]/30 transition-all duration-300"
-                        >
-                          <div className="space-y-2">
-                            <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center border border-white/5 group-hover:border-white/20 transition-all">
-                              {challenge.id === "complacency" ? (
-                                <ShieldCheck className="w-4 h-4 text-[#41B3A3]" />
-                              ) : challenge.id === "compliance" ? (
-                                <FileText className="w-4 h-4 text-[#41B3A3]" />
-                              ) : (
-                                <AlertTriangle className="w-4 h-4 text-[#41B3A3]" />
-                              )}
-                            </div>
-                            <h4 className="text-xs font-bold text-white uppercase tracking-wider">{challenge.title}</h4>
-                            
-                            <div className="text-[9px] font-mono text-zinc-500 uppercase tracking-widest pt-2 font-bold">// CRITICAL RISK GAP</div>
-                            <p className="text-[11px] text-zinc-400 font-sans leading-relaxed">{challenge.context}</p>
-                          </div>
 
-                          <div className="space-y-1.5 pt-3 border-t border-white/5">
-                            <span className="text-[9px] font-mono text-[#41B3A3] font-black uppercase tracking-widest">// COORDINATOR REMEDY</span>
-                            <p className="text-[11px] text-zinc-300 leading-relaxed font-sans italic">{challenge.approach}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
               </div>
 
-              {/* Educational Background & Certifications Scroll List */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6 w-full border-t border-white/5 mt-4">
-                {/* Educational Background */}
-                <div className="space-y-3">
+              {/* Educational Background */}
+              <div className="w-full pt-6 border-t border-white/5 mt-4">
+                <div className="space-y-3 max-w-2xl">
                   <h4 className="text-[10px] font-mono font-bold uppercase tracking-[0.15em] text-[#41B3A3] flex items-center space-x-1.5 font-bold">
                     <GraduationCap className="w-4 h-4" />
                     <span>// EDUCATIONAL BACKGROUND</span>
@@ -893,54 +1144,9 @@ export default function App() {
                     ))}
                   </div>
                 </div>
-
-                {/* Board Certifications Slider */}
-                <div className="space-y-3">
-                  <h4 className="text-[10px] font-mono font-bold uppercase tracking-[0.15em] text-[#41B3A3] flex items-center space-x-1.5 font-bold">
-                    <Award className="w-4 h-4" />
-                    <span>// MANDATORY WSH BOARD TRAINING</span>
-                  </h4>
-                  <div className="bg-white/[0.01] border border-white/5 rounded-xl p-3 max-h-[160px] overflow-y-auto space-y-1.5 font-mono text-[10px] text-zinc-400 scrollbar-thin scrollbar-thumb-white/5">
-                    {resumeDetails.certifications.map((cert, cIdx) => (
-                      <div key={cIdx} className="flex items-start space-x-1.5 leading-normal">
-                        <span className="text-[#41B3A3] shrink-0 font-bold">•</span>
-                        <span>{cert}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="text-[9px] font-mono text-zinc-500 italic text-right pr-1">
-                    Scroll to view all 11 certified standard titles
-                  </div>
-                </div>
               </div>
 
-              {/* Dossier Contact Row */}
-              <div className="pt-6 border-t border-white/5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-mono text-zinc-500 w-full mt-6">
-                <a href="mailto:tonukazi@gmail.com" className="flex items-center space-x-2.5 hover:text-[#41B3A3] transition-colors group">
-                  <div className="w-7 h-7 rounded bg-white/5 flex items-center justify-center border border-white/5 group-hover:border-[#41B3A3]/30 transition-all">
-                    <Mail className="w-3.5 h-3.5 text-[#41B3A3]" />
-                  </div>
-                  <span className="truncate">tonukazi@gmail.com</span>
-                </a>
-                <a href="tel:+6580627387" className="flex items-center space-x-2.5 hover:text-[#41B3A3] transition-colors group">
-                  <div className="w-7 h-7 rounded bg-white/5 flex items-center justify-center border border-white/5 group-hover:border-[#41B3A3]/30 transition-all">
-                    <Phone className="w-3.5 h-3.5 text-[#41B3A3]" />
-                  </div>
-                  <span>+65 8062 7387</span>
-                </a>
-                <a href="https://linkedin.com/in/kazitonu" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2.5 hover:text-[#41B3A3] transition-colors group">
-                  <div className="w-7 h-7 rounded bg-white/5 flex items-center justify-center border border-white/5 group-hover:border-[#41B3A3]/30 transition-all">
-                    <ArrowUpRight className="w-3.5 h-3.5 text-[#41B3A3]" />
-                  </div>
-                  <span className="truncate">linkedin/in/kazitonu</span>
-                </a>
-                <div className="flex items-center space-x-2.5 group">
-                  <div className="w-7 h-7 rounded bg-white/5 flex items-center justify-center border border-white/5">
-                    <MapPin className="w-3.5 h-3.5 text-[#41B3A3]" />
-                  </div>
-                  <span>Singapore</span>
-                </div>
-              </div>
+
 
             </div>
           </motion.div>
@@ -959,35 +1165,152 @@ export default function App() {
             <div className="hidden md:block md:col-span-4 lg:col-span-5" />
 
             {/* Right side content */}
-            <div className="col-span-12 md:col-span-8 lg:col-span-7 flex flex-col justify-center text-left space-y-6 md:pl-6 w-full">
-              <div 
-                className="text-[#41B3A3] text-sm md:text-base font-semibold tracking-[0.25em] uppercase"
-              >
-                CERTS & LICENSES
+            <div className="col-span-12 md:col-span-8 lg:col-span-7 flex flex-col justify-center text-left space-y-6 md:pl-6 w-full animate-fadeIn">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 w-full">
+                <div 
+                  className="text-[#41B3A3] text-sm md:text-base font-semibold tracking-[0.25em] uppercase"
+                >
+                  CERTS & LICENSES
+                </div>
+                
+                <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest leading-none">
+                  // VALIDATION INTEGRITY REPORT
+                </span>
+              </div>
+
+              {/* Dynamic Credential Filter/Status Dashboard */}
+              <div id="cert-filter-controls" className="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full p-1 bg-white/[0.02] border border-white/5 rounded-2xl font-mono text-[10px]">
+                <button
+                  id="filter-all"
+                  onClick={() => setCertFilter("all")}
+                  className={`py-2.5 px-2 rounded-xl font-bold uppercase transition-all cursor-pointer flex flex-col items-center justify-center gap-1 ${
+                    certFilter === "all"
+                      ? "bg-[#41B3A3]/10 text-[#41B3A3] border border-[#41B3A3]/20 shadow-md"
+                      : "text-zinc-400 hover:text-white border border-transparent hover:bg-white/[0.02]"
+                  }`}
+                >
+                  <span>ALL CERTS</span>
+                  <span className="text-zinc-500 text-[9px]">{certificationsList.length}</span>
+                </button>
+                <button
+                  id="filter-lifetime"
+                  onClick={() => setCertFilter("lifetime")}
+                  className={`py-2.5 px-2 rounded-xl font-bold uppercase transition-all cursor-pointer flex flex-col items-center justify-center gap-1 ${
+                    certFilter === "lifetime"
+                      ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-md"
+                      : "text-zinc-400 hover:text-white border border-transparent hover:bg-white/[0.02]"
+                  }`}
+                >
+                  <span>LIFETIME</span>
+                  <span className="text-zinc-500 text-[9px]">
+                    {certificationsList.filter(c => getValidityDetails(c.expiryDate).status === 'lifetime').length}
+                  </span>
+                </button>
+                <button
+                  id="filter-valid"
+                  onClick={() => setCertFilter("valid")}
+                  className={`py-2.5 px-2 rounded-xl font-bold uppercase transition-all cursor-pointer flex flex-col items-center justify-center gap-1 ${
+                    certFilter === "valid"
+                      ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-md"
+                      : "text-zinc-400 hover:text-white border border-transparent hover:bg-white/[0.02]"
+                  }`}
+                >
+                  <span>ACTIVE VALID</span>
+                  <span className="text-zinc-500 text-[9px]">
+                    {certificationsList.filter(c => getValidityDetails(c.expiryDate).status === 'valid').length}
+                  </span>
+                </button>
+                <button
+                  id="filter-expiring"
+                  onClick={() => setCertFilter("expiring")}
+                  className={`py-2.5 px-2 rounded-xl font-bold uppercase transition-all cursor-pointer flex flex-col items-center justify-center gap-1 ${
+                    certFilter === "expiring"
+                      ? "bg-amber-500/10 text-amber-500 border border-amber-500/20 shadow-md animate-pulse"
+                      : "text-zinc-400 hover:text-white border border-transparent hover:bg-white/[0.02]"
+                  }`}
+                >
+                  <span>URGENT ACTIONS</span>
+                  <span className="text-zinc-500 text-[9px]">
+                    {certificationsList.filter(c => {
+                      const s = getValidityDetails(c.expiryDate).status;
+                      return s === 'expiring' || s === 'expired';
+                    }).length}
+                  </span>
+                </button>
               </div>
               
-              <div 
+              <motion.div 
                 className="space-y-4 max-w-2xl w-full"
+                layout
               >
-                {certificationsList.map((cert, idx) => (
-                  <div 
-                    key={idx} 
-                    className="p-5 rounded-2xl bg-white/[0.02] hover:bg-white/[0.04] border border-white/5 hover:border-white/10 transition-all duration-300 flex items-start space-x-4 group"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center shrink-0 border border-white/5 group-hover:border-white/20 group-hover:bg-white/[0.08] transition-all">
-                      <Award className="w-5 h-5 text-[#41B3A3] group-hover:scale-110 transition-transform" />
-                    </div>
-                    <div className="flex-grow space-y-1">
-                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1">
-                        <h4 className="text-sm font-bold text-white uppercase tracking-wider">{cert.title}</h4>
-                        <span className="text-[10px] font-mono text-zinc-500 uppercase shrink-0">{cert.date}</span>
-                      </div>
-                      <p className="text-[11px] font-mono text-[#41B3A3] uppercase tracking-wide">{cert.authority}</p>
-                      <p className="text-xs text-zinc-400 font-sans leading-relaxed pt-1">{cert.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                {certificationsList
+                  .filter((cert) => {
+                    const details = getValidityDetails(cert.expiryDate);
+                    if (certFilter === "all") return true;
+                    if (certFilter === "lifetime") return details.status === "lifetime";
+                    if (certFilter === "valid") return details.status === "valid";
+                    if (certFilter === "expiring") return details.status === "expiring" || details.status === "expired";
+                    return true;
+                  })
+                  .map((cert, index) => {
+                    const validity = getValidityDetails(cert.expiryDate);
+                    return (
+                      <motion.div 
+                        key={cert.title} 
+                        layout
+                        initial={{ opacity: 0, y: 25 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-40px" }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ 
+                          duration: 0.5, 
+                          delay: index * 0.05,
+                          ease: [0.16, 1, 0.3, 1] 
+                        }}
+                        className="p-5 rounded-2xl bg-black/40 hover:bg-black/60 border border-white/5 hover:border-[#41B3A3]/20 backdrop-blur-md hover:backdrop-blur-lg transition-all duration-300 flex flex-col space-y-4 group shadow-lg hover:shadow-[#41B3A3]/5"
+                      >
+                        <div className="flex items-start space-x-4">
+                          <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center shrink-0 border border-white/5 group-hover:border-white/20 group-hover:bg-white/[0.08] transition-all">
+                            <Award className="w-5 h-5 text-[#41B3A3] group-hover:scale-110 transition-transform" />
+                          </div>
+                          <div className="flex-grow space-y-1">
+                            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1">
+                              <h4 className="text-sm font-bold text-white uppercase tracking-wider">{cert.title}</h4>
+                              <span className="text-[10px] font-mono text-zinc-500 uppercase shrink-0">{cert.date}</span>
+                            </div>
+                            <p className="text-[11px] font-mono text-[#41B3A3] uppercase tracking-wide">{cert.authority}</p>
+                            <p className="text-xs text-zinc-400 font-sans leading-relaxed pt-1">{cert.description}</p>
+                          </div>
+                        </div>
+
+                        {/* Validation Health Bar */}
+                        <div className="pt-3 border-t border-white/5 space-y-1.5">
+                          <div className="flex justify-between items-center text-[10px] font-mono">
+                            <span className="text-zinc-500 uppercase tracking-widest">// VALIDATION HEALTH</span>
+                            <span className={`px-2 py-0.5 rounded-full border text-[9px] font-black tracking-wider ${validity.badgeColor}`}>
+                              {validity.labelText.toUpperCase()}
+                            </span>
+                          </div>
+                          <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden relative">
+                            <motion.div
+                              initial={{ width: 0 }}
+                              animate={{ width: `${validity.percent}%` }}
+                              transition={{ duration: 0.6, ease: "easeOut" }}
+                              className={`h-full rounded-full ${validity.barColor} ${
+                                validity.pulse ? "animate-pulse" : ""
+                              }`}
+                              style={{
+                                boxShadow: validity.percent > 0 
+                                  ? `0 0 10px ${validity.barColor === 'bg-amber-500' ? 'rgba(245,158,11,0.4)' : validity.barColor === 'bg-red-500' ? 'rgba(239,68,68,0.4)' : 'rgba(65,179,163,0.4)'}` 
+                                  : 'none'
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+              </motion.div>
             </div>
           </motion.div>
         </section>
@@ -1006,7 +1329,6 @@ export default function App() {
 
             {/* Right side content */}
             <div className="col-span-12 md:col-span-8 lg:col-span-7 flex flex-col justify-center text-left space-y-6 md:pl-6 w-full">
-              {/* Headline Block */}
               <div className="space-y-2">
                 <div 
                   className="text-[#41B3A3] text-sm md:text-base font-semibold tracking-[0.25em] uppercase"
@@ -1017,131 +1339,168 @@ export default function App() {
                   LET'S COLLABORATE
                 </h3>
                 <p className="text-xs sm:text-sm text-zinc-400 font-sans max-w-xl leading-relaxed">
-                  Have any inquiries, suggestions, or recruitment proposals? Drop a direct message below or reach out through one of the direct coordination lines.
+                  Have any inquiries, project suggestions, or recruitment proposals? Reach out directly through one of my verified secure digital communication channels below.
                 </p>
               </div>
 
-              {/* Simple Contact Form Card */}
-              <div className="w-full max-w-xl bg-black/60 border border-white/10 hover:border-[#41B3A3]/20 p-6 sm:p-10 rounded-2xl sm:rounded-3xl relative overflow-hidden backdrop-blur-xl transition-all duration-500 shadow-2xl">
-                {formSubmitted ? (
-                  <motion.div 
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="py-8 text-center space-y-4"
-                  >
-                    <CheckCircle className="w-12 h-12 text-[#41B3A3] mx-auto mb-2" />
-                    <h4 className="text-xl font-bold text-white uppercase tracking-wider">MESSAGE ROUTED SUCCESSFULLY</h4>
-                    <p className="text-zinc-400 text-sm max-w-sm mx-auto leading-relaxed">
-                      Thank you! Your message has been safely routed. Kazi Tonu will review your submission and respond shortly.
-                    </p>
-                    <button 
-                      onClick={() => setFormSubmitted(false)}
-                      className="text-xs font-mono uppercase bg-white/5 border border-white/10 hover:bg-[#41B3A3] hover:text-black py-2.5 px-6 rounded-lg transition-all cursor-pointer mt-4"
+              {/* Direct Digital Channels Portal Card */}
+              <div id="contact-channels-card" className="w-full max-w-xl bg-black/60 border border-white/10 hover:border-[#41B3A3]/20 p-5 sm:p-8 rounded-2xl sm:rounded-3xl relative overflow-hidden backdrop-blur-xl transition-all duration-500 shadow-2xl flex flex-col space-y-4">
+                
+                {/* Email Channel */}
+                <motion.div 
+                  initial={{ opacity: 0, y: 25 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.5, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+                  className="group/item relative bg-white/[0.01] hover:bg-white/[0.03] border border-white/5 hover:border-[#41B3A3]/40 active:border-[#41B3A3]/60 p-4 rounded-xl flex items-center justify-between transition-all duration-300 hover:scale-[1.015] hover:shadow-[0_0_15px_rgba(65,179,163,0.12)]"
+                >
+                  <div className="flex items-center space-x-3 sm:space-x-4 min-w-0">
+                    <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
+                      <Mail className="w-5 h-5 text-emerald-400" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-[9px] font-mono font-bold text-zinc-500 uppercase tracking-widest">// SECURE EMAIL</div>
+                      <a href="mailto:tonukazi@gmail.com" className="text-xs sm:text-sm font-bold text-white hover:text-[#41B3A3] transition-colors break-all block">
+                        tonukazi@gmail.com
+                      </a>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-1.5 shrink-0">
+                    <button
+                      onClick={() => handleCopyToClipboard("tonukazi@gmail.com", "email")}
+                      className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-all cursor-pointer active:scale-95"
+                      title="Copy email to clipboard"
                     >
-                      Send another message
-                    </button>
-                  </motion.div>
-                ) : (
-                  <form onSubmit={handleContactSubmit} className="space-y-4 text-left w-full">
-                    <div>
-                      <label className="block text-[10px] font-mono text-zinc-500 uppercase tracking-widest mb-1.5 font-bold select-none">
-                        Name
-                      </label>
-                      <div className="relative flex items-center">
-                        <span className="absolute left-4 text-zinc-500 transition-all pointer-events-none">
-                          <User className="w-4 h-4" />
-                        </span>
-                        <input 
-                          type="text" 
-                          required
-                          value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          placeholder="YOUR NAME"
-                          className="w-full bg-white/[0.02] border border-white/10 hover:border-white/20 focus:border-[#41B3A3] focus:bg-black/60 rounded-xl pl-11 pr-4 py-3 text-sm text-white placeholder-zinc-650 focus:outline-none transition-all duration-300 uppercase tracking-wider font-mono text-xs focus:ring-2 focus:ring-[#41B3A3]/40 focus:shadow-[0_0_15px_rgba(65,179,163,0.3)]"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-[10px] font-mono text-zinc-500 uppercase tracking-widest mb-1.5 font-bold select-none">
-                        Email Address
-                      </label>
-                      <div className="relative flex items-center">
-                        <span className="absolute left-4 text-zinc-500 transition-all pointer-events-none">
-                          <Mail className="w-4 h-4" />
-                        </span>
-                        <input 
-                          type="email" 
-                          required
-                          value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          placeholder="YOUR.EMAIL@DOMAIN.COM"
-                          className="w-full bg-white/[0.02] border border-white/10 hover:border-white/20 focus:border-white focus:bg-black/60 rounded-xl pl-11 pr-4 py-3 text-sm text-white placeholder-zinc-650 focus:outline-none transition-all duration-300 uppercase tracking-wider font-mono text-xs focus:ring-2 focus:ring-[#41B3A3]/40 focus:shadow-[0_0_15px_rgba(65,179,163,0.3)]"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-[10px] font-mono text-zinc-500 uppercase tracking-widest mb-1.5 font-bold select-none">
-                        Message
-                      </label>
-                      <div className="relative flex items-start">
-                        <span className="absolute left-4 top-3.5 text-zinc-500 transition-all pointer-events-none">
-                          <MessageSquare className="w-4 h-4" />
-                        </span>
-                        <textarea 
-                          rows={4}
-                          required
-                          value={formData.message}
-                          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                          placeholder="HOW CAN I HELP YOU?"
-                          className="w-full bg-white/[0.02] border border-white/10 hover:border-white/20 focus:border-[#41B3A3] focus:bg-black/60 rounded-xl pl-11 pr-4 py-3 text-sm text-white placeholder-zinc-650 focus:outline-none transition-all duration-300 uppercase tracking-wider font-mono text-xs resize-none focus:ring-2 focus:ring-[#41B3A3]/40 focus:shadow-[0_0_15px_rgba(65,179,163,0.3)]"
-                        />
-                      </div>
-                    </div>
-
-                    <button 
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full text-xs tracking-widest font-mono font-bold uppercase bg-[#41B3A3] text-black hover:bg-[#41B3A3]/90 py-3.5 rounded-xl transition-all duration-300 flex items-center justify-center space-x-2 active:scale-[0.98] cursor-pointer mt-2"
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <Loader2 className="w-4 h-4 animate-spin" />
-                          <span>SENDING...</span>
-                        </>
+                      {copiedText === "email" ? (
+                        <Check className="w-3.5 h-3.5 text-emerald-400" />
                       ) : (
-                        <>
-                          <Send className="w-4 h-4" />
-                          <span>SEND MESSAGE</span>
-                        </>
+                        <Copy className="w-3.5 h-3.5" />
                       )}
                     </button>
-                  </form>
-                )}
+                    <a
+                      href="mailto:tonukazi@gmail.com"
+                      className="p-2 rounded-lg bg-[#41B3A3]/10 hover:bg-[#41B3A3] text-[#41B3A3] hover:text-black transition-all cursor-pointer active:scale-95"
+                      title="Open Mail Client"
+                    >
+                      <ArrowUpRight className="w-3.5 h-3.5 font-bold" />
+                    </a>
+                  </div>
+                </motion.div>
+
+                {/* WhatsApp Channel */}
+                <motion.div 
+                  initial={{ opacity: 0, y: 25 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.5, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+                  className="group/item relative bg-white/[0.01] hover:bg-white/[0.03] border border-white/5 hover:border-[#41B3A3]/40 active:border-[#41B3A3]/60 p-4 rounded-xl flex items-center justify-between transition-all duration-300 hover:scale-[1.015] hover:shadow-[0_0_15px_rgba(65,179,163,0.12)]"
+                >
+                  <div className="flex items-center space-x-3 sm:space-x-4 min-w-0">
+                    <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
+                      <MessageCircle className="w-5 h-5 text-emerald-400" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-[9px] font-mono font-bold text-zinc-500 uppercase tracking-widest">// WHATSAPP CHAT</div>
+                      <a 
+                        href="https://wa.me/6580627387" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="text-xs sm:text-sm font-bold text-white hover:text-[#41B3A3] transition-colors block"
+                      >
+                        +65 8062 7387
+                      </a>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-1.5 shrink-0">
+                    <button
+                      onClick={() => handleCopyToClipboard("+6580627387", "phone")}
+                      className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-all cursor-pointer active:scale-95"
+                      title="Copy number to clipboard"
+                    >
+                      {copiedText === "phone" ? (
+                        <Check className="w-3.5 h-3.5 text-emerald-400" />
+                      ) : (
+                        <Copy className="w-3.5 h-3.5" />
+                      )}
+                    </button>
+                    <a
+                      href="https://wa.me/6580627387"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 rounded-lg bg-[#41B3A3]/10 hover:bg-[#41B3A3] text-[#41B3A3] hover:text-black transition-all cursor-pointer active:scale-95"
+                      title="Open WhatsApp Chat"
+                    >
+                      <ArrowUpRight className="w-3.5 h-3.5 font-bold" />
+                    </a>
+                  </div>
+                </motion.div>
+
+                {/* LinkedIn Gateway */}
+                <motion.div 
+                  initial={{ opacity: 0, y: 25 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.5, delay: 0.19, ease: [0.16, 1, 0.3, 1] }}
+                  className="group/item relative bg-white/[0.01] hover:bg-white/[0.03] border border-white/5 hover:border-[#41B3A3]/40 active:border-[#41B3A3]/60 p-4 rounded-xl flex items-center justify-between transition-all duration-300 hover:scale-[1.015] hover:shadow-[0_0_15px_rgba(65,179,163,0.12)]"
+                >
+                  <div className="flex items-center space-x-3 sm:space-x-4 min-w-0">
+                    <div className="w-10 h-10 rounded-lg bg-[#41B3A3]/10 border border-[#41B3A3]/25 flex items-center justify-center shrink-0">
+                      <Linkedin className="w-5 h-5 text-[#41B3A3]" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-[9px] font-mono font-bold text-zinc-500 uppercase tracking-widest">// PROFESSIONAL LINKEDIN</div>
+                      <a 
+                        href="https://linkedin.com/in/kazitonu" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="text-xs sm:text-sm font-bold text-white hover:text-[#41B3A3] transition-colors break-all block"
+                      >
+                        linkedin/in/kazitonu
+                      </a>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-1.5 shrink-0">
+                    <a
+                      href="https://linkedin.com/in/kazitonu"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 rounded-lg bg-[#41B3A3]/10 hover:bg-[#41B3A3] text-[#41B3A3] hover:text-black transition-all cursor-pointer active:scale-95"
+                      title="Visit LinkedIn Profile"
+                    >
+                      <ArrowUpRight className="w-3.5 h-3.5 font-bold" />
+                    </a>
+                  </div>
+                </motion.div>
+
+                {/* Copied notification alert label */}
+                <AnimatePresence>
+                  {copiedText && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 5 }}
+                      className="text-[10px] font-mono text-emerald-400 font-bold uppercase tracking-widest text-center pt-2 select-none"
+                    >
+                      ✓ copied {copiedText === "email" ? "email address" : "phone number"} to clipboard
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+                
               </div>
 
               {/* Simple Direct Links Footer info */}
               <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-4">
-                <a 
-                  href="mailto:tonukazi@gmail.com" 
-                  className="bg-black/50 hover:bg-black/80 border border-white/10 hover:border-[#41B3A3]/30 backdrop-blur-md transition-all duration-300 py-2.5 px-4 rounded-xl flex items-center space-x-2.5 text-xs text-zinc-300 hover:text-[#41B3A3] font-mono shadow-lg hover:shadow-[#41B3A3]/5"
-                >
-                  <Mail className="w-3.5 h-3.5 text-[#41B3A3]" />
-                  <span>tonukazi@gmail.com</span>
-                </a>
-                <a 
-                  href="tel:+6580627387" 
-                  className="bg-black/50 hover:bg-black/80 border border-white/10 hover:border-[#41B3A3]/30 backdrop-blur-md transition-all duration-300 py-2.5 px-4 rounded-xl flex items-center space-x-2.5 text-xs text-zinc-300 hover:text-[#41B3A3] font-mono shadow-lg hover:shadow-[#41B3A3]/5"
-                >
-                  <Phone className="w-3.5 h-3.5 text-[#41B3A3]" />
-                  <span>+65 8062 7387</span>
-                </a>
                 <div 
                   className="bg-black/50 border border-white/5 backdrop-blur-md py-2.5 px-4 rounded-xl flex items-center space-x-2.5 text-xs text-zinc-400 font-mono shadow-md select-none"
                 >
-                  <MapPin className="w-3.5 h-3.5 text-zinc-500" />
-                  <span>Singapore</span>
+                  <MapPin className="w-3.5 h-3.5 text-[#41B3A3]" />
+                  <span>Singapore Base</span>
+                </div>
+                <div 
+                  className="bg-black/50 border border-white/5 backdrop-blur-md py-2.5 px-4 rounded-xl flex items-center space-x-2.5 text-xs text-zinc-400 font-mono shadow-md select-none"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#41B3A3] animate-pulse" />
+                  <span>Available for Global Placement</span>
                 </div>
               </div>
             </div>
@@ -1172,5 +1531,6 @@ export default function App() {
         )}
       </footer>
     </div>
+  </>
   );
 }

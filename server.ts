@@ -64,41 +64,55 @@ async function startServer() {
     }
   }
 
-  // Serve background video by proxying/redirecting to the latest streamable CDN URL
+  // Serve background video by redirecting to the latest direct Cloudinary CDN URL (desktop or mobile)
   app.get("/api/video", async (req, res) => {
-    res.redirect("https://res.cloudinary.com/dqtyuf02y/video/upload/v1780853514/gemini_generated_video_8b15deec_ifrrms.mp4");
+    const userAgent = (req.headers["user-agent"] || "").toLowerCase();
+    const isMobileUA = /mobile|android|iphone|ipad|phone|iemobile/i.test(userAgent);
+    const isMobile = req.query.device === "mobile" || req.query.mobile === "true" || isMobileUA;
+
+    if (isMobile) {
+      res.redirect("https://res.cloudinary.com/dqtyuf02y/video/upload/v1781023576/HnVideoEditor_2026_06_10_004448194_lso0dp.mp4");
+    } else {
+      res.redirect("https://res.cloudinary.com/dqtyuf02y/video/upload/v1780853514/gemini_generated_video_8b15deec_ifrrms.mp4");
+    }
   });
 
-  // Serve About background video by proxying/redirecting to the latest streamable CDN URL
+  // Serve About background video by redirecting to the direct Cloudinary CDN URL (desktop or mobile)
   app.get("/api/video-about", async (req, res) => {
-    const resolvedUrl = await getStreamableVideoUrl("p093mq");
-    if (resolvedUrl) {
-      res.redirect(resolvedUrl);
+    const userAgent = (req.headers["user-agent"] || "").toLowerCase();
+    const isMobileUA = /mobile|android|iphone|ipad|phone|iemobile/i.test(userAgent);
+    const isMobile = req.query.device === "mobile" || req.query.mobile === "true" || isMobileUA;
+
+    if (isMobile) {
+      res.redirect("https://res.cloudinary.com/dqtyuf02y/video/upload/v1781023581/HnVideoEditor_2026_06_10_004413527_h17cuf.mp4");
     } else {
-      // Direct, robust CDN fallback
-      res.redirect("https://cdn-cf-east.streamable.com/video/mp4/p093mq.mp4?Expires=1781029680&Signature=Ih-zB~h9v00ae1QG40gKWD5QRUjszKqbXEM7D9f~tLBxL20IzT-1LWAJ59xJViESr56SoBImkt2yDGziglxI6p33bWcuL0n923autZxW0c9qLesVr7I1gi-ho-N2yVlmM578mKyy7DLrql~rUq1MQAdh-YSjR1O6eBWeHKXkBrXFxoWVIyK16n78Wfm7w0vqZQF9TBoCGlgDQ~5o3WnbaPsZJvirZhu48kyndTHEsIDErjKz1XkVb28dVSC~a8vUaLH-FKCNAFK3cPaJGNOMRp5KNCwZzf1RLrZfQAwBpdeu9KlB9kBB2XPAgeXaJdRvsF7E0uwlfJByIU1A4ClcNQ__&Key-Pair-Id=APKAIEYUVEN4EVB2OKEQ");
+      res.redirect("https://res.cloudinary.com/dqtyuf02y/video/upload/v1780853433/gemini_generated_video_fbb884cc_oo3f8m.mp4");
     }
   });
 
-  // Serve Certs background video by proxying/redirecting to the latest streamable CDN URL
+  // Serve Certs background video by redirecting to the direct Cloudinary CDN URL (desktop or mobile)
   app.get("/api/video-certs", async (req, res) => {
-    const resolvedUrl = await getStreamableVideoUrl("5pf5e8");
-    if (resolvedUrl) {
-      res.redirect(resolvedUrl);
+    const userAgent = (req.headers["user-agent"] || "").toLowerCase();
+    const isMobileUA = /mobile|android|iphone|ipad|phone|iemobile/i.test(userAgent);
+    const isMobile = req.query.device === "mobile" || req.query.mobile === "true" || isMobileUA;
+
+    if (isMobile) {
+      res.redirect("https://res.cloudinary.com/dqtyuf02y/video/upload/v1781023581/HnVideoEditor_2026_06_10_004330226_gdoktp.mp4");
     } else {
-      // Direct fallback
-      res.redirect("https://cdn-cf-east.streamable.com/video/mp4/5pf5e8.mp4");
+      res.redirect("https://res.cloudinary.com/dqtyuf02y/video/upload/v1780853432/Make_character_alive_blinking_br__202606072030_onzb7e.mp4");
     }
   });
 
-  // Serve Contact background video by proxying/redirecting to the latest streamable CDN URL
+  // Serve Contact background video by redirecting to the direct Cloudinary CDN URL (desktop or mobile)
   app.get("/api/video-contact", async (req, res) => {
-    const resolvedUrl = await getStreamableVideoUrl("2424gn");
-    if (resolvedUrl) {
-      res.redirect(resolvedUrl);
+    const userAgent = (req.headers["user-agent"] || "").toLowerCase();
+    const isMobileUA = /mobile|android|iphone|ipad|phone|iemobile/i.test(userAgent);
+    const isMobile = req.query.device === "mobile" || req.query.mobile === "true" || isMobileUA;
+
+    if (isMobile) {
+      res.redirect("https://res.cloudinary.com/dqtyuf02y/video/upload/v1781023584/HnVideoEditor_2026_06_10_004224069_rnmhex.mp4");
     } else {
-      // Direct fallback
-      res.redirect("https://cdn-cf-east.streamable.com/video/mp4/2424gn.mp4");
+      res.redirect("https://res.cloudinary.com/dqtyuf02y/video/upload/v1780853433/gemini_generated_video_2c0a1bca_hpbmpi.mp4");
     }
   });
 
