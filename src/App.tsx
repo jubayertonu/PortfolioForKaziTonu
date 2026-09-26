@@ -474,7 +474,7 @@ export default function App() {
             initial={{ scale: 1.08, opacity: 0.8 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
-            src="https://res.cloudinary.com/dqtyuf02y/image/upload/v1784880279/1784880111834_edit_25916954757664_v5lhd8.png"
+            src="/hero-photo.png"
             alt="Kazi Tonu - WSH Coordinator"
             referrerPolicy="no-referrer"
             className="w-full h-full object-cover object-right-bottom sm:object-right md:object-[85%_center]"
