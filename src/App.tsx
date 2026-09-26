@@ -83,7 +83,7 @@ export default function App() {
     experience: [
       {
         role: "Workplace Safety and Health Coordinator",
-        company: "Success Forever Construction and Maintenance Pte LTD",
+        company: "Success Forever Construction & Maintenance Pte Ltd",
         period: "Dec 2023 - Present",
         bullets: [
           "Oversee daily site safety and enforce strict compliance with WSH laws and standard regulations.",
@@ -92,9 +92,9 @@ export default function App() {
         ]
       },
       {
-        role: "Safety Supervisor",
-        company: "Success Forever Construction and Maintenance Pte LTD",
-        period: "Jun 2023 - Dec 2023",
+        role: "Workplace Safety and Health Management Construction Industry Supervisor",
+        company: "Success Forever Construction & Maintenance Pte Ltd",
+        period: "May 2023 - Nov 2023",
         bullets: [
           "Supervised challenging work-at-height activities, ensuring full regulatory alignment with MOM safety bylaws.",
           "Operated hydraulic boom lifts and backed up technical crews to safely complete high-elevated assignments.",
@@ -103,8 +103,8 @@ export default function App() {
       },
       {
         role: "General Worker",
-        company: "Success Forever Construction and Maintenance Pte LTD",
-        period: "Feb 2022 - Jun 2023",
+        company: "Success Forever Construction & Maintenance Pte Ltd",
+        period: "Feb 2023 - May 2023",
         bullets: [
           "Supported groundwork logistics, rigorous materials handling, and diverse general construction operations.",
           "Acquired strong hands-on insight into site layouts, technical equipment, and essential safety procedures."
@@ -130,12 +130,12 @@ export default function App() {
       {
         degree: "Higher Secondary Certificate (HSC)",
         institution: "Naria Govt. College, Bangladesh",
-        period: "2018 - 2020 (Grade: A-)"
+        period: "2018 - 2019 (Grade: A-)"
       },
       {
         degree: "Secondary School Certificate (SSC)",
         institution: "Naria BL Model High School, Bangladesh",
-        period: "2014 - 2017 (Grade: A)"
+        period: "2015 - 2017 (Grade: A)"
       }
     ]
   };
@@ -148,7 +148,7 @@ export default function App() {
         badgeColor: "bg-emerald-950/60 text-emerald-400 border-emerald-800",
       };
     }
-    const today = new Date("2026-06-11");
+    const today = new Date();
     const expiry = new Date(expiryDate);
     const diffMs = expiry.getTime() - today.getTime();
     const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
@@ -178,53 +178,67 @@ export default function App() {
 
   const certificationsList = [
     {
-      title: "Advanced Certificate in Workplace Safety and Health",
-      authority: "Greensafe International PTE LTD",
-      date: "Issued 2023",
-      description: "Comprehensive qualification mapping safety standards, advanced compliance management rules, and construction safety control systems.",
-      expiryDate: null
+      title: "Digital Marketing Certified",
+      authority: "HubSpot Academy",
+      date: "Issued Jul 2026",
+      description: "Professional certification covering digital marketing strategy, campaign planning, and online audience engagement.",
+      expiryDate: "2027-07-31"
     },
     {
-      title: "Develop a Risk Management Implementation Plan (BizSAFE2)",
-      authority: "Greensafe International PTE LTD",
-      date: "Issued 2023",
-      description: "Focused training on risk prevention, forming dynamic risk matrices, and drafting compliance-proof bizSAFE hazard actions.",
-      expiryDate: null
+      title: "Perform Work in Confined Space",
+      authority: "Eversafe Academy",
+      date: "Issued Aug 2024",
+      description: "Gas assessment, toxic ventilation monitoring, closed workspace logging, and rapid extraction emergency logistics.",
+      expiryDate: "2027-08-31"
     },
     {
-      title: "Workplace Safety and Health Management in Construction Industry",
-      authority: "Eversafe Academy PTE LTD",
-      date: "Issued 2023",
-      description: "Construction-specific regulations training covering active operations, heavy load staging, and field hazard isolation controls.",
-      expiryDate: null
-    },
-    {
-      title: "Manage Work at Height",
-      authority: "Eversafe Academy PTE LTD",
-      date: "Issued 2023",
+      title: "Manage Work-at-Height",
+      authority: "Coursera",
+      date: "Issued Jul 2023",
       description: "Specialized training for supervising elevated locations, implementing solid fall containment, protective setups, and MOM guidelines.",
       expiryDate: null
     },
     {
-      title: "Operate BoomLift",
-      authority: "AAT Training Hub PTE LTD",
-      date: "Issued 2023",
+      title: "Operate Boom Lift",
+      authority: "AAT Training Hub Pte Ltd",
+      date: "Issued May 2023",
       description: "Core heavy hydraulics license to navigate high aerial lifts, boom stability controls, safety harnesses, and field operation safety.",
-      expiryDate: "2028-05-14"
+      expiryDate: "2028-05-31"
     },
     {
-      title: "Perform Work in Confined Space Operation",
-      authority: "Eversafe Academy PTE LTD",
-      date: "Issued 2023",
-      description: "Gas assessment, toxic ventilation monitoring, closed workspace logging, and rapid extraction emergency logistics.",
-      expiryDate: "2027-08-17"
+      title: "Advance Certificate in Workplace Safety and Health",
+      authority: "Greensafe International Pte Ltd",
+      date: "Issued Nov 2023",
+      description: "Comprehensive qualification mapping safety standards, advanced compliance management rules, and construction safety control systems.",
+      expiryDate: null
     },
     {
-      title: "Occupational First Aider",
-      authority: "Eversafe Academy PTE LTD",
-      date: "Issued 2024",
+      title: "Occupational First Aid Course",
+      authority: "Coursera",
+      date: "Issued Jul 2026",
       description: "Certified occupational first aid responder for industrial & construction sites, emergency CPR/AED resuscitation, trauma management, and workplace casualty triage.",
       expiryDate: "2028-07-31"
+    },
+    {
+      title: "International Labour Organisation",
+      authority: "3S LIFE SAFE AKADEMIE PRIVATE LIMITED",
+      date: "Issued Mar 2026",
+      description: "Comprehensive alignment on core international labour safety and health guidelines, ethical standards, and global worker protection principles.",
+      expiryDate: null
+    },
+    {
+      title: "WSH Coordinator Refresher Training",
+      authority: "SCAL Academy",
+      date: "Issued Jan 2026",
+      description: "Recertification covering critical updates in workplace safety and health coordination, legislative transformations, and accident mitigation.",
+      expiryDate: "2028-01-31"
+    },
+    {
+      title: "Workplace Safety and Health Control Measures-4",
+      authority: "Greensafe International Pte Ltd",
+      date: "Issued Dec 2025",
+      description: "Advanced training on WSH control measures, the hierarchy of controls, and practical hazard elimination on construction sites.",
+      expiryDate: null
     },
     {
       title: "Introduction to OSHA: Safety Standards and Compliance",
@@ -241,25 +255,32 @@ export default function App() {
       expiryDate: null
     },
     {
-      title: "Creating a Healthy Culture: Addressing Workplace Bullying",
-      authority: "Coursera",
+      title: "Responders Plus Programme",
+      authority: "Singapore Civil Defence Force",
+      date: "Issued Jun 2025",
+      description: "Community emergency preparedness training covering fire safety, first response actions, and emergency evacuation procedures.",
+      expiryDate: "2027-06-30"
+    },
+    {
+      title: "Befriender Training",
+      authority: "Singapore Red Cross",
+      date: "Issued Aug 2024",
+      description: "Training in befriending and providing emotional support to vulnerable individuals in the community.",
+      expiryDate: "2026-08-31"
+    },
+    {
+      title: "Psychological First Aid",
+      authority: "Singapore Red Cross",
       date: "Issued 2024",
-      description: "Strategic approaches to fostering supportive workplace interactions, active anti-bullying pathways, and overall health culture coordination.",
+      description: "Practical skills for delivering psychological first aid and emotional support during crises and emergencies.",
       expiryDate: null
     },
     {
-      title: "ILO (International Labour Organisations)",
-      authority: "3S Life Safe Akademie Private Limited",
-      date: "Issued 2024",
-      description: "Comprehensive alignment on core international labour safety and health guidelines, ethical standards, and global worker protection principles.",
+      title: "Workplace Safety and Health Management in Construction Industry",
+      authority: "Eversafe Academy",
+      date: "Issued Jun 2023",
+      description: "Construction-specific regulations training covering active operations, heavy load staging, and field hazard isolation controls.",
       expiryDate: null
-    },
-    {
-      title: "Safety Coordinator Refresher Training",
-      authority: "SCAL Academy",
-      date: "Issued Jan 2026",
-      description: "Recertification covering critical updates in workplace safety and health coordination, legislative transformations, and accident mitigation.",
-      expiryDate: "2028-01-07"
     }
   ];
 
@@ -615,7 +636,7 @@ export default function App() {
               >
                 <div className="col-span-4 sm:col-span-3 text-left sm:text-right space-y-0.5 pr-1">
                   <h4 className="text-xs sm:text-sm font-extrabold text-white tracking-wide leading-tight group-hover:text-teal-400 transition-colors">
-                    Success Forever Construction and Maintenance Pte LTD
+                    Success Forever Construction & Maintenance Pte Ltd
                   </h4>
                   <p className="text-[11px] sm:text-xs font-mono text-teal-400/90 pt-0.5">
                     Dec 2023 - Present
@@ -652,10 +673,10 @@ export default function App() {
               >
                 <div className="col-span-4 sm:col-span-3 text-left sm:text-right space-y-0.5 pr-1">
                   <h4 className="text-xs sm:text-sm font-extrabold text-white tracking-wide leading-tight group-hover:text-teal-400 transition-colors">
-                    Success Forever Construction and Maintenance Pte LTD
+                    Success Forever Construction & Maintenance Pte Ltd
                   </h4>
                   <p className="text-[11px] sm:text-xs font-mono text-zinc-400 pt-0.5">
-                    Jun - Dec 2023
+                    May 2023 - Nov 2023
                   </p>
                 </div>
 
@@ -670,7 +691,7 @@ export default function App() {
 
                 <div className="col-span-7 sm:col-span-8 space-y-1.5 pl-1">
                   <h3 className="text-sm sm:text-base font-extrabold text-white tracking-tight">
-                    Safety Supervisor
+                    Workplace Safety and Health Management Construction Industry Supervisor
                   </h3>
                   <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed font-normal">
                     Supervised high-risk work-at-height activities aligning with MOM safety bylaws, operated hydraulic boom lifts, and conducted daily site hazard audits.
@@ -691,10 +712,10 @@ export default function App() {
               >
                 <div className="col-span-4 sm:col-span-3 text-left sm:text-right space-y-0.5 pr-1">
                   <h4 className="text-xs sm:text-sm font-extrabold text-white tracking-wide leading-tight group-hover:text-teal-400 transition-colors">
-                    Success Forever Construction and Maintenance Pte LTD
+                    Success Forever Construction & Maintenance Pte Ltd
                   </h4>
                   <p className="text-[11px] sm:text-xs font-mono text-zinc-400 pt-0.5">
-                    Feb 2022 - Jun 2023
+                    Feb 2023 - May 2023
                   </p>
                 </div>
 
@@ -709,7 +730,7 @@ export default function App() {
 
                 <div className="col-span-7 sm:col-span-8 space-y-1.5 pl-1">
                   <h3 className="text-sm sm:text-base font-extrabold text-white tracking-tight">
-                    General Construction Worker
+                    General Worker
                   </h3>
                   <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed font-normal">
                     Supported groundwork logistics, materials handling, site layout preparation, and equipment operations while mastering core workplace safety protocols.
