@@ -5,9 +5,31 @@
   --font-display: "Anton", "Archivo", ui-sans-serif, sans-serif;
   --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
   --font-grotesk: "Space Grotesk", ui-sans-serif, sans-serif;
-  --color-blood: #ff3131;
-  --color-blood-deep: #b91c1c;
-  --color-coal: #08080a;
+  --color-blood: var(--accent);
+  --color-blood-deep: var(--accent-deep);
+  --color-coal: #050505;
+}
+
+/* Theme accents — red default, purple toggle */
+:root,
+[data-theme="red"] {
+  --accent: #ff3131;
+  --accent-deep: #b01414;
+  --accent-glow: rgba(255, 49, 49, 0.28);
+  --grad-from: #ffa3a3;
+  --grad-to: #a80f0f;
+  --ember-a: 255, 72, 48;
+  --ember-b: 255, 190, 120;
+}
+
+[data-theme="purple"] {
+  --accent: #a855f7;
+  --accent-deep: #6d28d9;
+  --accent-glow: rgba(168, 85, 247, 0.28);
+  --grad-from: #d8b4fe;
+  --grad-to: #6d28d9;
+  --ember-a: 168, 85, 247;
+  --ember-b: 216, 180, 254;
 }
 
 html {
@@ -15,8 +37,17 @@ html {
 }
 
 html, body {
-  background: #08080a;
+  background: #050505;
   color: #fafafa;
+  overscroll-behavior: none;
+}
+
+/* Faint structural line grid */
+.line-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 72px 72px;
 }
 
 @media (min-width: 1024px) {
@@ -86,6 +117,31 @@ html, body {
   to { transform: rotate(360deg); }
 }
 .animate-spin-slow { animation: spin-slow 24s linear infinite; }
+
+/* Portrait glitch-slide entrance */
+@keyframes glitch-in {
+  0% { transform: translateX(130px) skewX(-9deg); filter: blur(16px) saturate(2.2); opacity: 0; }
+  45% { transform: translateX(-16px) skewX(4deg); filter: blur(4px) saturate(1.4); opacity: 1; }
+  70% { transform: translateX(7px) skewX(-2deg); filter: blur(0); }
+  100% { transform: translateX(0) skewX(0); filter: none; opacity: 1; }
+}
+.glitch-in { animation: glitch-in 0.75s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* Circular perspective grid revealed on portrait hover */
+.persp-grid {
+  background:
+    repeating-radial-gradient(circle at center, transparent 0 34px, color-mix(in srgb, var(--accent) 32%, transparent) 34px 35px),
+    repeating-conic-gradient(from 0deg at center, transparent 0deg 13deg, color-mix(in srgb, var(--accent) 22%, transparent) 13deg 15deg);
+  -webkit-mask-image: radial-gradient(circle, black 28%, transparent 70%);
+  mask-image: radial-gradient(circle, black 28%, transparent 70%);
+}
+
+/* Blinking caret for the decode effect */
+@keyframes caret-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.animate-caret { animation: caret-blink 0.8s step-end infinite; }
 
 @keyframes drift-a {
   0%, 100% { transform: translate(0, 0) scale(1); }

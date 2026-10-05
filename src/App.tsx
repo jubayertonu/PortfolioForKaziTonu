@@ -1,13 +1,13 @@
-import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode, type TouchEvent, type WheelEvent } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { linkedinPosts } from "./data/linkedinPosts";
 import {
   ArrowRight,
-  ArrowUpRight,
-  Award,
+  BadgeCheck,
   ChevronLeft,
   ChevronRight,
   Download,
+  Droplet,
   Linkedin,
   Mail,
   MapPin,
@@ -24,7 +24,9 @@ const WA_URL = "https://wa.me/6580627387";
 const EMAIL = "tonukazi@gmail.com";
 const PHONE_DISPLAY = "+65 8062 7387";
 
-const NAV = [
+type Theme = "red" | "purple";
+
+const VIEWS = [
   { id: "home", label: "HOME" },
   { id: "about", label: "ABOUT" },
   { id: "experience", label: "EXPERIENCE" },
@@ -102,8 +104,38 @@ function validity(expiry: string | null) {
   return { label: "Valid", dot: "bg-emerald-400", cls: "text-emerald-400 border-emerald-900" };
 }
 
-function scrollToId(id: string) {
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+const accent = "var(--accent)";
+
+/* ------------------------- Typing / decode text ------------------------- */
+function DecodeText({ text, className = "" }: { text: string; className?: string }) {
+  const [out, setOut] = useState(text);
+  useEffect(() => {
+    const glyphs = "!<>-_\\/[]{}=+*^?#@$%&";
+    let frame = 0;
+    const total = 26;
+    const id = setInterval(() => {
+      frame++;
+      const settled = Math.floor((frame / total) * text.length);
+      let s = "";
+      for (let i = 0; i < text.length; i++) {
+        s += i < settled ? text[i] : glyphs[Math.floor(Math.random() * glyphs.length)];
+      }
+      setOut(s);
+      if (frame >= total) {
+        clearInterval(id);
+        setOut(text);
+      }
+    }, 42);
+    return () => clearInterval(id);
+  }, [text]);
+  return (
+    <span className={className}>
+      {out}
+      <span className="animate-caret" style={{ color: accent }}>
+        _
+      </span>
+    </span>
+  );
 }
 
 /* ------------------------------ Background ------------------------------ */
@@ -111,17 +143,22 @@ function BackgroundFX() {
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0">
       <div className="absolute inset-0 bg-coal" />
-      <div className="absolute -top-32 -left-32 w-[34rem] h-[34rem] rounded-full bg-blood/20 blur-[140px] animate-drift-a" />
-      <div className="absolute bottom-0 right-0 w-[30rem] h-[30rem] rounded-full bg-blood-deep/30 blur-[140px] animate-drift-b" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[46rem] h-[46rem] rounded-full bg-blood/10 blur-[180px] animate-pulse-glow" />
-      <div className="absolute inset-0 dot-grid opacity-[0.35] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_40%,black,transparent)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(0,0,0,0.55)_100%)]" />
+      {/* volumetric glows shifting with theme */}
+      <div className="absolute -top-40 -left-40 w-[38rem] h-[38rem] rounded-full blur-[150px] animate-drift-a transition-colors duration-1000"
+        style={{ backgroundColor: "color-mix(in srgb, var(--accent) 22%, transparent)" }} />
+      <div className="absolute -bottom-48 -right-40 w-[36rem] h-[36rem] rounded-full blur-[150px] animate-drift-b transition-colors duration-1000"
+        style={{ backgroundColor: "color-mix(in srgb, var(--accent-deep) 32%, transparent)" }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50rem] h-[50rem] rounded-full blur-[190px] animate-pulse-glow transition-colors duration-1000"
+        style={{ backgroundColor: "color-mix(in srgb, var(--accent) 10%, transparent)" }} />
+      {/* faint structural grid */}
+      <div className="absolute inset-0 line-grid opacity-70 [mask-image:radial-gradient(ellipse_75%_65%_at_50%_45%,black,transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_42%,rgba(0,0,0,0.6)_100%)]" />
     </div>
   );
 }
 
-/* Floating ember particles */
-function Embers() {
+/* --------------------------- Ember particles ---------------------------- */
+function Embers({ theme }: { theme: Theme }) {
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -130,20 +167,17 @@ function Embers() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let w = 0;
-    let h = 0;
-    let raf = 0;
-    let t = 0;
+    let w = 0, h = 0, raf = 0, t = 0;
     const DPR = Math.min(window.devicePixelRatio || 1, 2);
-
-    type P = { x: number; y: number; r: number; s: number; drift: number; a: number; ph: number; warm: boolean };
+    type P = { x: number; y: number; z: number; r: number; s: number; drift: number; a: number; ph: number; warm: boolean };
     let parts: P[] = [];
 
     const spawn = (anywhere = false): P => ({
       x: Math.random() * w,
       y: anywhere ? Math.random() * h : h + 12,
+      z: 0.4 + Math.random() * 0.6,
       r: 0.8 + Math.random() * 2.4,
-      s: 0.3 + Math.random() * 0.8,
+      s: 0.3 + Math.random() * 0.85,
       drift: (Math.random() - 0.5) * 0.5,
       a: 0.3 + Math.random() * 0.6,
       ph: Math.random() * Math.PI * 2,
@@ -158,7 +192,7 @@ function Embers() {
       canvas.style.width = `${w}px`;
       canvas.style.height = `${h}px`;
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-      const n = Math.min(85, Math.floor((w * h) / 24000));
+      const n = Math.min(90, Math.floor((w * h) / 22000));
       parts = Array.from({ length: n }, () => spawn(true));
     };
 
@@ -167,18 +201,19 @@ function Embers() {
       ctx.clearRect(0, 0, w, h);
       for (let i = 0; i < parts.length; i++) {
         const p = parts[i];
-        p.y -= p.s;
-        p.x += p.drift + Math.sin(t * 1.4 + p.ph) * 0.3;
+        p.y -= p.s * p.z;
+        p.x += (p.drift + Math.sin(t * 1.4 + p.ph) * 0.3) * p.z;
         if (p.y < -14 || p.x < -14 || p.x > w + 14) {
           parts[i] = spawn();
           continue;
         }
         const flick = 0.65 + 0.35 * Math.sin(t * 3.5 + p.ph);
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = p.warm
-          ? `rgba(255,72,48,${(p.a * flick).toFixed(3)})`
-          : `rgba(255,190,120,${(p.a * flick * 0.8).toFixed(3)})`;
+        ctx.arc(p.x, p.y, p.r * p.z, 0, Math.PI * 2);
+        const rgb = p.warm
+          ? (theme === "red" ? "255,72,48" : "168,85,247")
+          : (theme === "red" ? "255,190,120" : "216,180,254");
+        ctx.fillStyle = `rgba(${rgb},${(p.a * flick).toFixed(3)})`;
         ctx.fill();
       }
       raf = requestAnimationFrame(tick);
@@ -197,61 +232,64 @@ function Embers() {
       window.removeEventListener("resize", resize);
       document.removeEventListener("visibilitychange", onVis);
     };
-  }, []);
+  }, [theme]);
 
-  return (
-    <canvas
-      ref={ref}
-      aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-[1]"
-    />
-  );
+  return <canvas ref={ref} aria-hidden="true" className="pointer-events-none fixed inset-0 z-[1]" />;
 }
 
 /* -------------------------------- Navbar -------------------------------- */
-function Navbar({ active }: { active: string }) {
+function Navbar({
+  view,
+  goTo,
+  theme,
+  toggleTheme,
+}: {
+  view: number;
+  goTo: (i: number) => void;
+  theme: Theme;
+  toggleTheme: () => void;
+}) {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <header className="fixed top-0 inset-x-0 z-50 bg-gradient-to-b from-black/85 via-black/40 to-transparent">
-        <div className="flex items-center justify-between px-6 lg:px-14 py-5">
-          <button
-            onClick={() => scrollToId("home")}
-            className="font-display text-xl tracking-wide text-white cursor-pointer"
-          >
-            KAZI<span className="text-blood">.</span>TONU
-          </button>
-          <nav className="hidden lg:flex items-center gap-9">
-            {NAV.map((n) => (
-              <button
-                key={n.id}
-                onClick={() => scrollToId(n.id)}
-                className={`font-grotesk text-[11px] font-semibold tracking-[0.25em] transition-colors cursor-pointer ${
-                  active === n.id
-                    ? "text-blood underline underline-offset-8 decoration-2 decoration-blood"
-                    : "text-zinc-400 hover:text-white"
-                }`}
-              >
-                {n.label}
-              </button>
-            ))}
-          </nav>
-          <div className="flex items-center gap-3">
+      <header className="absolute top-0 inset-x-0 z-50">
+        {/* Centered menu — desktop */}
+        <nav className="hidden md:flex items-center justify-center gap-10 pt-7">
+          {VIEWS.map((v, i) => (
             <button
-              onClick={() => scrollToId("contact")}
-              className="hidden sm:inline-flex items-center gap-2 bg-blood hover:bg-red-500 text-white font-grotesk text-[11px] font-bold tracking-[0.2em] px-6 py-3 rounded-full transition-all hover:shadow-[0_0_28px_rgba(255,49,49,0.5)] cursor-pointer"
+              key={v.id}
+              onClick={() => goTo(i)}
+              className={`font-grotesk text-[11px] font-semibold tracking-[0.3em] uppercase transition-colors cursor-pointer ${
+                view === i ? "" : "text-zinc-500 hover:text-white"
+              }`}
+              style={
+                view === i
+                  ? { color: accent, textShadow: `0 0 18px var(--accent-glow), 0 0 42px var(--accent-glow)` }
+                  : undefined
+              }
             >
-              LET'S TALK <ArrowUpRight className="w-4 h-4" />
+              {v.label}
             </button>
-            <button
-              onClick={() => setOpen(true)}
-              className="lg:hidden text-white p-2 cursor-pointer"
-              aria-label="Open menu"
-            >
-              <Menu className="w-6 h-6" />
-            </button>
-          </div>
-        </div>
+          ))}
+        </nav>
+        {/* Theme toggle */}
+        <button
+          onClick={toggleTheme}
+          aria-label="Toggle glow theme"
+          title={theme === "red" ? "Switch to purple glow" : "Switch to red glow"}
+          className="absolute right-5 md:right-8 top-6 w-10 h-10 rounded-full border border-white/15 hover:border-white/40 flex items-center justify-center transition-all cursor-pointer"
+          style={{ color: accent }}
+        >
+          <Droplet className="w-4 h-4" />
+        </button>
+        {/* Mobile hamburger */}
+        <button
+          onClick={() => setOpen(true)}
+          aria-label="Open menu"
+          className="md:hidden absolute left-5 top-6 text-white p-1 cursor-pointer"
+        >
+          <Menu className="w-6 h-6" />
+        </button>
       </header>
 
       <AnimatePresence>
@@ -261,45 +299,37 @@ function Navbar({ active }: { active: string }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[60] bg-coal/97 backdrop-blur-xl flex flex-col"
+            className="fixed inset-0 z-[60] bg-coal/95 backdrop-blur-xl flex flex-col"
           >
-            <div className="flex items-center justify-between px-6 py-5">
+            <div className="flex items-center justify-between px-6 py-6">
               <span className="font-display text-xl text-white">
-                KAZI<span className="text-blood">.</span>TONU
+                KAZI<span style={{ color: accent }}>.</span>TONU
               </span>
-              <button onClick={() => setOpen(false)} className="text-white p-2 cursor-pointer" aria-label="Close menu">
+              <button onClick={() => setOpen(false)} aria-label="Close menu" className="text-white p-1 cursor-pointer">
                 <X className="w-6 h-6" />
               </button>
             </div>
-            <nav className="flex-1 flex flex-col justify-center px-8 gap-2">
-              {NAV.map((n, i) => (
+            <nav className="flex-1 flex flex-col justify-center px-8 gap-1">
+              {VIEWS.map((v, i) => (
                 <motion.button
-                  key={n.id}
+                  key={v.id}
                   initial={{ opacity: 0, x: -24 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.06 * i, duration: 0.35 }}
+                  transition={{ delay: 0.05 * i, duration: 0.3 }}
                   onClick={() => {
                     setOpen(false);
-                    setTimeout(() => scrollToId(n.id), 120);
+                    setTimeout(() => goTo(i), 100);
                   }}
-                  className="text-left font-display text-5xl text-white/90 hover:text-blood transition-colors py-2 cursor-pointer"
+                  className="text-left font-display text-4xl py-2 cursor-pointer transition-colors"
+                  style={{ color: view === i ? accent : "rgba(255,255,255,0.85)" }}
                 >
-                  <span className="font-grotesk text-xs text-blood align-super mr-3">0{i + 1}</span>
-                  {n.label}
+                  <span className="font-grotesk text-[10px] align-super mr-3" style={{ color: accent }}>
+                    0{i + 1}
+                  </span>
+                  {v.label}
                 </motion.button>
               ))}
             </nav>
-            <div className="px-8 pb-10">
-              <button
-                onClick={() => {
-                  setOpen(false);
-                  setTimeout(() => scrollToId("contact"), 120);
-                }}
-                className="inline-flex items-center gap-2 bg-blood text-white font-grotesk text-xs font-bold tracking-[0.2em] px-8 py-4 rounded-full cursor-pointer"
-              >
-                LET'S TALK <ArrowUpRight className="w-4 h-4" />
-              </button>
-            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -307,70 +337,20 @@ function Navbar({ active }: { active: string }) {
   );
 }
 
-/* ------------------------------ Small parts ----------------------------- */
-function SectionLabel({ children }: { children: string }) {
+/* ------------------------------ Swipe next ------------------------------ */
+function SwipeNext({ onClick, label = "Swipe to Next" }: { onClick: () => void; label?: string }) {
   return (
-    <div className="flex items-center gap-3 mb-6">
-      <span className="w-2 h-2 rounded-full bg-blood animate-pulse" />
-      <span className="font-grotesk text-[11px] font-bold tracking-[0.4em] text-zinc-400 uppercase">
-        {children}
+    <button onClick={onClick} className="group inline-flex items-center gap-3 cursor-pointer">
+      <span className="font-grotesk text-[11px] font-bold tracking-[0.3em] uppercase" style={{ color: accent }}>
+        {label}
       </span>
-    </div>
-  );
-}
-
-function Reveal({
-  children,
-  delay = 0,
-  className = "",
-}: {
-  children: ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 44 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.75, delay, ease: [0.16, 1, 0.3, 1] }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-function SwipeNext({ target }: { target: string }) {
-  return (
-    <button
-      onClick={() => scrollToId(target)}
-      className="group inline-flex items-center gap-3 cursor-pointer"
-    >
-      <span className="font-grotesk text-[11px] font-bold tracking-[0.3em] text-blood uppercase">
-        Swipe to Next
-      </span>
-      <span className="w-11 h-11 rounded-full border border-blood/50 group-hover:bg-blood/15 flex items-center justify-center transition-all">
-        <ArrowRight className="w-4 h-4 text-blood group-hover:translate-x-0.5 transition-transform" />
+      <span className="relative w-11 h-11 rounded-full border flex items-center justify-center transition-all group-hover:scale-105"
+        style={{ borderColor: "color-mix(in srgb, var(--accent) 55%, transparent)" }}>
+        <span className="absolute inset-0 rounded-full animate-ping"
+          style={{ backgroundColor: "color-mix(in srgb, var(--accent) 18%, transparent)" }} />
+        <ArrowRight className="relative w-4 h-4" style={{ color: accent }} />
       </span>
     </button>
-  );
-}
-
-function SideDots({ active }: { active: string }) {
-  return (
-    <div className="hidden lg:flex fixed right-7 top-1/2 -translate-y-1/2 z-40 flex-col gap-3">
-      {NAV.map((n) => (
-        <button
-          key={n.id}
-          onClick={() => scrollToId(n.id)}
-          aria-label={n.label}
-          className={`rounded-full transition-all cursor-pointer ${
-            active === n.id ? "w-2 h-7 bg-blood" : "w-2 h-2 bg-white/25 hover:bg-white/60"
-          }`}
-        />
-      ))}
-    </div>
   );
 }
 
@@ -379,507 +359,528 @@ function CarouselButton({ dir, onClick }: { dir: "left" | "right"; onClick: () =
     <button
       onClick={onClick}
       aria-label={dir === "left" ? "Previous" : "Next"}
-      className="w-11 h-11 rounded-full border border-white/20 hover:border-blood hover:bg-blood/10 flex items-center justify-center transition-all cursor-pointer"
+      className="w-10 h-10 rounded-full border border-white/15 hover:border-white/50 flex items-center justify-center transition-all cursor-pointer text-white"
     >
       {dir === "left" ? <ChevronLeft className="w-5 h-5" /> : <ChevronRight className="w-5 h-5" />}
     </button>
   );
 }
 
-/* --------------------------------- HOME --------------------------------- */
-function Home() {
+/* Shared bits */
+function ViewLabel({ children }: { children: string }) {
   return (
-    <section id="home" className="snap-section relative overflow-hidden min-h-screen flex flex-col">
-      {/* Corner glows like the video */}
-      <div aria-hidden="true" className="absolute -top-24 -left-24 w-[26rem] h-[26rem] rounded-full bg-blood/25 blur-[130px] animate-drift-a z-0" />
-      <div aria-hidden="true" className="absolute -bottom-24 -right-24 w-[26rem] h-[26rem] rounded-full bg-blood-deep/35 blur-[130px] animate-drift-b z-0" />
+    <div className="flex items-center gap-3 mb-5">
+      <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: accent }} />
+      <span className="font-grotesk text-[11px] font-bold tracking-[0.4em] text-zinc-400 uppercase">
+        {children}
+      </span>
+    </div>
+  );
+}
 
-      <div className="flex-1 grid lg:grid-cols-[1.05fr_1fr] items-center gap-4 lg:gap-6 w-full max-w-7xl mx-auto px-6 lg:px-14 pt-28 lg:pt-24 pb-4 relative z-10">
-        {/* LEFT — text block */}
-        <div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <span className="font-grotesk font-bold tracking-[0.3em] text-base lg:text-lg text-white">
-              HELLO!
-            </span>
-            <svg viewBox="0 0 120 12" className="w-28 h-3 text-blood mt-1" fill="none" aria-hidden="true">
-              <path d="M2 9 C 30 2, 70 2, 118 7" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" />
+function Enter({ children, delay = 0, className = "" }: { children: ReactNode; delay?: number; className?: string }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 36 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+/* --------------------------------- HOME --------------------------------- */
+function HomeView({ goTo }: { goTo: (i: number) => void }) {
+  return (
+    <section className="h-[100dvh] relative flex flex-col overflow-hidden">
+      <div className="flex-1 grid md:grid-cols-[1.05fr_0.95fr] items-center gap-2 md:gap-6 w-full max-w-7xl mx-auto px-6 md:px-12 pt-24 md:pt-20">
+        {/* Left column */}
+        <div className="relative z-10">
+          <Enter>
+            <h2 className="font-sans font-black text-[22px] md:text-3xl tracking-[0.08em] text-white">
+              <DecodeText text="HELLO!" />
+            </h2>
+            <svg viewBox="0 0 120 12" className="w-28 md:w-36 h-3 mt-1.5" fill="none" aria-hidden="true"
+              style={{ color: accent }}>
+              <path d="M2 9 C 30 2, 70 2, 118 7" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
             </svg>
-          </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.12 }}
-            className="font-grotesk font-bold text-blood tracking-[0.45em] text-xs lg:text-sm mt-7 uppercase"
-          >
-            Meet
-          </motion.p>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display leading-[0.92] mt-2 text-[clamp(3.4rem,11vw,7.5rem)]"
-          >
-            <span className="block bg-gradient-to-b from-[#ffa3a3] via-[#ff3131] to-[#a80f0f] bg-clip-text text-transparent">
-              KAZI
-            </span>
-            <span className="block bg-gradient-to-b from-[#ffa3a3] via-[#ff3131] to-[#a80f0f] bg-clip-text text-transparent">
-              TONU.
-            </span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.38 }}
-            className="font-grotesk text-[11px] lg:text-[13px] font-semibold tracking-[0.35em] text-white mt-5 uppercase"
-          >
-            MOM-Qualified WSH Coordinator
-          </motion.p>
-
-          {/* Contact block with accent divider */}
-          <motion.div
-            initial={{ opacity: 0, x: -18 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.5 }}
-            className="border-l-2 border-blood pl-5 mt-8 space-y-3 font-grotesk text-[12px] lg:text-[13px] text-zinc-300"
-          >
-            <span className="flex items-center gap-2.5">
-              <MapPin className="w-4 h-4 text-blood" /> Singapore
-            </span>
-            <span className="flex items-center gap-2.5">
-              <span className="w-4 h-4 flex items-center justify-center">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          </Enter>
+          <Enter delay={0.15}>
+            <p className="font-grotesk font-bold tracking-[0.5em] text-[11px] md:text-sm mt-6 md:mt-8 uppercase"
+              style={{ color: accent }}>
+              Meet
+            </p>
+            <h1 className="font-display leading-[0.92] mt-2 text-[clamp(3.2rem,12vw,7.5rem)]">
+              <span className="block bg-clip-text text-transparent"
+                style={{ backgroundImage: "linear-gradient(to bottom, var(--grad-from), var(--accent) 55%, var(--grad-to))" }}>
+                KAZI
               </span>
-              Available in 2–3 weeks
-            </span>
-            <a href={`mailto:${EMAIL}`} className="flex items-center gap-2.5 hover:text-white transition-colors">
-              <Mail className="w-4 h-4 text-blood" /> {EMAIL}
-            </a>
-          </motion.div>
+              <span className="block bg-clip-text text-transparent"
+                style={{ backgroundImage: "linear-gradient(to bottom, var(--grad-from), var(--accent) 55%, var(--grad-to))" }}>
+                TONU.
+              </span>
+            </h1>
+          </Enter>
+          <Enter delay={0.3}>
+            <p className="font-grotesk text-[11px] md:text-[13px] font-semibold tracking-[0.32em] text-white mt-4 md:mt-5 uppercase">
+              MOM-Qualified WSH Coordinator
+            </p>
+          </Enter>
+          <Enter delay={0.42}>
+            <div className="mt-6 md:mt-8 space-y-2.5 md:space-y-3 font-grotesk text-[12px] md:text-[13px] text-zinc-300">
+              <span className="flex items-center gap-2.5">
+                <MapPin className="w-4 h-4 shrink-0" style={{ color: accent }} /> Singapore
+              </span>
+              <span className="flex items-center gap-2.5">
+                <BadgeCheck className="w-4 h-4 shrink-0" style={{ color: accent }} /> Available in 2–3 weeks
+              </span>
+              <a href={`mailto:${EMAIL}`} className="flex items-center gap-2.5 hover:text-white transition-colors">
+                <Mail className="w-4 h-4 shrink-0" style={{ color: accent }} /> {EMAIL}
+              </a>
+            </div>
+          </Enter>
         </div>
 
-        {/* RIGHT — person */}
-        <motion.div
-          initial={{ opacity: 0, y: 60 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="relative flex justify-center lg:justify-end items-center"
-        >
-          <div aria-hidden="true" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] max-w-[420px] aspect-square">
-            <div className="absolute inset-0 dot-grid-red rounded-full [mask-image:radial-gradient(circle,black_25%,transparent_68%)]" />
-            <div className="absolute inset-[16%] rounded-full bg-blood/30 blur-[80px] animate-pulse-glow" />
+        {/* Center portrait */}
+        <div className="group relative flex justify-center md:justify-center items-center">
+          {/* hover perspective grid */}
+          <div aria-hidden="true"
+            className="persp-grid absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[115%] max-w-[520px] aspect-square opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700" />
+          {/* resting glow */}
+          <div aria-hidden="true" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] max-w-[420px] aspect-square">
+            <div className="absolute inset-[14%] rounded-full blur-[80px] animate-pulse-glow transition-colors duration-1000"
+              style={{ backgroundColor: "color-mix(in srgb, var(--accent) 30%, transparent)" }} />
           </div>
           <img
             src="/hero-photo.png"
             alt="Kazi Tonu — WSH Coordinator"
-            className="relative h-[38vh] lg:h-[70vh] object-contain [mask-image:linear-gradient(to_bottom,black_84%,transparent_99%)]"
             draggable={false}
+            className="glitch-in relative h-[30vh] md:h-[74vh] object-contain [mask-image:linear-gradient(to_bottom,black_84%,transparent_99%)]"
           />
-        </motion.div>
+        </div>
       </div>
 
-      {/* Swipe next */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.9 }}
-        className="relative z-10 flex justify-center lg:justify-end px-6 lg:px-14 pb-10"
-      >
-        <SwipeNext target="about" />
-      </motion.div>
+      {/* Bottom row: copyright + swipe */}
+      <div className="relative z-10 flex items-end justify-between px-6 md:px-12 pb-6 md:pb-8">
+        <p className="font-grotesk text-[9px] md:text-[10px] tracking-[0.22em] text-zinc-600 uppercase">
+          © 2026 Kazi Tonu Portfolio. All Rights Reserved.
+        </p>
+        <SwipeNext onClick={() => goTo(1)} />
+      </div>
     </section>
   );
 }
 
 /* --------------------------------- ABOUT -------------------------------- */
-function About() {
+function AboutView({ goTo }: { goTo: (i: number) => void }) {
   return (
-    <section id="about" className="snap-section relative overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6 lg:px-14 min-h-screen flex flex-col justify-center py-28">
-        <Reveal>
-          <SectionLabel>About</SectionLabel>
-          <h2 className="font-display leading-[0.9] text-[clamp(2.8rem,9vw,6.5rem)] text-white">
+    <section className="h-[100dvh] relative flex flex-col overflow-hidden">
+      <div className="flex-1 w-full max-w-6xl mx-auto px-6 md:px-12 flex flex-col justify-center pt-16">
+        <Enter><ViewLabel>About</ViewLabel></Enter>
+        <Enter delay={0.1}>
+          <h2 className="font-display leading-[0.9] text-[clamp(2.4rem,8vw,5.5rem)] text-white">
             SAFETY ISN'T<br />
             <span className="text-outline">A CHECKLIST.</span>
           </h2>
-          <p className="font-grotesk text-blood font-semibold tracking-[0.2em] mt-5 uppercase text-sm">
+          <p className="font-grotesk font-semibold tracking-[0.2em] mt-4 uppercase text-xs md:text-sm"
+            style={{ color: accent }}>
             — It's a culture I build.
           </p>
-        </Reveal>
-        <Reveal delay={0.15}>
-          <p className="text-zinc-400 leading-relaxed max-w-2xl mt-8 text-[15px] lg:text-base">
+        </Enter>
+        <Enter delay={0.2}>
+          <p className="text-zinc-400 leading-relaxed max-w-2xl mt-5 md:mt-7 text-[13px] md:text-[15px]">
             I am Kazi Tonu, a MOM-qualified Workplace Safety and Health Coordinator based in
             Singapore. For nearly three years I have supervised high-risk construction
             activities — work at height, confined spaces, heavy plant operations — conducting
             thorough HIRA risk assessments and enforcing the WSH Act to keep sites
             incident-free across HDB and PUB projects.
           </p>
-        </Reveal>
-        <Reveal delay={0.25}>
-          <div className="flex flex-wrap gap-2.5 mt-8">
-            {SKILLS.map((s) => (
-              <span
-                key={s}
-                className="font-grotesk text-[11px] font-semibold tracking-[0.18em] uppercase border border-white/15 text-zinc-300 rounded-full px-4 py-2 hover:border-blood hover:text-white transition-colors"
-              >
-                {s}
-              </span>
-            ))}
-          </div>
-        </Reveal>
-        <Reveal delay={0.35}>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10 rounded-2xl overflow-hidden mt-10">
+        </Enter>
+        <Enter delay={0.3}>
+          <div className="grid grid-cols-4 gap-px bg-white/10 border border-white/10 rounded-xl overflow-hidden mt-6 md:mt-8 max-w-3xl">
             {STATS.map(([v, l]) => (
-              <div key={l} className="bg-coal p-6 lg:p-8">
-                <div className="font-display text-4xl lg:text-5xl text-white">
-                  {v}
-                </div>
-                <div className="font-grotesk text-[10px] font-bold tracking-[0.25em] uppercase text-zinc-500 mt-2">
+              <div key={l} className="bg-coal p-3 md:p-6">
+                <div className="font-display text-2xl md:text-4xl text-white">{v}</div>
+                <div className="font-grotesk text-[8px] md:text-[10px] font-bold tracking-[0.2em] uppercase text-zinc-500 mt-1.5">
                   {l}
                 </div>
               </div>
             ))}
           </div>
-        </Reveal>
-        <div className="flex justify-center lg:justify-end mt-12">
-          <SwipeNext target="experience" />
-        </div>
+        </Enter>
+        <Enter delay={0.4}>
+          <div className="hidden md:flex flex-wrap gap-2.5 mt-7">
+            {SKILLS.map((s) => (
+              <span key={s}
+                className="font-grotesk text-[11px] font-semibold tracking-[0.18em] uppercase border border-white/15 text-zinc-300 rounded-full px-4 py-2">
+                {s}
+              </span>
+            ))}
+          </div>
+        </Enter>
+      </div>
+      <div className="relative z-10 flex justify-end px-6 md:px-12 pb-6 md:pb-8">
+        <SwipeNext onClick={() => goTo(2)} />
       </div>
     </section>
   );
 }
 
 /* ------------------------------- EXPERIENCE ------------------------------ */
-function Experience() {
+function ExperienceView({ goTo }: { goTo: (i: number) => void }) {
   return (
-    <section id="experience" className="snap-section relative overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6 lg:px-14 min-h-screen flex flex-col justify-center py-28">
-        <Reveal>
-          <SectionLabel>Experience</SectionLabel>
-          <h2 className="font-display leading-[0.9] text-[clamp(2.8rem,9vw,6.5rem)] text-white">
+    <section className="h-[100dvh] relative flex flex-col overflow-hidden">
+      <div className="flex-1 w-full max-w-6xl mx-auto px-6 md:px-12 flex flex-col justify-center pt-16 min-h-0">
+        <Enter><ViewLabel>Experience</ViewLabel></Enter>
+        <Enter delay={0.1}>
+          <h2 className="font-display leading-[0.9] text-[clamp(2.4rem,8vw,5.5rem)] text-white">
             SITE-TESTED<br />
-            <span className="text-outline">EXPERIENCE.</span>
+            <span className="text-outline">RECORD.</span>
           </h2>
-        </Reveal>
-        <div className="grid md:grid-cols-3 gap-5 mt-12">
-          {EXPERIENCE.map((e, i) => (
-            <Fragment key={e.role}>
-            <Reveal delay={0.12 * i}>
-              <div className="group h-full border border-white/10 bg-white/[0.03] rounded-2xl p-6 lg:p-7 hover:border-blood/60 hover:bg-blood/[0.04] transition-all duration-300">
-                <span className="inline-block font-grotesk text-[10px] font-bold tracking-[0.2em] uppercase bg-blood/15 text-blood border border-blood/30 rounded-full px-3.5 py-1.5">
+        </Enter>
+        <Enter delay={0.2} className="min-h-0 mt-6 md:mt-10">
+          <div className="flex md:grid md:grid-cols-3 gap-4 md:gap-5 overflow-x-auto md:overflow-visible no-scrollbar snap-x snap-mandatory pb-2 -mx-6 px-6 md:mx-0 md:px-0">
+            {EXPERIENCE.map((e) => (
+              <div key={e.role}
+                className="snap-start shrink-0 w-[82vw] sm:w-[60vw] md:w-auto border border-white/10 bg-white/[0.03] rounded-2xl p-5 md:p-7 hover:border-white/25 transition-colors">
+                <span className="inline-block font-grotesk text-[10px] font-bold tracking-[0.18em] uppercase rounded-full px-3.5 py-1.5 border"
+                  style={{ color: accent, borderColor: "color-mix(in srgb, var(--accent) 40%, transparent)", backgroundColor: "color-mix(in srgb, var(--accent) 12%, transparent)" }}>
                   {e.period}
                 </span>
-                <h3 className="font-sans font-extrabold text-lg text-white leading-snug mt-5">
+                <h3 className="font-sans font-extrabold text-[15px] md:text-lg text-white leading-snug mt-4">
                   {e.role}
                 </h3>
-                <p className="font-grotesk text-xs text-zinc-500 mt-1.5">{e.company}</p>
-                <ul className="mt-5 space-y-2.5">
-                  {e.bullets.map((b) => (
-                    <li key={b} className="flex gap-2.5 text-[13px] text-zinc-400 leading-relaxed">
-                      <span className="mt-[7px] w-1.5 h-1.5 shrink-0 bg-blood rounded-[2px]" />
+                <p className="font-grotesk text-[11px] md:text-xs text-zinc-500 mt-1.5">{e.company}</p>
+                <ul className="mt-4 space-y-2">
+                  {e.bullets.slice(0, 3).map((b) => (
+                    <li key={b} className="flex gap-2.5 text-[12px] md:text-[13px] text-zinc-400 leading-relaxed">
+                      <span className="mt-[7px] w-1.5 h-1.5 shrink-0 rounded-[2px]" style={{ backgroundColor: accent }} />
                       {b}
                     </li>
                   ))}
                 </ul>
               </div>
-            </Reveal>
-            </Fragment>
-          ))}
-        </div>
-        <div className="flex justify-center lg:justify-end mt-12">
-          <SwipeNext target="certifications" />
-        </div>
+            ))}
+          </div>
+        </Enter>
+      </div>
+      <div className="relative z-10 flex justify-end px-6 md:px-12 pb-6 md:pb-8">
+        <SwipeNext onClick={() => goTo(3)} />
       </div>
     </section>
   );
 }
 
 /* ----------------------------- CERTIFICATIONS ---------------------------- */
-function Certifications() {
+function CertificationsView({ goTo }: { goTo: (i: number) => void }) {
   const ref = useRef<HTMLDivElement>(null);
-  const go = (dir: number) => ref.current?.scrollBy({ left: dir * 330, behavior: "smooth" });
+  const go = (dir: number) => ref.current?.scrollBy({ left: dir * 320, behavior: "smooth" });
   return (
-    <section id="certifications" className="snap-section relative overflow-hidden">
-      <div className="min-h-screen flex flex-col justify-center py-28">
-        <div className="max-w-6xl mx-auto px-6 lg:px-14 w-full">
-          <Reveal>
+    <section className="h-[100dvh] relative flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col justify-center pt-16 min-h-0">
+        <div className="w-full max-w-6xl mx-auto px-6 md:px-12">
+          <Enter><ViewLabel>Certifications</ViewLabel></Enter>
+          <Enter delay={0.1}>
             <div className="flex items-end justify-between gap-6">
-              <div>
-                <SectionLabel>Certifications</SectionLabel>
-                <h2 className="font-display leading-[0.9] text-[clamp(2.8rem,9vw,6.5rem)] text-white">
-                  PROOF,<br />
-                  <span className="text-outline">NOT PROMISES.</span>
-                </h2>
-                <p className="text-zinc-500 text-sm mt-5 max-w-md">
-                  {CERTIFICATIONS.length} professional safety certifications — audited, current,
-                  and field-relevant.
-                </p>
-              </div>
+              <h2 className="font-display leading-[0.9] text-[clamp(2.4rem,8vw,5.5rem)] text-white">
+                PROOF,<br />
+                <span className="text-outline">NOT PROMISES.</span>
+              </h2>
               <div className="hidden sm:flex gap-3 shrink-0">
                 <CarouselButton dir="left" onClick={() => go(-1)} />
                 <CarouselButton dir="right" onClick={() => go(1)} />
               </div>
             </div>
-          </Reveal>
+          </Enter>
         </div>
-        <Reveal delay={0.2}>
-          <div
-            ref={ref}
-            className="flex gap-5 overflow-x-auto no-scrollbar snap-x snap-mandatory px-6 lg:px-14 mt-10 pb-2"
-          >
+        <Enter delay={0.2}>
+          <div ref={ref}
+            className="flex gap-4 md:gap-5 overflow-x-auto no-scrollbar snap-x snap-mandatory px-6 md:px-12 mt-6 md:mt-8 pb-2">
             {CERTIFICATIONS.map((c) => {
               const v = validity(c.expiryDate);
               return (
-                <div
-                  key={c.title}
-                  className="snap-start shrink-0 w-[270px] lg:w-[300px] border border-white/10 bg-white/[0.03] rounded-2xl p-6 hover:border-blood/60 hover:bg-blood/[0.04] transition-all duration-300 flex flex-col"
-                >
+                <div key={c.title}
+                  className="snap-start shrink-0 w-[240px] md:w-[290px] border border-white/10 bg-white/[0.03] rounded-2xl p-5 md:p-6 flex flex-col hover:border-white/25 transition-colors">
                   <div className="flex items-center justify-between">
-                    <span className="w-11 h-11 rounded-xl bg-blood/12 border border-blood/30 flex items-center justify-center">
-                      <ShieldCheck className="w-5 h-5 text-blood" />
+                    <span className="w-10 h-10 rounded-xl border flex items-center justify-center"
+                      style={{ borderColor: "color-mix(in srgb, var(--accent) 35%, transparent)", backgroundColor: "color-mix(in srgb, var(--accent) 12%, transparent)" }}>
+                      <ShieldCheck className="w-5 h-5" style={{ color: accent }} />
                     </span>
-                    <span
-                      className={`inline-flex items-center gap-1.5 font-grotesk text-[10px] font-bold tracking-widest uppercase border rounded-full px-3 py-1 ${v.cls}`}
-                    >
+                    <span className={`inline-flex items-center gap-1.5 font-grotesk text-[10px] font-bold tracking-widest uppercase border rounded-full px-2.5 py-1 ${v.cls}`}>
                       <span className={`w-1.5 h-1.5 rounded-full ${v.dot}`} />
                       {v.label}
                     </span>
                   </div>
-                  <h3 className="font-sans font-bold text-[15px] text-white leading-snug mt-5 flex-1">
+                  <h3 className="font-sans font-bold text-[14px] text-white leading-snug mt-4 flex-1">
                     {c.title}
                   </h3>
-                  <p className="font-grotesk text-xs text-zinc-500 mt-2">{c.authority}</p>
-                  <p className="font-grotesk text-[11px] text-zinc-600 mt-1">{c.date}</p>
+                  <p className="font-grotesk text-[11px] text-zinc-500 mt-2">{c.authority}</p>
+                  <p className="font-grotesk text-[10px] text-zinc-600 mt-1">{c.date}</p>
                 </div>
               );
             })}
           </div>
-        </Reveal>
-        <div className="max-w-6xl mx-auto px-6 lg:px-14 w-full flex justify-center lg:justify-end mt-10">
-          <SwipeNext target="posts" />
-        </div>
+        </Enter>
+      </div>
+      <div className="relative z-10 flex justify-end px-6 md:px-12 pb-6 md:pb-8">
+        <SwipeNext onClick={() => goTo(4)} />
       </div>
     </section>
   );
 }
 
 /* --------------------------------- POSTS --------------------------------- */
-function Posts() {
+function PostsView({ goTo }: { goTo: (i: number) => void }) {
   const ref = useRef<HTMLDivElement>(null);
-  const go = (dir: number) => ref.current?.scrollBy({ left: dir * 340, behavior: "smooth" });
+  const go = (dir: number) => ref.current?.scrollBy({ left: dir * 330, behavior: "smooth" });
   const fmt = (iso: string) =>
-    new Date(iso + "T00:00:00").toLocaleDateString("en-GB", {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    });
+    new Date(iso + "T00:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
   return (
-    <section id="posts" className="snap-section relative overflow-hidden">
-      <div className="min-h-screen flex flex-col justify-center py-28">
-        <div className="max-w-6xl mx-auto px-6 lg:px-14 w-full">
-          <Reveal>
+    <section className="h-[100dvh] relative flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col justify-center pt-16 min-h-0">
+        <div className="w-full max-w-6xl mx-auto px-6 md:px-12">
+          <Enter><ViewLabel>Site Diary</ViewLabel></Enter>
+          <Enter delay={0.1}>
             <div className="flex items-end justify-between gap-6">
-              <div>
-                <SectionLabel>Site Diary</SectionLabel>
-                <h2 className="font-display leading-[0.9] text-[clamp(2.8rem,9vw,6.5rem)] text-white">
-                  <span className="text-outline">FROM THE</span>
-                  <br />
-                  FIELD.
-                </h2>
-                <p className="text-zinc-500 text-sm mt-5 max-w-md">
-                  Real site lessons from my LinkedIn — posted regularly, straight from the ground.
-                </p>
-              </div>
+              <h2 className="font-display leading-[0.9] text-[clamp(2.4rem,8vw,5.5rem)] text-white">
+                <span className="text-outline">FROM THE</span><br />
+                FIELD.
+              </h2>
               <div className="hidden sm:flex gap-3 shrink-0">
                 <CarouselButton dir="left" onClick={() => go(-1)} />
                 <CarouselButton dir="right" onClick={() => go(1)} />
               </div>
             </div>
-          </Reveal>
+          </Enter>
         </div>
-        <Reveal delay={0.2}>
-          <div
-            ref={ref}
-            className="flex gap-5 overflow-x-auto no-scrollbar snap-x snap-mandatory px-6 lg:px-14 mt-10 pb-2"
-          >
+        <Enter delay={0.2}>
+          <div ref={ref}
+            className="flex gap-4 md:gap-5 overflow-x-auto no-scrollbar snap-x snap-mandatory px-6 md:px-12 mt-6 md:mt-8 pb-2">
             {linkedinPosts.map((p) => (
-              <a
-                key={p.id}
-                href={p.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="snap-start shrink-0 w-[280px] lg:w-[320px] border border-white/10 bg-white/[0.03] rounded-2xl overflow-hidden hover:border-blood/60 transition-all duration-300 group"
-              >
-                <div className="aspect-[4/3] overflow-hidden bg-zinc-900">
-                  <img
-                    src={p.image}
-                    alt=""
-                    loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+              <a key={p.id} href={p.url} target="_blank" rel="noopener noreferrer"
+                className="snap-start shrink-0 w-[250px] md:w-[310px] border border-white/10 bg-white/[0.03] rounded-2xl overflow-hidden hover:border-white/25 transition-colors group">
+                <div className="aspect-[16/10] overflow-hidden bg-zinc-900">
+                  <img src={p.image} alt="" loading="lazy"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
-                <div className="p-5">
-                  <div className="flex items-center justify-between font-grotesk text-[11px] text-zinc-500">
+                <div className="p-4 md:p-5">
+                  <div className="flex items-center justify-between font-grotesk text-[10px] md:text-[11px] text-zinc-500">
                     <span>{fmt(p.date)}</span>
                     {p.reactions != null && <span>♥ {p.reactions}</span>}
                   </div>
-                  <p className="text-[13px] text-zinc-300 leading-relaxed mt-3 line-clamp-3">
+                  <p className="text-[12px] md:text-[13px] text-zinc-300 leading-relaxed mt-2.5 line-clamp-3">
                     {p.text}
                   </p>
-                  <span className="inline-flex items-center gap-1.5 font-grotesk text-[11px] font-bold tracking-[0.18em] uppercase text-blood mt-4">
+                  <span className="inline-flex items-center gap-1.5 font-grotesk text-[10px] md:text-[11px] font-bold tracking-[0.18em] uppercase mt-3"
+                    style={{ color: accent }}>
                     <Linkedin className="w-3.5 h-3.5" /> View post
                   </span>
                 </div>
               </a>
             ))}
           </div>
-        </Reveal>
-        <div className="max-w-6xl mx-auto px-6 lg:px-14 w-full flex justify-center lg:justify-end mt-10">
-          <SwipeNext target="contact" />
-        </div>
+        </Enter>
+      </div>
+      <div className="relative z-10 flex justify-end px-6 md:px-12 pb-6 md:pb-8">
+        <SwipeNext onClick={() => goTo(5)} />
       </div>
     </section>
   );
 }
 
 /* -------------------------------- CONTACT -------------------------------- */
-function Contact() {
+function ContactView({ goTo }: { goTo: (i: number) => void }) {
   return (
-    <section id="contact" className="snap-section relative overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6 lg:px-14 min-h-screen flex flex-col justify-center py-28">
-        <Reveal>
-          <SectionLabel>Contact</SectionLabel>
-          <h2 className="font-display leading-[0.85] text-[clamp(4rem,17vw,12rem)] text-white">
+    <section className="h-[100dvh] relative flex flex-col overflow-hidden">
+      <div className="flex-1 w-full max-w-6xl mx-auto px-6 md:px-12 flex flex-col justify-center pt-16">
+        <Enter><ViewLabel>Contact</ViewLabel></Enter>
+        <Enter delay={0.1}>
+          <h2 className="font-display leading-[0.85] text-[clamp(3.6rem,15vw,10rem)] text-white">
             LET'S<br />
-            <span className="text-blood">TALK.</span>
+            <span className="bg-clip-text text-transparent"
+              style={{ backgroundImage: "linear-gradient(to bottom, var(--grad-from), var(--accent) 55%, var(--grad-to))" }}>
+              TALK.
+            </span>
           </h2>
-          <p className="text-zinc-400 max-w-xl mt-6 text-[15px] leading-relaxed">
+          <p className="text-zinc-400 max-w-xl mt-5 text-[13px] md:text-[15px] leading-relaxed">
             Have a site that needs a safety leader your management can trust? My line is open —
             call, WhatsApp, or mail me anytime.
           </p>
-        </Reveal>
-        <Reveal delay={0.15}>
-          <div className="flex flex-wrap gap-4 mt-10">
-            <a
-              href={CV_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 bg-blood hover:bg-red-500 text-white font-grotesk text-xs font-bold tracking-[0.2em] uppercase px-8 py-4 rounded-full transition-all hover:shadow-[0_0_32px_rgba(255,49,49,0.5)]"
-            >
+        </Enter>
+        <Enter delay={0.2}>
+          <div className="flex flex-wrap gap-3 md:gap-4 mt-7 md:mt-9">
+            <a href={CV_URL} target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 text-white font-grotesk text-[11px] md:text-xs font-bold tracking-[0.2em] uppercase px-7 md:px-8 py-3.5 md:py-4 rounded-full transition-all hover:brightness-110"
+              style={{ backgroundColor: accent, boxShadow: "0 0 28px var(--accent-glow)" }}>
               <Download className="w-4 h-4" /> Download CV
             </a>
-            <a
-              href={WA_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 border border-white/20 hover:border-blood text-white font-grotesk text-xs font-bold tracking-[0.2em] uppercase px-8 py-4 rounded-full transition-all"
-            >
+            <a href={WA_URL} target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 border border-white/20 hover:border-white/50 text-white font-grotesk text-[11px] md:text-xs font-bold tracking-[0.2em] uppercase px-7 md:px-8 py-3.5 md:py-4 rounded-full transition-all">
               <MessageCircle className="w-4 h-4" /> WhatsApp
             </a>
-            <a
-              href={`tel:${PHONE_DISPLAY.replace(/\s/g, "")}`}
-              className="inline-flex items-center gap-2.5 border border-white/20 hover:border-blood text-white font-grotesk text-xs font-bold tracking-[0.2em] uppercase px-8 py-4 rounded-full transition-all"
-            >
+            <a href={`tel:${PHONE_DISPLAY.replace(/\s/g, "")}`}
+              className="inline-flex items-center gap-2.5 border border-white/20 hover:border-white/50 text-white font-grotesk text-[11px] md:text-xs font-bold tracking-[0.2em] uppercase px-7 md:px-8 py-3.5 md:py-4 rounded-full transition-all">
               <Phone className="w-4 h-4" /> {PHONE_DISPLAY}
             </a>
-            <a
-              href={`mailto:${EMAIL}`}
-              className="inline-flex items-center gap-2.5 border border-white/20 hover:border-blood text-white font-grotesk text-xs font-bold tracking-[0.2em] uppercase px-8 py-4 rounded-full transition-all"
-            >
+            <a href={`mailto:${EMAIL}`}
+              className="inline-flex items-center gap-2.5 border border-white/20 hover:border-white/50 text-white font-grotesk text-[11px] md:text-xs font-bold tracking-[0.2em] uppercase px-7 md:px-8 py-3.5 md:py-4 rounded-full transition-all">
               <Mail className="w-4 h-4" /> Email
             </a>
           </div>
-        </Reveal>
-        <Reveal delay={0.25}>
-          <div className="border-t border-white/10 mt-16 lg:mt-24 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-            <span className="font-display text-lg text-white">
-              KAZI<span className="text-blood">.</span>TONU
-            </span>
-            <span className="font-grotesk text-[11px] tracking-[0.2em] uppercase text-zinc-600">
-              © 2026 Kazi Tonu — WSH Coordinator, Singapore
-            </span>
-          </div>
-        </Reveal>
+        </Enter>
+      </div>
+      <div className="relative z-10 flex items-end justify-between px-6 md:px-12 pb-6 md:pb-8">
+        <p className="font-grotesk text-[9px] md:text-[10px] tracking-[0.22em] text-zinc-600 uppercase">
+          © 2026 Kazi Tonu Portfolio. All Rights Reserved.
+        </p>
+        <button onClick={() => goTo(0)}
+          className="font-grotesk text-[11px] font-bold tracking-[0.3em] uppercase hover:opacity-80 transition-opacity cursor-pointer"
+          style={{ color: accent }}>
+          Back to top ↑
+        </button>
       </div>
     </section>
   );
 }
 
+/* ------------------------------ Transitions ----------------------------- */
+const viewVariants = {
+  enter: (d: number) => ({ opacity: 0, x: d * 140, filter: "blur(10px)" }),
+  center: { opacity: 1, x: 0, filter: "blur(0px)" },
+  exit: (d: number) => ({ opacity: 0, x: d * -140, filter: "blur(10px)" }),
+};
+
 /* ---------------------------------- APP ---------------------------------- */
 export default function App() {
-  const [active, setActive] = useState("home");
-  const [flash, setFlash] = useState(0);
-  const firstRun = useRef(true);
-  const lastFlash = useRef(0);
+  const [view, setView] = useState(0);
+  const [dir, setDir] = useState(1);
+  const [theme, setTheme] = useState<Theme>("red");
+  const [beam, setBeam] = useState(0);
+  const lock = useRef(false);
+  const touchY = useRef<number | null>(null);
 
-  useEffect(() => {
-    const sections = NAV.map((n) => document.getElementById(n.id)).filter(
-      (el): el is HTMLElement => el !== null
-    );
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) setActive(e.target.id);
-        });
-      },
-      { rootMargin: "-45% 0px -45% 0px" }
-    );
-    sections.forEach((s) => obs.observe(s));
-    return () => obs.disconnect();
-  }, []);
+  const goTo = useCallback(
+    (i: number) => {
+      const n = Math.max(0, Math.min(VIEWS.length - 1, i));
+      if (n === view || lock.current) return;
+      lock.current = true;
+      setDir(n > view ? 1 : -1);
+      setView(n);
+      setBeam((b) => b + 1);
+      setTimeout(() => {
+        lock.current = false;
+      }, 1250);
+    },
+    [view]
+  );
 
-  /* Cinematic wipe transition when the active section changes */
+  /* Keyboard navigation */
   useEffect(() => {
-    if (firstRun.current) {
-      firstRun.current = false;
-      return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowDown" || e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") {
+        e.preventDefault();
+        goTo(view + 1);
+      } else if (e.key === "ArrowUp" || e.key === "ArrowLeft" || e.key === "PageUp") {
+        e.preventDefault();
+        goTo(view - 1);
+      } else if (e.key === "Home") {
+        e.preventDefault();
+        goTo(0);
+      } else if (e.key === "End") {
+        e.preventDefault();
+        goTo(VIEWS.length - 1);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [view, goTo]);
+
+  const onWheel = (e: WheelEvent) => {
+    if (Math.abs(e.deltaY) < 28) return;
+    goTo(view + (e.deltaY > 0 ? 1 : -1));
+  };
+
+  const onTouchStart = (e: TouchEvent) => {
+    touchY.current = e.touches[0].clientY;
+  };
+  const onTouchEnd = (e: TouchEvent) => {
+    if (touchY.current === null) return;
+    const dy = touchY.current - e.changedTouches[0].clientY;
+    touchY.current = null;
+    if (Math.abs(dy) < 70) return;
+    /* ignore swipes that start on a horizontal carousel */
+    const t = e.target as HTMLElement;
+    if (t.closest(".no-scrollbar")) return;
+    goTo(view + (dy > 0 ? 1 : -1));
+  };
+
+  const renderView = () => {
+    switch (view) {
+      case 0: return <HomeView goTo={goTo} />;
+      case 1: return <AboutView goTo={goTo} />;
+      case 2: return <ExperienceView goTo={goTo} />;
+      case 3: return <CertificationsView goTo={goTo} />;
+      case 4: return <PostsView goTo={goTo} />;
+      default: return <ContactView goTo={goTo} />;
     }
-    const now = Date.now();
-    if (now - lastFlash.current < 900) return;
-    lastFlash.current = now;
-    setFlash((f) => f + 1);
-  }, [active]);
+  };
 
   return (
-    <div className="relative min-h-screen bg-coal text-white font-sans overflow-x-clip">
+    <div
+      data-theme={theme}
+      onWheel={onWheel}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+      className="relative h-[100dvh] overflow-hidden bg-coal text-white font-sans select-none"
+    >
       <BackgroundFX />
-      <Embers />
-      {/* Section-change wipe */}
-      {flash > 0 && (
+      <Embers theme={theme} />
+
+      {/* Cinematic wipe beam on view change */}
+      {beam > 0 && (
         <motion.div
-          key={flash}
+          key={beam}
           aria-hidden="true"
           className="pointer-events-none fixed inset-0 z-40"
           initial={{ opacity: 0 }}
           animate={{ opacity: [0, 1, 0] }}
-          transition={{ duration: 0.65, times: [0, 0.32, 1], ease: "easeInOut" }}
-          onAnimationComplete={() => setFlash(0)}
+          transition={{ duration: 0.7, times: [0, 0.3, 1], ease: "easeInOut" }}
+          onAnimationComplete={() => setBeam(0)}
         >
-          <div className="absolute inset-0 bg-black/85" />
+          <div className="absolute inset-0 bg-black/80" />
           <motion.div
-            className="absolute top-[-20%] bottom-[-20%] w-44 bg-blood/25 blur-[70px] -skew-x-12"
+            className="absolute top-[-20%] bottom-[-20%] w-44 blur-[70px] -skew-x-12"
+            style={{ backgroundColor: "color-mix(in srgb, var(--accent) 30%, transparent)" }}
             initial={{ left: "-15%" }}
             animate={{ left: "112%" }}
-            transition={{ duration: 0.65, ease: "easeInOut" }}
+            transition={{ duration: 0.7, ease: "easeInOut" }}
           />
         </motion.div>
       )}
-      <Navbar active={active} />
-      <SideDots active={active} />
-      <main className="relative z-10">
-        <Home />
-        <About />
-        <Experience />
-        <Certifications />
-        <Posts />
-        <Contact />
-      </main>
+
+      <Navbar
+        view={view}
+        goTo={goTo}
+        theme={theme}
+        toggleTheme={() => setTheme((t) => (t === "red" ? "purple" : "red"))}
+      />
+
+      <AnimatePresence mode="wait" custom={dir}>
+        <motion.main
+          key={view}
+          custom={dir}
+          variants={viewVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute inset-0 z-10"
+        >
+          {renderView()}
+        </motion.main>
+      </AnimatePresence>
     </div>
   );
 }
