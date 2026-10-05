@@ -111,11 +111,100 @@ function BackgroundFX() {
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0">
       <div className="absolute inset-0 bg-coal" />
-      <div className="absolute -top-32 -left-32 w-[34rem] h-[34rem] rounded-full bg-blood/15 blur-[160px] animate-pulse-glow" />
-      <div className="absolute bottom-0 right-0 w-[30rem] h-[30rem] rounded-full bg-blood-deep/25 blur-[160px]" />
+      <div className="absolute -top-32 -left-32 w-[34rem] h-[34rem] rounded-full bg-blood/20 blur-[140px] animate-drift-a" />
+      <div className="absolute bottom-0 right-0 w-[30rem] h-[30rem] rounded-full bg-blood-deep/30 blur-[140px] animate-drift-b" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[46rem] h-[46rem] rounded-full bg-blood/10 blur-[180px] animate-pulse-glow" />
       <div className="absolute inset-0 dot-grid opacity-[0.35] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_40%,black,transparent)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(0,0,0,0.55)_100%)]" />
     </div>
+  );
+}
+
+/* Floating ember particles */
+function Embers() {
+  const ref = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = ref.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let w = 0;
+    let h = 0;
+    let raf = 0;
+    let t = 0;
+    const DPR = Math.min(window.devicePixelRatio || 1, 2);
+
+    type P = { x: number; y: number; r: number; s: number; drift: number; a: number; ph: number; warm: boolean };
+    let parts: P[] = [];
+
+    const spawn = (anywhere = false): P => ({
+      x: Math.random() * w,
+      y: anywhere ? Math.random() * h : h + 12,
+      r: 0.8 + Math.random() * 2.4,
+      s: 0.3 + Math.random() * 0.8,
+      drift: (Math.random() - 0.5) * 0.5,
+      a: 0.3 + Math.random() * 0.6,
+      ph: Math.random() * Math.PI * 2,
+      warm: Math.random() > 0.4,
+    });
+
+    const resize = () => {
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = w * DPR;
+      canvas.height = h * DPR;
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      const n = Math.min(85, Math.floor((w * h) / 24000));
+      parts = Array.from({ length: n }, () => spawn(true));
+    };
+
+    const tick = () => {
+      t += 0.016;
+      ctx.clearRect(0, 0, w, h);
+      for (let i = 0; i < parts.length; i++) {
+        const p = parts[i];
+        p.y -= p.s;
+        p.x += p.drift + Math.sin(t * 1.4 + p.ph) * 0.3;
+        if (p.y < -14 || p.x < -14 || p.x > w + 14) {
+          parts[i] = spawn();
+          continue;
+        }
+        const flick = 0.65 + 0.35 * Math.sin(t * 3.5 + p.ph);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.warm
+          ? `rgba(255,72,48,${(p.a * flick).toFixed(3)})`
+          : `rgba(255,190,120,${(p.a * flick * 0.8).toFixed(3)})`;
+        ctx.fill();
+      }
+      raf = requestAnimationFrame(tick);
+    };
+
+    resize();
+    tick();
+    window.addEventListener("resize", resize);
+    const onVis = () => {
+      if (document.hidden) cancelAnimationFrame(raf);
+      else tick();
+    };
+    document.addEventListener("visibilitychange", onVis);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+      document.removeEventListener("visibilitychange", onVis);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={ref}
+      aria-hidden="true"
+      className="pointer-events-none fixed inset-0 z-[1]"
+    />
   );
 }
 
@@ -750,6 +839,7 @@ export default function App() {
   return (
     <div className="relative min-h-screen bg-coal text-white font-sans overflow-x-clip">
       <BackgroundFX />
+      <Embers />
       <Navbar active={active} />
       <SideDots active={active} />
       <main className="relative z-10">

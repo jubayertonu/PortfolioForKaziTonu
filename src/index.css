@@ -87,6 +87,18 @@ html, body {
 }
 .animate-spin-slow { animation: spin-slow 24s linear infinite; }
 
+@keyframes drift-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(70px, 50px) scale(1.18); }
+}
+.animate-drift-a { animation: drift-a 16s ease-in-out infinite; }
+
+@keyframes drift-b {
+  0%, 100% { transform: translate(0, 0) scale(1.1); }
+  50% { transform: translate(-80px, -60px) scale(0.92); }
+}
+.animate-drift-b { animation: drift-b 21s ease-in-out infinite; }
+
 /* Thin red scrollbar for the page */
 ::-webkit-scrollbar { width: 9px; }
 ::-webkit-scrollbar-track { background: #08080a; }
