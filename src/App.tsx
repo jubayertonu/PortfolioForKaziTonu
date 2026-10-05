@@ -86,9 +86,10 @@ export default function App() {
         company: "Success Forever Construction & Maintenance Pte Ltd",
         period: "Dec 2023 - Present",
         bullets: [
-          "Oversee daily site safety and enforce strict compliance with WSH laws and standard regulations.",
-          "Conduct site safety briefings, toolbox talks, perform HIRA risk assessments, and manage routine field inspections.",
-          "Establish high workplace safety standards, proactively mitigating hazards and preventing structural incidents."
+          "Conduct daily toolbox meetings and safety briefings for site workers",
+          "Manage and enforce the Permit-to-Work (PTW) system on site",
+          "Carry out site inspections, hazard identification and risk assessments (HIRA)",
+          "Ensure compliance with MOM WSH regulations across HDB and PUB project sites"
         ]
       },
       {
@@ -123,19 +124,19 @@ export default function App() {
     ],
     education: [
       {
-        degree: "Bachelor of Business Studies (BBS)",
-        institution: "Naria Govt. College, Bangladesh",
-        period: "2020 - 2022 (Incomplete)"
-      },
-      {
-        degree: "Higher Secondary Certificate (HSC)",
-        institution: "Naria Govt. College, Bangladesh",
+        degree: "Higher Secondary Certificate (HSC), Business/Commerce",
+        institution: "Naria Govt College",
         period: "2018 - 2019 (Grade: A-)"
       },
       {
-        degree: "Secondary School Certificate (SSC)",
-        institution: "Naria BL Model High School, Bangladesh",
-        period: "2015 - 2017 (Grade: A)"
+        degree: "Secondary School Certificate (SSC), Business/Commerce",
+        institution: "Naria BL Model High School",
+        period: "2015 - 2017"
+      },
+      {
+        degree: "Junior School Certificate (JSC)",
+        institution: "Naria BL Model High School",
+        period: "2012 - 2014"
       }
     ]
   };
@@ -193,7 +194,7 @@ export default function App() {
     },
     {
       title: "Manage Work-at-Height",
-      authority: "Coursera",
+      authority: "Eversafe Academy",
       date: "Issued Jul 2023",
       description: "Specialized training for supervising elevated locations, implementing solid fall containment, protective setups, and MOM guidelines.",
       expiryDate: null
@@ -214,7 +215,7 @@ export default function App() {
     },
     {
       title: "Occupational First Aid Course",
-      authority: "Coursera",
+      authority: "Eversafe Academy",
       date: "Issued Jul 2026",
       description: "Certified occupational first aid responder for industrial & construction sites, emergency CPR/AED resuscitation, trauma management, and workplace casualty triage.",
       expiryDate: "2028-07-31"
@@ -241,16 +242,16 @@ export default function App() {
       expiryDate: null
     },
     {
-      title: "Introduction to OSHA: Safety Standards and Compliance",
+      title: "Introduction to OSHA; Safety Standards and Compliance",
       authority: "Coursera",
-      date: "Issued 2024",
+      date: "Issued Jan 2026",
       description: "Foundational training in OSHA safety standards, hazard identification, and regulatory compliance frameworks.",
       expiryDate: null
     },
     {
       title: "Psychological Safety",
       authority: "Coursera",
-      date: "Issued 2024",
+      date: "Issued Jan 2026",
       description: "Frameworks for building open, secure safety systems, encouraging open communication, and minimizing workplace operational worries.",
       expiryDate: null
     },
@@ -271,9 +272,9 @@ export default function App() {
     {
       title: "Psychological First Aid",
       authority: "Singapore Red Cross",
-      date: "Issued 2024",
+      date: "Issued Aug 2024",
       description: "Practical skills for delivering psychological first aid and emotional support during crises and emergencies.",
-      expiryDate: null
+      expiryDate: "2026-08-31"
     },
     {
       title: "Workplace Safety and Health Management in Construction Industry",
