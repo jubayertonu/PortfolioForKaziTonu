@@ -37,8 +37,8 @@ export const TechHeader: React.FC<TechHeaderProps> = ({ title, subtitle, icon })
       viewport={{ once: true }}
       transition={{ duration: 0.55, ease: "easeOut" }}
     >
-      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-widest uppercase flex items-center justify-center gap-3">
-        {icon && <span className="inline-block text-teal-400">{icon}</span>}
+      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-widest uppercase flex items-center justify-center gap-3 font-display">
+        {icon && <span className="inline-block text-amber-400">{icon}</span>}
         {title}
       </h2>
 
@@ -50,7 +50,7 @@ export const TechHeader: React.FC<TechHeaderProps> = ({ title, subtitle, icon })
 
       <div className="flex items-center justify-center pt-2">
         <motion.div 
-          className="h-0.5 bg-gradient-to-r from-transparent via-teal-400 to-transparent rounded-full shadow-[0_0_8px_#2dd4bf]"
+          className="h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent rounded-full shadow-[0_0_8px_#fbbf24]"
           initial={{ width: 0 }}
           whileInView={{ width: "112px" }}
           viewport={{ once: true }}
