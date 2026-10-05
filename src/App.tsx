@@ -481,10 +481,19 @@ export default function App() {
       </header>
 
       {/* -------------------------------- Hero ------------------------------- */}
-      <section id="home" className="relative min-h-screen flex items-center overflow-hidden bg-blueprint pt-24 pb-16">
+      <section id="home" className="relative overflow-hidden bg-blueprint pt-28 sm:pt-32 pb-16 lg:py-0 lg:min-h-screen lg:flex lg:items-center">
         {/* Amber glow accents */}
         <div className="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full bg-amber-500/10 blur-[140px] pointer-events-none" />
-        <div className="absolute bottom-0 right-0 w-[420px] h-[420px] rounded-full bg-amber-400/8 blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/3 -right-40 w-[560px] h-[560px] rounded-full bg-amber-400/10 blur-[140px] pointer-events-none" />
+        <div className="absolute bottom-0 left-1/4 w-[420px] h-[420px] rounded-full bg-amber-400/5 blur-[120px] pointer-events-none" />
+        {/* Giant watermark */}
+        <div aria-hidden="true" className="pointer-events-none select-none absolute inset-x-0 top-14 lg:top-1/2 lg:-translate-y-1/2 flex justify-center">
+          <span className="font-display font-black uppercase whitespace-nowrap leading-none text-[27vw] lg:text-[19rem] text-transparent [-webkit-text-stroke:1.5px_rgba(251,191,36,0.10)]">
+            Safety
+          </span>
+        </div>
+        {/* Bottom fade into next section */}
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0b0b0d] to-transparent pointer-events-none" />
 
         <div className="relative z-10 max-w-7xl mx-auto w-full px-6 lg:px-10 grid lg:grid-cols-12 gap-12 items-center">
           {/* Copy */}
@@ -526,6 +535,27 @@ export default function App() {
               daily toolbox talks to HIRA risk assessments and Permit-to-Work enforcement across{" "}
               <span className="text-amber-400 font-semibold">HDB and PUB projects</span>.
             </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.4 }}
+              className="flex flex-wrap items-center gap-x-6 gap-y-2.5 text-xs font-semibold tracking-wide text-zinc-400"
+            >
+              <span className="inline-flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-amber-400" /> Singapore
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+                </span>
+                Available in 2–3 weeks
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <HardHat className="w-3.5 h-3.5 text-amber-400" /> Construction & Built Environment
+              </span>
+            </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 24 }}
@@ -581,6 +611,11 @@ export default function App() {
             transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5 relative mx-auto w-full max-w-sm"
           >
+            {/* Viewfinder corner ticks */}
+            <div aria-hidden="true" className="absolute -top-3 -left-3 w-10 h-10 border-t-2 border-l-2 border-amber-400/70 rounded-tl-xl" />
+            <div aria-hidden="true" className="absolute -top-3 -right-3 w-10 h-10 border-t-2 border-r-2 border-amber-400/70 rounded-tr-xl" />
+            <div aria-hidden="true" className="absolute -bottom-3 -left-3 w-10 h-10 border-b-2 border-l-2 border-amber-400/70 rounded-bl-xl" />
+            <div aria-hidden="true" className="absolute -bottom-3 -right-3 w-10 h-10 border-b-2 border-r-2 border-amber-400/70 rounded-br-xl" />
             <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-amber-400/25 via-transparent to-transparent blur-2xl pointer-events-none" />
             <div className="relative rounded-[2rem] overflow-hidden border border-amber-400/30 shadow-[0_30px_80px_-20px_rgba(251,191,36,0.25)]">
               <img
@@ -611,6 +646,24 @@ export default function App() {
             </div>
           </motion.div>
         </div>
+        {/* Scroll cue */}
+        <motion.a
+          href="#summary"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 0.8 }}
+          className="hidden lg:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-zinc-500 hover:text-amber-400 transition-colors"
+          aria-label="Scroll to content"
+        >
+          <span className="text-[10px] font-bold tracking-[0.3em] uppercase">Scroll</span>
+          <span className="w-5 h-9 rounded-full border border-current flex justify-center pt-1.5">
+            <motion.span
+              animate={{ y: [0, 10, 0], opacity: [1, 0.2, 1] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+              className="w-1 h-2 rounded-full bg-current"
+            />
+          </span>
+        </motion.a>
       </section>
 
       {/* ---------------------------- Trust marquee --------------------------- */}
