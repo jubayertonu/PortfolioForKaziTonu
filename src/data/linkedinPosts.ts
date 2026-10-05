@@ -17,8 +17,27 @@ export interface LinkedInPost {
 }
 
 /** ISO date of the last sync, e.g. "2026-10-05" */
-export const postsUpdatedAt = "2026-10-05";
+export const postsUpdatedAt = "2026-10-06";
 
+export const linkedinPosts: LinkedInPost[] = [
+  {
+    id: "7512987136061550592",
+    text: `A suspended load never gives you a second chance. A concrete panel looks calm hanging from a crane hook — until a sling slips, a shackle cracks, or the ground under the crane gives way. Then 2 tonnes of concrete falls in less than one second. 🏗️
+Most crane accidents on site do not come from the crane breaking. They come from what we do under the hook:
+🏗️ Never walk or stand under a suspended load — this one rule saves more lives than any gadget
+🏗️ Watch your sling angle: at 60° you keep 87% of the sling's capacity, at 45° only 71%, and at 30° it drops to 50% — the sharper the angle, the weaker the lift
+🏗️ Check the ground: outriggers must sit on firm, level ground with proper mats — soft or uneven ground is one of the most common causes of crane overturn
+🏗️ One trained signalman gives the signals — everyone else stays clear of the lifting zone, at least 3 metres from the load path
+🏗️ Inspect every sling, hook and shackle before each lift — cut slings, cracked hooks and bent shackles go to the bin, not back on the rack
+👉 Simple safety rule: If the load can fall on you, you are standing in the wrong place.
+❓ QUIZ FOR YOU: A 2-tonne sling is rigged at a sharp 30° angle to lift a 1-tonne load. Safe or not safe? Tell me below. 👇
+#WSH #SafetyCoordinator #SingaporeConstruction #CraneSafety #LiftingSafety #ConstructionSafety #SafetyFirst`,
+    image: "/posts/post-10.jpg",
+    date: "2026-10-06",
+    reactions: null,
+    comments: null,
+    url: "https://www.linkedin.com/feed/update/urn:li:activity:7512987136061550592",
+  },
 export const linkedinPosts: LinkedInPost[] = [
   {
     id: "7512627460472102912",
