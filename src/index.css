@@ -1,50 +1,94 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Space+Grotesk:wght@400;500;700&family=Outfit:wght@400;500;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Outfit", "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-space: "Space Grotesk", sans-serif;
-  --font-display: "Archivo", "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Anton", "Archivo", ui-sans-serif, sans-serif;
+  --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-grotesk: "Space Grotesk", ui-sans-serif, sans-serif;
+  --color-blood: #ff3131;
+  --color-blood-deep: #b91c1c;
+  --color-coal: #08080a;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
+}
+
+html, body {
+  background: #08080a;
+  color: #fafafa;
+}
+
+@media (min-width: 1024px) {
+  html {
+    scroll-snap-type: y proximity;
+  }
+}
+
+.snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 ::selection {
-  background: #fbbf24;
-  color: #09090b;
+  background: #ff3131;
+  color: #fff;
 }
 
-/* Infinite marquee for the trust strip */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+/* Dotted grid backdrop */
+.dot-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.13) 1.2px, transparent 1.3px);
+  background-size: 22px 22px;
 }
 
-.animate-marquee {
-  animation: marquee 32s linear infinite;
+.dot-grid-red {
+  background-image: radial-gradient(rgba(255, 49, 49, 0.22) 1.4px, transparent 1.5px);
+  background-size: 24px 24px;
 }
 
-/* Subtle blueprint grid for the hero */
-.bg-blueprint {
-  background-image:
-    linear-gradient(rgba(251, 191, 36, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(251, 191, 36, 0.05) 1px, transparent 1px);
-  background-size: 44px 44px;
+/* Outlined display text */
+.text-outline {
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.9);
+  color: transparent;
 }
 
-/* Slow float for hero badges */
+.text-outline-faint {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.22);
+  color: transparent;
+}
+
+.text-outline-red {
+  -webkit-text-stroke: 1.5px rgba(255, 49, 49, 0.95);
+  color: transparent;
+}
+
+@media (min-width: 1024px) {
+  .text-outline, .text-outline-red { -webkit-text-stroke-width: 2px; }
+}
+
+/* Hide scrollbars on carousels */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
 @keyframes floaty {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  50% { transform: translateY(-12px); }
 }
+.animate-floaty { animation: floaty 6s ease-in-out infinite; }
 
-.animate-floaty {
-  animation: floaty 5s ease-in-out infinite;
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 0.95; transform: scale(1.08); }
 }
+.animate-pulse-glow { animation: pulse-glow 5s ease-in-out infinite; }
 
-.animate-floaty-delayed {
-  animation: floaty 6s ease-in-out 1.2s infinite;
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
 }
+.animate-spin-slow { animation: spin-slow 24s linear infinite; }
+
+/* Thin red scrollbar for the page */
+::-webkit-scrollbar { width: 9px; }
+::-webkit-scrollbar-track { background: #08080a; }
+::-webkit-scrollbar-thumb { background: #3f1215; border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: #ff3131; }
