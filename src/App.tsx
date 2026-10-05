@@ -227,7 +227,9 @@ function Navbar({ active }: { active: string }) {
                 key={n.id}
                 onClick={() => scrollToId(n.id)}
                 className={`font-grotesk text-[11px] font-semibold tracking-[0.25em] transition-colors cursor-pointer ${
-                  active === n.id ? "text-blood" : "text-zinc-400 hover:text-white"
+                  active === n.id
+                    ? "text-blood underline underline-offset-8 decoration-2 decoration-blood"
+                    : "text-zinc-400 hover:text-white"
                 }`}
               >
                 {n.label}
@@ -345,11 +347,11 @@ function SwipeNext({ target }: { target: string }) {
       onClick={() => scrollToId(target)}
       className="group inline-flex items-center gap-3 cursor-pointer"
     >
-      <span className="font-grotesk text-[11px] font-bold tracking-[0.3em] text-zinc-400 group-hover:text-white transition-colors uppercase">
+      <span className="font-grotesk text-[11px] font-bold tracking-[0.3em] text-blood uppercase">
         Swipe to Next
       </span>
-      <span className="w-11 h-11 rounded-full border border-white/20 group-hover:border-blood group-hover:bg-blood/10 flex items-center justify-center transition-all">
-        <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-0.5 transition-transform" />
+      <span className="w-11 h-11 rounded-full border border-blood/50 group-hover:bg-blood/15 flex items-center justify-center transition-all">
+        <ArrowRight className="w-4 h-4 text-blood group-hover:translate-x-0.5 transition-transform" />
       </span>
     </button>
   );
@@ -387,114 +389,107 @@ function CarouselButton({ dir, onClick }: { dir: "left" | "right"; onClick: () =
 /* --------------------------------- HOME --------------------------------- */
 function Home() {
   return (
-    <section id="home" className="snap-section relative overflow-hidden min-h-screen flex flex-col lg:block">
-      {/* Portrait glow + dot grid */}
-      <div aria-hidden="true" className="absolute left-1/2 top-[56%] lg:top-1/2 -translate-x-1/2 -translate-y-1/2 w-[88vw] max-w-[640px] aspect-square z-0">
-        <div className="absolute inset-0 dot-grid-red rounded-full [mask-image:radial-gradient(circle,black_25%,transparent_68%)]" />
-        <div className="absolute inset-[18%] rounded-full bg-blood/25 blur-[90px] animate-pulse-glow" />
-      </div>
+    <section id="home" className="snap-section relative overflow-hidden min-h-screen flex flex-col">
+      {/* Corner glows like the video */}
+      <div aria-hidden="true" className="absolute -top-24 -left-24 w-[26rem] h-[26rem] rounded-full bg-blood/25 blur-[130px] animate-drift-a z-0" />
+      <div aria-hidden="true" className="absolute -bottom-24 -right-24 w-[26rem] h-[26rem] rounded-full bg-blood-deep/35 blur-[130px] animate-drift-b z-0" />
 
-      {/* Headline block */}
-      <div className="relative z-20 px-6 lg:px-14 pt-24 lg:pt-0 lg:absolute lg:top-[12%] lg:inset-x-0 lg:text-center">
+      <div className="flex-1 grid lg:grid-cols-[1.05fr_1fr] items-center gap-4 lg:gap-6 w-full max-w-7xl mx-auto px-6 lg:px-14 pt-28 lg:pt-24 pb-4 relative z-10">
+        {/* LEFT — text block */}
+        <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="font-grotesk font-bold tracking-[0.3em] text-base lg:text-lg text-white">
+              HELLO!
+            </span>
+            <svg viewBox="0 0 120 12" className="w-28 h-3 text-blood mt-1" fill="none" aria-hidden="true">
+              <path d="M2 9 C 30 2, 70 2, 118 7" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" />
+            </svg>
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.12 }}
+            className="font-grotesk font-bold text-blood tracking-[0.45em] text-xs lg:text-sm mt-7 uppercase"
+          >
+            Meet
+          </motion.p>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="font-display leading-[0.92] mt-2 text-[clamp(3.4rem,11vw,7.5rem)]"
+          >
+            <span className="block bg-gradient-to-b from-[#ffa3a3] via-[#ff3131] to-[#a80f0f] bg-clip-text text-transparent">
+              KAZI
+            </span>
+            <span className="block bg-gradient-to-b from-[#ffa3a3] via-[#ff3131] to-[#a80f0f] bg-clip-text text-transparent">
+              TONU.
+            </span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.38 }}
+            className="font-grotesk text-[11px] lg:text-[13px] font-semibold tracking-[0.35em] text-white mt-5 uppercase"
+          >
+            MOM-Qualified WSH Coordinator
+          </motion.p>
+
+          {/* Contact block with accent divider */}
+          <motion.div
+            initial={{ opacity: 0, x: -18 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.5 }}
+            className="border-l-2 border-blood pl-5 mt-8 space-y-3 font-grotesk text-[12px] lg:text-[13px] text-zinc-300"
+          >
+            <span className="flex items-center gap-2.5">
+              <MapPin className="w-4 h-4 text-blood" /> Singapore
+            </span>
+            <span className="flex items-center gap-2.5">
+              <span className="w-4 h-4 flex items-center justify-center">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              </span>
+              Available in 2–3 weeks
+            </span>
+            <a href={`mailto:${EMAIL}`} className="flex items-center gap-2.5 hover:text-white transition-colors">
+              <Mail className="w-4 h-4 text-blood" /> {EMAIL}
+            </a>
+          </motion.div>
+        </div>
+
+        {/* RIGHT — person */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          className="relative flex justify-center lg:justify-end items-center"
         >
-          <span className="font-grotesk font-bold tracking-[0.35em] text-sm lg:text-base text-white">
-            HELLO!
-          </span>
-          <svg viewBox="0 0 120 12" className="w-24 lg:w-28 h-3 text-blood lg:mx-auto mt-1" fill="none" aria-hidden="true">
-            <path d="M2 9 C 30 2, 70 2, 118 7" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" />
-          </svg>
-        </motion.div>
-        <motion.h1
-          initial={{ opacity: 0, y: 34 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display leading-[0.88] mt-4 text-white"
-        >
-          <span className="block text-[clamp(2.6rem,11vw,7rem)]">MEET</span>
-          <span className="block text-[clamp(3rem,13.5vw,9.5rem)]">
-            KAZI <span className="text-blood">TONU.</span>
-          </span>
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.35 }}
-          className="font-grotesk text-[11px] lg:text-sm font-semibold tracking-[0.45em] text-zinc-300 mt-5 uppercase"
-        >
-          MOM-Qualified WSH Coordinator
-        </motion.p>
-        {/* Mobile contact row */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="lg:hidden flex flex-wrap gap-x-5 gap-y-2 mt-5 font-grotesk text-[11px] text-zinc-400"
-        >
-          <span className="inline-flex items-center gap-1.5">
-            <MapPin className="w-3.5 h-3.5 text-blood" /> Singapore
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> Available in 2–3 weeks
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <Mail className="w-3.5 h-3.5 text-blood" /> {EMAIL}
-          </span>
+          <div aria-hidden="true" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] max-w-[420px] aspect-square">
+            <div className="absolute inset-0 dot-grid-red rounded-full [mask-image:radial-gradient(circle,black_25%,transparent_68%)]" />
+            <div className="absolute inset-[16%] rounded-full bg-blood/30 blur-[80px] animate-pulse-glow" />
+          </div>
+          <img
+            src="/hero-photo.png"
+            alt="Kazi Tonu — WSH Coordinator"
+            className="relative h-[38vh] lg:h-[70vh] object-contain [mask-image:linear-gradient(to_bottom,black_84%,transparent_99%)]"
+            draggable={false}
+          />
         </motion.div>
       </div>
-
-      {/* Portrait */}
-      <motion.div
-        initial={{ opacity: 0, y: 60 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-        className="relative z-10 mx-auto mt-4 lg:mt-0 lg:absolute lg:bottom-0 lg:left-1/2 lg:-translate-x-1/2"
-      >
-        <img
-          src="/hero-photo.png"
-          alt="Kazi Tonu — WSH Coordinator"
-          className="h-[42vh] lg:h-[68vh] object-contain [mask-image:linear-gradient(to_bottom,black_84%,transparent_99%)]"
-          draggable={false}
-        />
-      </motion.div>
-
-      {/* Desktop contact block */}
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8, delay: 0.6 }}
-        className="hidden lg:block absolute bottom-10 left-14 z-20 space-y-3 font-grotesk text-xs text-zinc-300"
-      >
-        <div className="flex items-center gap-3">
-          <MapPin className="w-4 h-4 text-blood" />
-          <span className="tracking-widest uppercase text-zinc-500">Location</span>
-          <span className="text-white font-semibold">Singapore</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <span className="w-4 h-4 flex items-center justify-center">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          </span>
-          <span className="tracking-widest uppercase text-zinc-500">Status</span>
-          <span className="text-white font-semibold">Available in 2–3 weeks</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <Mail className="w-4 h-4 text-blood" />
-          <span className="tracking-widest uppercase text-zinc-500">Email</span>
-          <a href={`mailto:${EMAIL}`} className="text-white font-semibold hover:text-blood transition-colors">
-            {EMAIL}
-          </a>
-        </div>
-      </motion.div>
 
       {/* Swipe next */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.9 }}
-        className="relative z-20 flex justify-center lg:justify-end pb-10 pt-6 lg:pt-0 lg:pb-0 lg:absolute lg:bottom-10 lg:right-14"
+        className="relative z-10 flex justify-center lg:justify-end px-6 lg:px-14 pb-10"
       >
         <SwipeNext target="about" />
       </motion.div>
@@ -819,6 +814,9 @@ function Contact() {
 /* ---------------------------------- APP ---------------------------------- */
 export default function App() {
   const [active, setActive] = useState("home");
+  const [flash, setFlash] = useState(0);
+  const firstRun = useRef(true);
+  const lastFlash = useRef(0);
 
   useEffect(() => {
     const sections = NAV.map((n) => document.getElementById(n.id)).filter(
@@ -836,10 +834,42 @@ export default function App() {
     return () => obs.disconnect();
   }, []);
 
+  /* Cinematic wipe transition when the active section changes */
+  useEffect(() => {
+    if (firstRun.current) {
+      firstRun.current = false;
+      return;
+    }
+    const now = Date.now();
+    if (now - lastFlash.current < 900) return;
+    lastFlash.current = now;
+    setFlash((f) => f + 1);
+  }, [active]);
+
   return (
     <div className="relative min-h-screen bg-coal text-white font-sans overflow-x-clip">
       <BackgroundFX />
       <Embers />
+      {/* Section-change wipe */}
+      {flash > 0 && (
+        <motion.div
+          key={flash}
+          aria-hidden="true"
+          className="pointer-events-none fixed inset-0 z-40"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0, 1, 0] }}
+          transition={{ duration: 0.65, times: [0, 0.32, 1], ease: "easeInOut" }}
+          onAnimationComplete={() => setFlash(0)}
+        >
+          <div className="absolute inset-0 bg-black/85" />
+          <motion.div
+            className="absolute top-[-20%] bottom-[-20%] w-44 bg-blood/25 blur-[70px] -skew-x-12"
+            initial={{ left: "-15%" }}
+            animate={{ left: "112%" }}
+            transition={{ duration: 0.65, ease: "easeInOut" }}
+          />
+        </motion.div>
+      )}
       <Navbar active={active} />
       <SideDots active={active} />
       <main className="relative z-10">
