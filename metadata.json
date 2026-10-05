@@ -1,0 +1,6 @@
+{
+  "name": "Kazi Tonu Portfolio",
+  "description": "Portfolio landing page for Kazi Tonu, Workplace Safety and Health Coordinator.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
