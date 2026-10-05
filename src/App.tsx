@@ -6,6 +6,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { TechSection, TechHeader } from "./components/TechSection";
+import { linkedinPosts, postsUpdatedAt } from "./data/linkedinPosts";
 import { 
   FileText, 
   Mail, 
@@ -177,6 +178,11 @@ export default function App() {
     };
   };
 
+  const formatPostDate = (iso: string) => {
+    const d = new Date(iso + "T00:00:00");
+    return d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+  };
+
   const certificationsList = [
     {
       title: "Digital Marketing Certified",
@@ -337,7 +343,7 @@ export default function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["home", "summary", "experience", "certifications", "competencies", "contact"];
+      const sections = ["home", "summary", "experience", "certifications", "posts", "competencies", "contact"];
       const scrollPosition = window.scrollY + 180;
 
       for (const sectionId of sections) {
@@ -379,6 +385,7 @@ export default function App() {
     { id: "summary", label: "ABOUT" },
     { id: "experience", label: "EXPERIENCE" },
     { id: "certifications", label: "CERTIFICATIONS" },
+    { id: "posts", label: "POSTS" },
     { id: "competencies", label: "SERVICES" },
     { id: "contact", label: "CONTACT" },
   ];
@@ -861,6 +868,53 @@ export default function App() {
               })}
             </AnimatePresence>
           </motion.div>
+        </TechSection>
+
+        {/* LinkedIn Posts Section — synced daily from linkedin.com/in/kazitonu */}
+        <TechSection id="posts" className="bg-[#212121] border border-zinc-800/80 rounded-2xl p-8 sm:p-12 lg:p-16 space-y-12 shadow-2xl">
+          <TechHeader title="LINKEDIN POSTS" subtitle="My latest workplace-safety posts — synced from LinkedIn every day." />
+
+          {/* Posts Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {linkedinPosts.map((post) => (
+              <motion.a
+                key={post.id}
+                href={post.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ y: -4, borderColor: "rgba(20,184,166,0.5)" }}
+                transition={{ duration: 0.35, ease: "easeInOut" }}
+                className="bg-zinc-900/90 border border-zinc-800/80 rounded-xl overflow-hidden flex flex-col transition-all group"
+              >
+                <div className="aspect-[4/3] overflow-hidden bg-zinc-950">
+                  <img
+                    src={post.image}
+                    alt="LinkedIn post image"
+                    loading="lazy"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                <div className="p-5 flex flex-col space-y-3 flex-1">
+                  <div className="flex items-center justify-between text-[11px] font-mono">
+                    <span className="text-teal-400">{formatPostDate(post.date)}</span>
+                    <span className="text-zinc-500">
+                      {post.reactions != null && `${post.reactions} reaction${post.reactions === 1 ? "" : "s"}`}
+                      {post.reactions != null && post.comments != null && " · "}
+                      {post.comments != null && `${post.comments} comment${post.comments === 1 ? "" : "s"}`}
+                    </span>
+                  </div>
+                  <p className="text-xs text-zinc-300 leading-relaxed line-clamp-4 whitespace-pre-line">{post.text}</p>
+                  <div className="pt-3 mt-auto border-t border-zinc-800/80 flex items-center justify-between">
+                    <span className="text-[11px] font-bold text-white flex items-center gap-1 group-hover:text-teal-400 transition-colors">
+                      View on LinkedIn <ArrowUpRight className="w-3.5 h-3.5" />
+                    </span>
+                    <Linkedin className="w-4 h-4 text-blue-400" />
+                  </div>
+                </div>
+              </motion.a>
+            ))}
+          </div>
+          <p className="text-center text-[11px] font-mono text-zinc-600">Last synced: {formatPostDate(postsUpdatedAt)}</p>
         </TechSection>
 
         {/* Specialized WSH Competencies */}
