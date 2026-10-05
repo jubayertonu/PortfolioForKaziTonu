@@ -495,7 +495,22 @@ export default function App() {
         {/* Bottom fade into next section */}
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0b0b0d] to-transparent pointer-events-none" />
 
-        <div className="relative z-10 max-w-7xl mx-auto w-full px-6 lg:px-10 grid lg:grid-cols-12 gap-12 items-center">
+        <div className="relative z-10 max-w-7xl mx-auto w-full px-6 lg:px-10">
+          {/* Badge */}
+          <motion.p
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="inline-flex items-center gap-2.5 text-[11px] sm:text-xs font-bold tracking-[0.28em] text-amber-400 uppercase border border-amber-400/25 bg-amber-400/5 rounded-full px-4 py-2"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-400" />
+            </span>
+            MOM-Qualified WSH Coordinator — Singapore
+          </motion.p>
+
+          <div className="mt-6 lg:mt-10 grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           {/* Copy */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -503,27 +518,37 @@ export default function App() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-7 space-y-6"
           >
-            <motion.p
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.15 }}
-              className="inline-flex items-center gap-2.5 text-[11px] sm:text-xs font-bold tracking-[0.28em] text-amber-400 uppercase border border-amber-400/25 bg-amber-400/5 rounded-full px-4 py-2"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-400" />
-              </span>
-              MOM-Qualified WSH Coordinator — Singapore
-            </motion.p>
-
+            <div className="flex items-start gap-5 sm:gap-8 lg:block">
             <motion.h1
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.25 }}
-              className="font-display text-6xl sm:text-7xl md:text-8xl font-black text-white tracking-tight uppercase leading-[0.95]"
+              className="font-display text-[2.75rem] sm:text-6xl lg:text-7xl xl:text-8xl font-black text-white tracking-tight uppercase leading-[0.95] flex-1 min-w-0"
             >
               Kazi<br />Tonu<span className="text-amber-400">.</span>
             </motion.h1>
+
+              {/* Mobile photo — beside the headline */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.94 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className="lg:hidden relative w-36 sm:w-44 shrink-0"
+              >
+                <div aria-hidden="true" className="absolute -top-2 -left-2 w-7 h-7 border-t-2 border-l-2 border-amber-400/70 rounded-tl-lg" />
+                <div aria-hidden="true" className="absolute -top-2 -right-2 w-7 h-7 border-t-2 border-r-2 border-amber-400/70 rounded-tr-lg" />
+                <div aria-hidden="true" className="absolute -bottom-2 -left-2 w-7 h-7 border-b-2 border-l-2 border-amber-400/70 rounded-bl-lg" />
+                <div aria-hidden="true" className="absolute -bottom-2 -right-2 w-7 h-7 border-b-2 border-r-2 border-amber-400/70 rounded-br-lg" />
+                <div className="relative rounded-2xl overflow-hidden border border-amber-400/30 shadow-[0_20px_50px_-16px_rgba(251,191,36,0.35)]">
+                  <img
+                    src="/hero-photo.png"
+                    alt="Kazi Tonu — WSH Coordinator"
+                    className="w-full aspect-[4/5] object-cover object-top"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                </div>
+              </motion.div>
+            </div>
 
             <motion.p
               initial={{ opacity: 0, y: 24 }}
@@ -604,12 +629,12 @@ export default function App() {
             </motion.div>
           </motion.div>
 
-          {/* Portrait */}
+          {/* Portrait — desktop only (mobile shows the photo beside the headline) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-5 relative mx-auto w-full max-w-sm"
+            className="hidden lg:block lg:col-span-5 relative mx-auto w-full max-w-sm"
           >
             {/* Viewfinder corner ticks */}
             <div aria-hidden="true" className="absolute -top-3 -left-3 w-10 h-10 border-t-2 border-l-2 border-amber-400/70 rounded-tl-xl" />
@@ -645,6 +670,7 @@ export default function App() {
               </div>
             </div>
           </motion.div>
+          </div>
         </div>
         {/* Scroll cue */}
         <motion.a
