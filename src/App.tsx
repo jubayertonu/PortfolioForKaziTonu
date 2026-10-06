@@ -395,24 +395,8 @@ function Enter({ children, delay = 0, className = "" }: { children: ReactNode; d
 function HomeView({ goTo }: { goTo: (i: number) => void }) {
   return (
     <section className="h-[100dvh] relative flex flex-col overflow-hidden">
-      <div className="flex-1 w-full max-w-7xl mx-auto px-6 md:px-12 pt-20 md:pt-20 flex items-center relative">
-        {/* Mobile photo layer — 300x350 top-right, text overlays it */}
-        <div className="md:hidden absolute right-6 top-20 w-[300px] max-w-[calc(100vw-3rem)] aspect-[6/7] z-0">
-          <div className="relative w-full h-full pointer-events-none">
-            <div aria-hidden="true" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] aspect-square">
-              <div className="absolute inset-[14%] rounded-full blur-[80px] animate-pulse-glow transition-colors duration-1000"
-                style={{ backgroundColor: "color-mix(in srgb, var(--accent) 30%, transparent)" }} />
-            </div>
-            <img
-              src="/hero-photo.png"
-              alt="Kazi Tonu — WSH Coordinator"
-              draggable={false}
-              className="glitch-in relative w-full h-full object-cover [mask-image:linear-gradient(to_bottom,black_84%,transparent_99%)]"
-            />
-          </div>
-        </div>
-
-        <div className="flex items-center gap-8 w-full relative z-10">
+      <div className="flex-1 w-full max-w-7xl mx-auto px-4 md:px-12 pt-20 md:pt-20 flex items-center relative">
+        <div className="flex items-start md:items-center gap-2 md:gap-8 w-full relative z-10">
           {/* Text column */}
           <div className="flex-1 md:flex-[1.05] min-w-0 relative z-10">
             <Enter>
@@ -429,7 +413,7 @@ function HomeView({ goTo }: { goTo: (i: number) => void }) {
                 style={{ color: accent }}>
                 Meet
               </p>
-              <h1 className="font-display leading-[0.92] mt-2 text-[clamp(2.6rem,13vw,7.5rem)]">
+              <h1 className="font-display leading-[0.92] mt-2 text-[clamp(2rem,10vw,7.5rem)]">
                 <span className="block bg-clip-text text-transparent"
                   style={{ backgroundImage: "linear-gradient(to bottom, var(--grad-from), var(--accent) 55%, var(--grad-to))" }}>
                   KAZI
@@ -460,8 +444,8 @@ function HomeView({ goTo }: { goTo: (i: number) => void }) {
             </Enter>
           </div>
 
-          {/* Portrait — desktop only */}
-          <div className="group relative hidden md:flex md:flex-[0.95] justify-center items-center">
+          {/* Portrait — right side on mobile, right on desktop */}
+          <div className="group relative w-[220px] md:w-auto md:flex-[0.95] shrink-0 flex justify-center items-center">
             {/* hover perspective grid */}
             <div aria-hidden="true"
               className="persp-grid absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[115%] max-w-[520px] aspect-square opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700" />
@@ -474,7 +458,7 @@ function HomeView({ goTo }: { goTo: (i: number) => void }) {
               src="/hero-photo.png"
               alt="Kazi Tonu — WSH Coordinator"
               draggable={false}
-              className="glitch-in relative md:h-[74vh] object-contain [mask-image:linear-gradient(to_bottom,black_84%,transparent_99%)]"
+              className="glitch-in relative w-full aspect-[4/5] md:aspect-auto md:w-auto md:h-[74vh] object-cover md:object-contain [mask-image:linear-gradient(to_bottom,black_84%,transparent_99%)]"
             />
           </div>
         </div>
