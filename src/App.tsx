@@ -409,7 +409,6 @@ function HomeView({ goTo }: { goTo: (i: number) => void }) {
               draggable={false}
               className="glitch-in relative w-full h-full object-cover [mask-image:linear-gradient(to_bottom,black_84%,transparent_99%)]"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/55 to-transparent" />
           </div>
         </div>
 
