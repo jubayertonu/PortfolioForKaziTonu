@@ -396,7 +396,7 @@ function HomeView({ goTo }: { goTo: (i: number) => void }) {
   return (
     <section className="h-[100dvh] relative flex flex-col overflow-hidden">
       <div className="flex-1 w-full max-w-7xl mx-auto px-6 md:px-12 pt-20 md:pt-20 flex items-center">
-        <div className="flex items-start md:items-center gap-4 md:gap-8 w-full">
+        <div className="flex items-start md:items-center gap-3 md:gap-8 w-full">
           {/* Text column */}
           <div className="flex-1 md:flex-[1.05] min-w-0 relative z-10">
             <Enter>
@@ -413,7 +413,7 @@ function HomeView({ goTo }: { goTo: (i: number) => void }) {
                 style={{ color: accent }}>
                 Meet
               </p>
-              <h1 className="font-display leading-[0.92] mt-2 text-[clamp(2.6rem,13vw,7.5rem)]">
+              <h1 className="font-display leading-[0.92] mt-2 text-[clamp(2.2rem,11vw,7.5rem)]">
                 <span className="block bg-clip-text text-transparent"
                   style={{ backgroundImage: "linear-gradient(to bottom, var(--grad-from), var(--accent) 55%, var(--grad-to))" }}>
                   KAZI
@@ -445,7 +445,7 @@ function HomeView({ goTo }: { goTo: (i: number) => void }) {
           </div>
 
           {/* Portrait — top-right on mobile, right on desktop */}
-          <div className="group relative w-[38%] md:w-auto md:flex-[0.95] shrink-0 flex justify-center items-center">
+          <div className="group relative w-[50%] md:w-auto md:flex-[0.95] shrink-0 flex justify-center items-center">
             {/* hover perspective grid */}
             <div aria-hidden="true"
               className="persp-grid absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[115%] max-w-[520px] aspect-square opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700" />
