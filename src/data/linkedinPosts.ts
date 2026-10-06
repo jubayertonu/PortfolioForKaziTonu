@@ -38,7 +38,6 @@ Most crane accidents on site do not come from the crane breaking. They come from
     comments: null,
     url: "https://www.linkedin.com/feed/update/urn:li:activity:7512987136061550592",
   },
-export const linkedinPosts: LinkedInPost[] = [
   {
     id: "7512627460472102912",
     text: `Electricity is the quietest killer on a construction site.

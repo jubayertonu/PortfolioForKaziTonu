@@ -395,70 +395,72 @@ function Enter({ children, delay = 0, className = "" }: { children: ReactNode; d
 function HomeView({ goTo }: { goTo: (i: number) => void }) {
   return (
     <section className="h-[100dvh] relative flex flex-col overflow-hidden">
-      <div className="flex-1 grid md:grid-cols-[1.05fr_0.95fr] items-center gap-2 md:gap-6 w-full max-w-7xl mx-auto px-6 md:px-12 pt-24 md:pt-20">
-        {/* Left column */}
-        <div className="relative z-10">
-          <Enter>
-            <h2 className="font-sans font-black text-[22px] md:text-3xl tracking-[0.08em] text-white">
-              <DecodeText text="HELLO!" />
-            </h2>
-            <svg viewBox="0 0 120 12" className="w-28 md:w-36 h-3 mt-1.5" fill="none" aria-hidden="true"
-              style={{ color: accent }}>
-              <path d="M2 9 C 30 2, 70 2, 118 7" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
-            </svg>
-          </Enter>
-          <Enter delay={0.15}>
-            <p className="font-grotesk font-bold tracking-[0.5em] text-[11px] md:text-sm mt-6 md:mt-8 uppercase"
-              style={{ color: accent }}>
-              Meet
-            </p>
-            <h1 className="font-display leading-[0.92] mt-2 text-[clamp(3.2rem,12vw,7.5rem)]">
-              <span className="block bg-clip-text text-transparent"
-                style={{ backgroundImage: "linear-gradient(to bottom, var(--grad-from), var(--accent) 55%, var(--grad-to))" }}>
-                KAZI
-              </span>
-              <span className="block bg-clip-text text-transparent"
-                style={{ backgroundImage: "linear-gradient(to bottom, var(--grad-from), var(--accent) 55%, var(--grad-to))" }}>
-                TONU.
-              </span>
-            </h1>
-          </Enter>
-          <Enter delay={0.3}>
-            <p className="font-grotesk text-[11px] md:text-[13px] font-semibold tracking-[0.32em] text-white mt-4 md:mt-5 uppercase">
-              MOM-Qualified WSH Coordinator
-            </p>
-          </Enter>
-          <Enter delay={0.42}>
-            <div className="mt-6 md:mt-8 space-y-2.5 md:space-y-3 font-grotesk text-[12px] md:text-[13px] text-zinc-300">
-              <span className="flex items-center gap-2.5">
-                <MapPin className="w-4 h-4 shrink-0" style={{ color: accent }} /> Singapore
-              </span>
-              <span className="flex items-center gap-2.5">
-                <BadgeCheck className="w-4 h-4 shrink-0" style={{ color: accent }} /> Available in 2–3 weeks
-              </span>
-              <a href={`mailto:${EMAIL}`} className="flex items-center gap-2.5 hover:text-white transition-colors">
-                <Mail className="w-4 h-4 shrink-0" style={{ color: accent }} /> {EMAIL}
-              </a>
-            </div>
-          </Enter>
-        </div>
-
-        {/* Center portrait */}
-        <div className="group relative flex justify-center md:justify-center items-center">
-          {/* hover perspective grid */}
-          <div aria-hidden="true"
-            className="persp-grid absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[115%] max-w-[520px] aspect-square opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700" />
-          {/* resting glow */}
-          <div aria-hidden="true" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] max-w-[420px] aspect-square">
-            <div className="absolute inset-[14%] rounded-full blur-[80px] animate-pulse-glow transition-colors duration-1000"
-              style={{ backgroundColor: "color-mix(in srgb, var(--accent) 30%, transparent)" }} />
+      <div className="flex-1 w-full max-w-7xl mx-auto px-6 md:px-12 pt-20 md:pt-20 flex items-center">
+        <div className="flex items-start md:items-center gap-4 md:gap-8 w-full">
+          {/* Text column */}
+          <div className="flex-1 md:flex-[1.05] min-w-0 relative z-10">
+            <Enter>
+              <h2 className="font-sans font-black text-[20px] md:text-3xl tracking-[0.08em] text-white">
+                <DecodeText text="HELLO!" />
+              </h2>
+              <svg viewBox="0 0 120 12" className="w-24 md:w-36 h-3 mt-1.5" fill="none" aria-hidden="true"
+                style={{ color: accent }}>
+                <path d="M2 9 C 30 2, 70 2, 118 7" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+              </svg>
+            </Enter>
+            <Enter delay={0.15}>
+              <p className="font-grotesk font-bold tracking-[0.5em] text-[10px] md:text-sm mt-5 md:mt-8 uppercase"
+                style={{ color: accent }}>
+                Meet
+              </p>
+              <h1 className="font-display leading-[0.92] mt-2 text-[clamp(2.6rem,13vw,7.5rem)]">
+                <span className="block bg-clip-text text-transparent"
+                  style={{ backgroundImage: "linear-gradient(to bottom, var(--grad-from), var(--accent) 55%, var(--grad-to))" }}>
+                  KAZI
+                </span>
+                <span className="block bg-clip-text text-transparent"
+                  style={{ backgroundImage: "linear-gradient(to bottom, var(--grad-from), var(--accent) 55%, var(--grad-to))" }}>
+                  TONU.
+                </span>
+              </h1>
+            </Enter>
+            <Enter delay={0.3}>
+              <p className="font-grotesk text-[10px] md:text-[13px] font-semibold tracking-[0.28em] text-white mt-4 md:mt-5 uppercase">
+                MOM-Qualified WSH Coordinator
+              </p>
+            </Enter>
+            <Enter delay={0.42}>
+              <div className="mt-5 md:mt-8 space-y-2 md:space-y-3 font-grotesk text-[11px] md:text-[13px] text-zinc-300">
+                <span className="flex items-center gap-2">
+                  <MapPin className="w-4 h-4 shrink-0" style={{ color: accent }} /> Singapore
+                </span>
+                <span className="flex items-center gap-2">
+                  <BadgeCheck className="w-4 h-4 shrink-0" style={{ color: accent }} /> Available in 2–3 weeks
+                </span>
+                <a href={`mailto:${EMAIL}`} className="flex items-center gap-2 hover:text-white transition-colors">
+                  <Mail className="w-4 h-4 shrink-0" style={{ color: accent }} /> {EMAIL}
+                </a>
+              </div>
+            </Enter>
           </div>
-          <img
-            src="/hero-photo.png"
-            alt="Kazi Tonu — WSH Coordinator"
-            draggable={false}
-            className="glitch-in relative h-[30vh] md:h-[74vh] object-contain [mask-image:linear-gradient(to_bottom,black_84%,transparent_99%)]"
-          />
+
+          {/* Portrait — top-right on mobile, right on desktop */}
+          <div className="group relative w-[38%] md:w-auto md:flex-[0.95] shrink-0 flex justify-center items-center">
+            {/* hover perspective grid */}
+            <div aria-hidden="true"
+              className="persp-grid absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[115%] max-w-[520px] aspect-square opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700" />
+            {/* resting glow */}
+            <div aria-hidden="true" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] max-w-[420px] aspect-square">
+              <div className="absolute inset-[14%] rounded-full blur-[80px] animate-pulse-glow transition-colors duration-1000"
+                style={{ backgroundColor: "color-mix(in srgb, var(--accent) 30%, transparent)" }} />
+            </div>
+            <img
+              src="/hero-photo.png"
+              alt="Kazi Tonu — WSH Coordinator"
+              draggable={false}
+              className="glitch-in relative w-full md:w-auto md:h-[74vh] object-contain [mask-image:linear-gradient(to_bottom,black_84%,transparent_99%)]"
+            />
+          </div>
         </div>
       </div>
 
