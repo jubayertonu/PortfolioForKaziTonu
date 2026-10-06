@@ -413,7 +413,7 @@ function HomeView({ goTo }: { goTo: (i: number) => void }) {
                 style={{ color: accent }}>
                 Meet
               </p>
-              <h1 className="font-display leading-[0.92] mt-2 text-[clamp(2.2rem,11vw,7.5rem)]">
+              <h1 className="font-display leading-[0.92] mt-2 text-[clamp(2rem,10vw,7.5rem)]">
                 <span className="block bg-clip-text text-transparent"
                   style={{ backgroundImage: "linear-gradient(to bottom, var(--grad-from), var(--accent) 55%, var(--grad-to))" }}>
                   KAZI
@@ -445,7 +445,7 @@ function HomeView({ goTo }: { goTo: (i: number) => void }) {
           </div>
 
           {/* Portrait — top-right on mobile, right on desktop */}
-          <div className="group relative w-[50%] md:w-auto md:flex-[0.95] shrink-0 flex justify-center items-center">
+          <div className="group relative w-[200px] md:w-auto md:flex-[0.95] shrink-0 flex justify-center items-center">
             {/* hover perspective grid */}
             <div aria-hidden="true"
               className="persp-grid absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[115%] max-w-[520px] aspect-square opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700" />
@@ -458,7 +458,7 @@ function HomeView({ goTo }: { goTo: (i: number) => void }) {
               src="/hero-photo.png"
               alt="Kazi Tonu — WSH Coordinator"
               draggable={false}
-              className="glitch-in relative w-full md:w-auto md:h-[74vh] object-contain [mask-image:linear-gradient(to_bottom,black_84%,transparent_99%)]"
+              className="glitch-in relative w-full aspect-[4/5] md:aspect-auto md:w-auto md:h-[74vh] object-cover md:object-contain [mask-image:linear-gradient(to_bottom,black_84%,transparent_99%)]"
             />
           </div>
         </div>
