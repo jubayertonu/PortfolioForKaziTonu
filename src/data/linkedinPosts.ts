@@ -17,9 +17,33 @@ export interface LinkedInPost {
 }
 
 /** ISO date of the last sync, e.g. "2026-10-05" */
-export const postsUpdatedAt = "2026-10-06";
+export const postsUpdatedAt = "2026-10-07";
 
 export const linkedinPosts: LinkedInPost[] = [
+  {
+    id: "7513346293147213824",
+    text: `A wrench left on a scaffold edge is a loaded weapon.
+A 1 kg spanner dropped from 10 metres hits the ground at 50 km/h — faster than a cyclist at full sprint. Your hard hat is rated for small falling objects, not for that. 🏗️
+
+Most dropped-object incidents are not freak accidents. They are somebody's tool, somebody's phone, somebody's bolt:
+
+🧰 Tether your tools — every tool used above a work area gets a lanyard, no exceptions
+🧱 Fit toe boards on every scaffold platform — a 15 cm board stops the tool before it becomes a missile
+🚧 Barricade the drop zone below — if nobody stands under it, nobody gets hit by it
+🪖 Wear your hard hat with the chin strap fastened — a hat on the ground protects nobody
+👀 Do a 2-minute housekeeping sweep before every break and at end of shift — loose items on ledges are tomorrow's incidents
+
+👉 Simple safety rule: If it is not tethered, tied down, or put away — it is a falling object waiting to happen.
+
+❓ QUIZ FOR YOU: A worker is bolting steel on level 5. His hammer is untethered and there is no toe board. What is YOUR first action — stop him, or tell him to finish fast? Tell me below. 👇
+
+#WSH #SafetyCoordinator #SingaporeConstruction #DroppedObjects #StruckBySafety #ConstructionSafety #SafetyFirst`,
+    image: "/posts/post-11.jpg",
+    date: "2026-10-07",
+    reactions: null,
+    comments: null,
+    url: "https://www.linkedin.com/feed/update/urn:li:activity:7513346293147213824",
+  },
   {
     id: "7512987136061550592",
     text: `A suspended load never gives you a second chance. A concrete panel looks calm hanging from a crane hook — until a sling slips, a shackle cracks, or the ground under the crane gives way. Then 2 tonnes of concrete falls in less than one second. 🏗️
@@ -34,8 +58,8 @@ Most crane accidents on site do not come from the crane breaking. They come from
 #WSH #SafetyCoordinator #SingaporeConstruction #CraneSafety #LiftingSafety #ConstructionSafety #SafetyFirst`,
     image: "/posts/post-10.jpg",
     date: "2026-10-06",
-    reactions: null,
-    comments: null,
+    reactions: 1,
+    comments: 1,
     url: "https://www.linkedin.com/feed/update/urn:li:activity:7512987136061550592",
   },
   {
@@ -166,37 +190,5 @@ A near-miss caught today is a tragedy averted tomorrow.
     reactions: 1,
     comments: null,
     url: "https://www.linkedin.com/feed/update/urn:li:activity:7510866612418297856",
-  },
-  {
-    id: "7510506849272639489",
-    text: `Operating a Mobile Elevating Work Platform (MEWP) comes with unique, high-consequence hazards. It is never a simple substitute for scaffolding.
-Before elevating off the ground, run through these critical checks:
-* Ground Stability: Check for manhole covers, soft soil, or hidden voids; always deploy outriggers on heavy-duty spreader plates.
-* Anchor Inside the Basket: Clip your lanyard only to designated, engineered anchor points within the platform—never to adjacent external structures.
-* Overhead Clearance: Inspect above for live overhead power lines, structural steel projections, and crane swing paths.
-* Trained & Authorized: Only certified operators should handle the controls, with a ground rescue person briefed on manual descent controls.
-Maintain total spatial awareness whenever your feet leave the deck.
-#MEWPSafety #BoomLift #WorkAtHeight #WSHCoordinator #PoweredAccess #SafetyFirst #SingaporeConstruction`,
-    image: "/posts/post-8.jpg",
-    date: "2026-09-29",
-    reactions: 2,
-    comments: 2,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity:7510506849272639489",
-  },
-  {
-    id: "7510141215619608576",
-    text: `Safety isn't only about steel, harnesses, and concrete—it's about the mindset of the person carrying the tools.
-A stressed, exhausted, or distracted worker cannot focus on physical hazards:
-* Normalize Open Conversations: Make time during morning walk-rounds to check in with workers beyond task progress.
-* Active Listening: Encourage workers to speak up about excessive fatigue, family stress, or workplace pressures without fear of penalty.
-* Rest & Recovery: Respect scheduled breaks and rest periods to prevent cumulative cognitive overload in Singapore's tropical climate.
-* Accessible Support: Ensure workers know where to find company welfare representatives and mental well-being hotlines.
-A safe site begins with a supported mind. Taking care of your people is the ultimate safety precaution.
-#PsychologicalSafety #WorkerWellbeing #MentalHealthMatters #WSHSingapore #HumanCenteredSafety #SafetyLeadership #CareForWorkers`,
-    image: "/posts/post-9.jpg",
-    date: "2026-09-28",
-    reactions: 3,
-    comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity:7510141215619608576",
   },
 ];
