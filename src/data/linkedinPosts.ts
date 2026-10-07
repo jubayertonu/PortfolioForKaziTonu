@@ -17,9 +17,42 @@ export interface LinkedInPost {
 }
 
 /** ISO date of the last sync, e.g. "2026-10-05" */
-export const postsUpdatedAt = "2026-10-07";
+export const postsUpdatedAt = "2026-10-08";
 
 export const linkedinPosts: LinkedInPost[] = [
+  {
+    id: "7513705567450828800",
+    text: `WHAT'S INSIDE THAT MANHOLE CAN KILL YOU IN 60 SECONDS.
+
+A confined space kills without warning — no fire, no smoke, no sound. Oxygen drops below 19.5% and a worker simply falls asleep… and never wakes up. In Singapore, manhole entry is one of the most tightly controlled works under WSH rules — for a reason.
+
+The 5 silent killers inside a confined space:
+
+☠️ Oxygen too low (below 19.5%) or too high (above 23.5%) — both are deadly
+☠️ Hydrogen sulphide (H2S) — the rotten-egg smell disappears at high concentrations as your nose goes numb
+☠️ Flammable gas — keep it below 10% LEL, or one spark is enough
+☠️ Engulfment — water, sludge or sand can bury you in seconds
+☠️ Carbon monoxide — colourless, odourless, kills silently
+
+Before ANYONE goes in:
+
+✅ Valid confined space entry permit — no permit, no entry, no excuse
+✅ Gas test done and logged BEFORE entry — then continuous monitoring while inside
+✅ Standby man outside, eyes on the entrant at all times, with a radio
+✅ Mechanical ventilation running — never trust natural ventilation alone
+✅ Rescue tripod and retrieval line ready — most confined space deaths are would-be rescuers. Never go in after someone without breathing apparatus.
+
+👉 Simple safety rule: Test before you enter. Ventilate while you work. Watch while your buddy is inside.
+
+❓ QUIZ FOR YOU: You arrive on site and see a worker lowering himself into a manhole. The gas meter is still in the toolbox, untouched. What is YOUR first action? Tell me below. 👇
+
+#WSH #SafetyCoordinator #SingaporeConstruction #ConfinedSpace #WorkplaceSafety #SafetyFirst #ConstructionSafety #ToolboxTalk`,
+    image: "/posts/post-12.jpg",
+    date: "2026-10-08",
+    reactions: null,
+    comments: null,
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7513705567450828800",
+  },
   {
     id: "7513346293147213824",
     text: `A wrench left on a scaffold edge is a loaded weapon.
@@ -42,7 +75,7 @@ Most dropped-object incidents are not freak accidents. They are somebody's tool,
     date: "2026-10-07",
     reactions: null,
     comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity:7513346293147213824",
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7513346293147213824",
   },
   {
     id: "7512987136061550592",
@@ -58,9 +91,9 @@ Most crane accidents on site do not come from the crane breaking. They come from
 #WSH #SafetyCoordinator #SingaporeConstruction #CraneSafety #LiftingSafety #ConstructionSafety #SafetyFirst`,
     image: "/posts/post-10.jpg",
     date: "2026-10-06",
-    reactions: 1,
+    reactions: null,
     comments: 1,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity:7512987136061550592",
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7512987136061550592",
   },
   {
     id: "7512627460472102912",
@@ -78,9 +111,9 @@ They come from small things we walk past every day:
 #WSH #SafetyCoordinator #SingaporeConstruction #ElectricalSafety #ConstructionSafety #SafetyFirst`,
     image: "/posts/post-1.jpg",
     date: "2026-10-05",
-    reactions: null,
+    reactions: 1,
     comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity:7512627460472102912",
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7512627460472102912",
   },
   {
     id: "7512258149916209152",
@@ -100,7 +133,7 @@ When was the last time you walked your site's emergency exit route? Be honest �
     date: "2026-10-04",
     reactions: null,
     comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity:7512258149916209152",
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7512258149916209152",
   },
   {
     id: "7511894177861791744",
@@ -124,7 +157,7 @@ Before you step onto any scaffold today, check these 5 points:
     date: "2026-10-03",
     reactions: 1,
     comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity:7511894177861791744",
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7511894177861791744",
   },
   {
     id: "7511693062805413888",
@@ -141,7 +174,7 @@ What is the very first thing you check on your personal fall arrest gear before 
     date: "2026-10-02",
     reactions: null,
     comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity:7511693062805413888",
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7511693062805413888",
   },
   {
     id: "7511590885462241280",
@@ -157,7 +190,7 @@ When people and plant share space, physical barriers save lives.
     date: "2026-10-02",
     reactions: null,
     comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity:7511590885462241280",
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7511590885462241280",
   },
   {
     id: "7511228884252610560",
@@ -173,22 +206,6 @@ Protect your hearing today so you can enjoy conversations tomorrow.
     date: "2026-10-01",
     reactions: null,
     comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity:7511228884252610560",
-  },
-  {
-    id: "7510866612418297856",
-    text: `Every major incident casts a long shadow of ignored near-misses and unreported hazards.
-Building a world-class safety culture means celebrating the report, not punishing the messenger:
-* Frictionless Reporting: Use simple digital forms, QR codes, or visual cards to remove paperwork barriers for frontline staff.
-* Non-Punitive Environment: Make reporting a near-miss an act of proactive ownership, never an invitation for blame.
-* Close the Loop: Show workers what changed because they spoke up—visibility drives sustained participation.
-* Leading Indicators: Track resolved hazard reports as a positive safety performance metric, not just incident-free days.
-A near-miss caught today is a tragedy averted tomorrow.
-#NearMiss #HazardHunting #SafetyCulture #ContinuousImprovement #WSHSingapore #VisionZero #SafetyLeadership`,
-    image: "/posts/post-7.jpg",
-    date: "2026-09-30",
-    reactions: 1,
-    comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity:7510866612418297856",
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7511228884252610560",
   },
 ];
