@@ -17,9 +17,34 @@ export interface LinkedInPost {
 }
 
 /** ISO date of the last sync, e.g. "2026-10-05" */
-export const postsUpdatedAt = "2026-10-08";
+export const postsUpdatedAt = "2026-10-09";
 
 export const linkedinPosts: LinkedInPost[] = [
+  {
+    id: "7514069388908462081",
+    text: `A SCAFFOLD CAN COLLAPSE IN SECONDS 🚨
+
+One missing tie. One overloaded platform. That is all it takes to send a worker falling from height — one of the top causes of workplace deaths in construction.
+
+Before you step onto any scaffold, check these 5:
+
+✅ Tag it — green tag means inspected and safe. No tag = no entry.
+✅ Guardrails — top rail, mid rail and toe board on every open side.
+✅ Tie-ins — the scaffold must be tied to the building as designed. Missing ties = collapse risk.
+✅ 100% tie-off — hook your harness above, and stay hooked while you work at height.
+✅ Load limit — never stack materials on the platform. A scaffold is a work platform, not a storage shelf.
+
+⚠️ THE RULE: If the scaffold looks wrong, it IS wrong. Stop work and report it.
+
+Have you ever seen a scaffold without a green tag? What did you do?
+
+#WSH #SafetyCoordinator #SingaporeConstruction #WorkAtHeight #ScaffoldSafety #ConstructionSafety`,
+    image: "/posts/7514069388908462081.jpg",
+    date: "2026-10-09",
+    reactions: null,
+    comments: null,
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7514069388908462081",
+  },
   {
     id: "7513705567450828800",
     text: `WHAT'S INSIDE THAT MANHOLE CAN KILL YOU IN 60 SECONDS.
@@ -91,7 +116,7 @@ Most crane accidents on site do not come from the crane breaking. They come from
 #WSH #SafetyCoordinator #SingaporeConstruction #CraneSafety #LiftingSafety #ConstructionSafety #SafetyFirst`,
     image: "/posts/post-10.jpg",
     date: "2026-10-06",
-    reactions: null,
+    reactions: 1,
     comments: 1,
     url: "https://www.linkedin.com/feed/update/urn:li:activity/7512987136061550592",
   },
@@ -99,15 +124,20 @@ Most crane accidents on site do not come from the crane breaking. They come from
     id: "7512627460472102912",
     text: `Electricity is the quietest killer on a construction site.
 No noise. No warning. One touch of a live cable can be enough. ⚡
+
 Most electrical accidents on site do not come from big machines.
 They come from small things we walk past every day:
+
 🔌 Cables lying on wet ground — water plus damaged insulation can carry 230 volts straight through you
 🔌 No 30mA RCD protection — a proper residual current device trips in under 0.2 seconds, fast enough to save a life
 🔌 Taped-up plugs and cracked extension leads — tape is not a repair, it is a trap
 🔌 Switchboards with no lockout — live panels must be locked and tagged, no shortcuts
 🔌 No test-before-touch — always prove the circuit is dead with a tested voltage tester
+
 👉 Simple safety rule: If it is plugged in, treat it as LIVE until you prove it is dead.
+
 ❓ QUIZ FOR YOU: You see a worker drilling in the rain, extension cable lying in a puddle. What is YOUR first action — stop him, or tell him to finish fast? Tell me below. 👇
+
 #WSH #SafetyCoordinator #SingaporeConstruction #ElectricalSafety #ConstructionSafety #SafetyFirst`,
     image: "/posts/post-1.jpg",
     date: "2026-10-05",
@@ -179,33 +209,21 @@ What is the very first thing you check on your personal fall arrest gear before 
   {
     id: "7511590885462241280",
     text: `Pedestrians and heavy construction vehicles should never mix. Segregation is the only foolproof line of defense.
+
 Managing vehicular traffic on dynamic sites requires absolute separation of paths:
+
 * Physical Segregation: Use rigid guardrails or interlocking barriers—not just caution tape—to separate pedestrian walkways from plant routes.
 * Designated Crossing Points: Install marked crosswalks with convex mirrors and clear sightlines at high-traffic intersections.
 * Appointed Traffic Marshals: Ensure competent banksmen oversee heavy vehicle maneuvering, reversing, and gate crossings.
 * Speed & Reversing Limits: Enforce strict site speed limits and minimize reversing maneuvers through one-way site flow designs.
+
 When people and plant share space, physical barriers save lives.
+
 #TrafficManagement #SiteLogistics #PlantAndPedestrian #WSH #CivilEngineering #SiteSafety #SingaporeSafety`,
     image: "/posts/post-5.jpg",
     date: "2026-10-02",
     reactions: null,
     comments: null,
     url: "https://www.linkedin.com/feed/update/urn:li:activity/7511590885462241280",
-  },
-  {
-    id: "7511228884252610560",
-    text: `Noise-Induced Deafness (NID) is irreversible, permanent, and completely preventable.
-On active construction sites, loud tools degrade hearing gradually—until speech and life sounds become muffled:
-* Hierarchy of Control: Enclose noisy compressors, use quieter methods where feasible, or install acoustic screening blankets.
-* Hearing Protection Zones: Clearly demarcate areas exceeding 85 dBA and enforce mandatory earplugs or earmuffs.
-* Proper Fit & Maintenance: Ensure foam earplugs are rolled thin, inserted properly into the ear canal, and allowed to expand fully.
-* Audiometric Screening: Keep up with annual hearing tests for noise-exposed workers to catch early threshold shifts before severe damage occurs.
-Protect your hearing today so you can enjoy conversations tomorrow.
-#HearingConservation #NoiseInducedDeafness #OccupationalHealth #IndustrialHygiene #WSHCoordinator #PPECompliance #SingaporeBuilders`,
-    image: "/posts/post-6.jpg",
-    date: "2026-10-01",
-    reactions: null,
-    comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7511228884252610560",
   },
 ];
