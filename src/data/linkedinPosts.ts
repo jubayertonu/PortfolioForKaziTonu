@@ -17,9 +17,59 @@ export interface LinkedInPost {
 }
 
 /** ISO date of the last sync, e.g. "2026-10-05" */
-export const postsUpdatedAt = "2026-10-09";
+export const postsUpdatedAt = "2026-10-11";
 
 export const linkedinPosts: LinkedInPost[] = [
+  {
+    id: "7514795882588864512",
+    text: `⚠️ THE DRIVER CANNOT SEE YOU BEHIND THAT LORRY.
+
+A reversing tipper lorry has blind spots big enough to hide a grown man. On a noisy site, the driver will not hear you shout either. A loaded tipper can weigh over 30 tonnes — once it rolls over a person, there is no second chance.
+
+This is how we stay alive around moving vehicles:
+
+✅ Use the walkway — stay on the marked pedestrian path, never cut across the vehicle route.
+✅ Eye contact first — never walk behind a lorry until the driver sees you. A wave back means you are seen.
+✅ Banksman for every reverse — no reversing without a trained banksman guiding. If the driver loses sight of the banksman, he must stop.
+✅ Keep your distance — stay at least 5 metres clear of any moving or reversing vehicle.
+✅ Wear your hi-vis vest — on a dusty site at dusk, that vest is what keeps you visible.
+
+🚫 THE RULE: If you cannot see the driver's mirrors, the driver cannot see you. Stop and wait.
+
+Have you ever had a close call with a reversing vehicle on site? Share it below — your story might save someone.
+
+#WSH #SafetyCoordinator #SingaporeConstruction #SiteSafety #ConstructionSafety #WorkplaceSafety`,
+    image: "/posts/7514795882588864512.jpg",
+    date: "2026-10-11",
+    reactions: null,
+    comments: null,
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7514795882588864512",
+  },
+  {
+    id: "7514431416978485248",
+    text: `🔥 THE SUN ON A SITE CAN KILL YOU BEFORE YOU FEEL IT.
+
+Heat stroke is not just feeling hot. When your body core temperature crosses 40°C, your organs start to fail — brain, heart, kidneys. Under the Singapore midday sun, an unprotected worker can reach that point fast.
+
+This is how we beat heat on site:
+
+✅ Water — drink one cup (about 250 ml) every 15–20 minutes. Do not wait until you are thirsty.
+✅ Shade breaks — step out of the sun every hour. Rest under shade, not on hot steel or concrete.
+✅ Buddy check — watch your partner. Confusion and stopping sweating are danger signs. Call 995 if a worker collapses.
+✅ Slow down at midday — heavy work under the hot afternoon sun is the most dangerous. Reschedule what you can.
+✅ Know the WBGT — check the heat stress reading and follow your company's heat plan when it is high.
+
+⚠️ THE RULE: If your mate looks dizzy or stops sweating, treat it as an emergency — not a rest issue.
+
+Have you ever seen a worker collapse from heat on site? What happened?
+
+#WSH #SafetyCoordinator #SingaporeConstruction #HeatStress #ConstructionSafety #WorkplaceSafety`,
+    image: "/posts/7514431416978485248.jpg",
+    date: "2026-10-10",
+    reactions: 1,
+    comments: null,
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7514431416978485248",
+  },
   {
     id: "7514069388908462081",
     text: `A SCAFFOLD CAN COLLAPSE IN SECONDS 🚨
@@ -188,42 +238,5 @@ Before you step onto any scaffold today, check these 5 points:
     reactions: 1,
     comments: null,
     url: "https://www.linkedin.com/feed/update/urn:li:activity/7511894177861791744",
-  },
-  {
-    id: "7511693062805413888",
-    text: `Gravity doesn't take breaks, and neither should our focus. A fall from just 2 meters can be fatal or life-altering—yet it remains one of the most common risks on our sites every single day.
-To make sure everyone goes home safely to their families, we have to get the basics right before our feet leave the ground:
-Inspect your gear daily: Check your full-body harness and lanyards for any fraying, rust, or stiffness before every single shift. If in doubt, swap it out.
-Secure the edges: Ensure all temporary edge protection is fully secured, with rigid top rails positioned exactly 1 meter above the walking surface.
-Maintain 100% tie-off: Use a twin-tail lanyard system. Never detach your first hook until your second hook is safely secured to the next anchor point.
-Calculate fall clearance: Always ensure you have a safe fall clearance distance—typically at least 5 meters below the anchor point—so your gear can actually do its job before you hit the level below.
-Never take a shortcut when working at height. Look out for your team, and speak up immediately if a barricade or lifeline looks loose.
-What is the very first thing you check on your personal fall arrest gear before starting a height job?
-#WSH #SafetyCoordinator #SingaporeConstruction #WorkAtHeight #SafetyCulture #ConstructionSafety #ZeroHarm`,
-    image: "/posts/post-4.jpg",
-    date: "2026-10-02",
-    reactions: null,
-    comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7511693062805413888",
-  },
-  {
-    id: "7511590885462241280",
-    text: `Pedestrians and heavy construction vehicles should never mix. Segregation is the only foolproof line of defense.
-
-Managing vehicular traffic on dynamic sites requires absolute separation of paths:
-
-* Physical Segregation: Use rigid guardrails or interlocking barriers—not just caution tape—to separate pedestrian walkways from plant routes.
-* Designated Crossing Points: Install marked crosswalks with convex mirrors and clear sightlines at high-traffic intersections.
-* Appointed Traffic Marshals: Ensure competent banksmen oversee heavy vehicle maneuvering, reversing, and gate crossings.
-* Speed & Reversing Limits: Enforce strict site speed limits and minimize reversing maneuvers through one-way site flow designs.
-
-When people and plant share space, physical barriers save lives.
-
-#TrafficManagement #SiteLogistics #PlantAndPedestrian #WSH #CivilEngineering #SiteSafety #SingaporeSafety`,
-    image: "/posts/post-5.jpg",
-    date: "2026-10-02",
-    reactions: null,
-    comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7511590885462241280",
   },
 ];
