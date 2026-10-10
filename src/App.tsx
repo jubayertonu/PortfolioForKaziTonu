@@ -75,11 +75,11 @@ const EXPERIENCE = [
 const PROJECTS = [
   {
     title: "HDB Maintenance & Upgrading",
-    desc: "Spalling concrete repair, waterproofing, roof works and façade repairs across public housing projects.",
+    desc: "Appointed WSH Coordinator for maintenance works in occupied residential estates — barricading, exclusion zones and falling-object prevention protecting workers and residents. WAH with boom lifts and gondolas, hot work permits, dust suppression, and daily bilingual toolbox talks.",
   },
   {
     title: "PUB Water Infrastructure",
-    desc: "Safety coordination for water-related infrastructure maintenance and repair works.",
+    desc: "Waterproofing, spalling concrete repair and guard rail installation. Served as Confined Space Attendant with access control and emergency readiness; coordinated 10–15 worker crews on elevated and high-risk tasks, Dec 2023 to present.",
   },
   {
     title: "Commercial & Industrial Buildings",
