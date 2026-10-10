@@ -41,10 +41,11 @@ const EXPERIENCE = [
     company: "Success Forever Construction & Maintenance Pte Ltd",
     period: "Dec 2023 — Present",
     bullets: [
-      "Conduct daily toolbox meetings and safety briefings",
-      "Manage and enforce the Permit-to-Work (PTW) system",
-      "Site inspections, hazard identification & HIRA",
-      "MOM WSH compliance across HDB and PUB project sites",
+      "Formally appointed WSHC reporting to the Project Manager across HDB and PUB project sites",
+      "Coordinated safety for work at height, hot works, grinding, spalling concrete repair, waterproofing and roof works",
+      "Led daily toolbox meetings (Mon–Sat) for 10–15 workers in English, Bengali and Hindi",
+      "Site inspections, hazard rectification and corrective-action follow-up",
+      "Prepared risk assessments, HIRA records, inspection checklists and safety reports",
     ],
   },
   {
@@ -52,9 +53,10 @@ const EXPERIENCE = [
     company: "Success Forever Construction & Maintenance Pte Ltd",
     period: "May 2023 — Nov 2023",
     bullets: [
-      "Supervised work-at-height activities to MOM bylaws",
-      "Operated hydraulic boom lifts on elevated assignments",
-      "Enforced harness rules, briefings & daily site audits",
+      "Supervised site safety for building construction and maintenance projects",
+      "Coordinated the Permit-to-Work system for work at height, hot works and lifting",
+      "Daily site inspections, hazard identification and corrective actions",
+      "Toolbox talks and safety briefings in Bengali and English",
     ],
   },
   {
@@ -62,9 +64,30 @@ const EXPERIENCE = [
     company: "Success Forever Construction & Maintenance Pte Ltd",
     period: "Feb 2023 — May 2023",
     bullets: [
-      "Groundwork logistics & materials handling",
-      "Hands-on foundation in site layouts and safety procedures",
+      "General construction and maintenance tasks, material handling and site preparation",
+      "Followed all safety procedures and wore required PPE at all times",
+      "Housekeeping to maintain clean, hazard-free work areas",
+      "Supported supervisors and learned foundational construction safety practices",
     ],
+  },
+];
+
+const PROJECTS = [
+  {
+    title: "HDB Maintenance & Upgrading",
+    desc: "Spalling concrete repair, waterproofing, roof works and façade repairs across public housing projects.",
+  },
+  {
+    title: "PUB Water Infrastructure",
+    desc: "Safety coordination for water-related infrastructure maintenance and repair works.",
+  },
+  {
+    title: "Commercial & Industrial Buildings",
+    desc: "Safety support for commercial building maintenance, repair and renovation activities.",
+  },
+  {
+    title: "Confined Space & High-Risk Ops",
+    desc: "Confined space entries, work at height, hot works and lifting operations with full permit compliance.",
   },
 ];
 
@@ -93,7 +116,23 @@ const STATS = [
   ["100%", "Compliance Focus"],
 ];
 
-const SKILLS = ["Toolbox Talks", "HIRA", "Permit-to-Work", "Work-at-Height", "Confined Space", "First Aid"];
+const SKILLS = [
+  "WSH Compliance",
+  "Work at Height Coordination",
+  "HIRA",
+  "Permit-to-Work Coordination",
+  "Hot Work Safety",
+  "Spalling Concrete Repair Safety",
+  "Waterproofing & Roof Work Safety",
+  "Dust Control & Housekeeping",
+  "Confined Space Attendant Support",
+  "Site Inspection & Hazard Rectification",
+  "Toolbox Meetings & Briefings",
+  "Safety Documentation & Reporting",
+  "Corrective Action Follow-Up",
+  "Boom Lift Safety Coordination",
+  "Multilingual Workforce Communication",
+];
 
 function validity(expiry: string | null) {
   if (!expiry)
@@ -426,7 +465,7 @@ function HomeView({ goTo }: { goTo: (i: number) => void }) {
             </Enter>
             <Enter delay={0.3}>
               <p className="font-grotesk text-[10px] md:text-[13px] font-semibold tracking-[0.28em] text-white mt-4 md:mt-5 uppercase">
-                MOM-Qualified WSH Coordinator
+                Workplace Safety & Health Coordinator
               </p>
             </Enter>
             <Enter delay={0.42}>
@@ -435,7 +474,7 @@ function HomeView({ goTo }: { goTo: (i: number) => void }) {
                   <MapPin className="w-4 h-4 shrink-0" style={{ color: accent }} /> Singapore
                 </span>
                 <span className="flex items-center gap-2">
-                  <BadgeCheck className="w-4 h-4 shrink-0" style={{ color: accent }} /> Available in 2–3 weeks
+                  <BadgeCheck className="w-4 h-4 shrink-0" style={{ color: accent }} /> Available in 1 month
                 </span>
                 <a href={`mailto:${EMAIL}`} className="flex items-center gap-2 hover:text-white transition-colors">
                   <Mail className="w-4 h-4 shrink-0" style={{ color: accent }} /> {EMAIL}
@@ -493,11 +532,13 @@ function AboutView({ goTo }: { goTo: (i: number) => void }) {
         </Enter>
         <Enter delay={0.2}>
           <p className="text-zinc-400 leading-relaxed max-w-2xl mt-5 md:mt-7 text-[13px] md:text-[15px]">
-            I am Kazi Tonu, a MOM-qualified Workplace Safety and Health Coordinator based in
-            Singapore. For nearly three years I have supervised high-risk construction
-            activities — work at height, confined spaces, heavy plant operations — conducting
-            thorough HIRA risk assessments and enforcing the WSH Act to keep sites
-            incident-free across HDB and PUB projects.
+            I am Kazi Tonu, a formally appointed Workplace Safety and Health Coordinator
+            based in Singapore. I coordinate site safety across HDB maintenance and
+            PUB-related repair works — work at height, hot works, spalling concrete repair,
+            waterproofing, roof works and confined space operations — leading daily toolbox
+            meetings for 10–15 workers and enforcing the WSH Act and MOM regulations to
+            keep sites incident-free. I brief multicultural site teams in Bengali, English
+            and conversational Hindi.
           </p>
         </Enter>
         <Enter delay={0.3}>
@@ -542,7 +583,7 @@ function ExperienceView({ goTo }: { goTo: (i: number) => void }) {
             <span className="text-outline">RECORD.</span>
           </h2>
         </Enter>
-        <Enter delay={0.2} className="min-h-0 mt-6 md:mt-10">
+        <Enter delay={0.2} className="min-h-0 mt-5 md:mt-7">
           <div className="flex md:grid md:grid-cols-3 gap-4 md:gap-5 overflow-x-auto md:overflow-visible no-scrollbar snap-x snap-mandatory pb-2 -mx-6 px-6 md:mx-0 md:px-0">
             {EXPERIENCE.map((e) => (
               <div key={e.role}
@@ -563,6 +604,20 @@ function ExperienceView({ goTo }: { goTo: (i: number) => void }) {
                     </li>
                   ))}
                 </ul>
+              </div>
+            ))}
+          </div>
+        </Enter>
+        <Enter delay={0.25} className="mt-5 md:mt-6">
+          <p className="font-grotesk text-[10px] md:text-[11px] font-bold tracking-[0.25em] uppercase text-zinc-500">
+            Selected Project Involvement
+          </p>
+          <div className="flex md:grid md:grid-cols-4 gap-3 md:gap-4 overflow-x-auto md:overflow-visible no-scrollbar snap-x snap-mandatory pb-2 -mx-6 px-6 md:mx-0 md:px-0 mt-3">
+            {PROJECTS.map((p) => (
+              <div key={p.title}
+                className="snap-start shrink-0 w-[68vw] sm:w-[42vw] md:w-auto border border-white/10 bg-white/[0.03] rounded-xl p-4 hover:border-white/25 transition-colors">
+                <h4 className="font-sans font-bold text-[13px] text-white leading-snug">{p.title}</h4>
+                <p className="text-[11px] md:text-xs text-zinc-500 leading-relaxed mt-1.5">{p.desc}</p>
               </div>
             ))}
           </div>
