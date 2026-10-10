@@ -107,11 +107,19 @@ const CERTIFICATIONS: { title: string; authority: string; date: string; expiryDa
   { title: "Psychological First Aid", authority: "Singapore Red Cross", date: "Issued Aug 2024", expiryDate: "2026-08-31" },
   { title: "WSH Management in Construction Industry", authority: "Eversafe Academy", date: "Issued Jun 2023", expiryDate: null },
   { title: "Digital Marketing Certified", authority: "HubSpot Academy", date: "Issued Jul 2026", expiryDate: "2027-07-31" },
+  { title: "B.Sc. in Electrical and Electronic Engineering", authority: "Chittagong Institute of Engineering and Technology, Bangladesh", date: "", expiryDate: null },
+  { title: "Workplace Safety & Health Coordinator (WSHC) Course", authority: "SCAL Academy", date: "Issued 2025", expiryDate: null },
+  { title: "Supervise Work in Confined Space Operation", authority: "Singapore", date: "Issued 2024", expiryDate: null },
+  { title: "Apply Workplace Safety and Health in Construction Sites (CSOC)", authority: "Singapore", date: "Issued 2024", expiryDate: null },
+  { title: "Perform Rigger and Signalman Tasks", authority: "Singapore", date: "Issued 2023", expiryDate: null },
+  { title: "Operate Boom Lift", authority: "SIS", date: "Issued 2024", expiryDate: null },
+  { title: "Occupational First Aid Course (OFAC)", authority: "Singapore Red Cross", date: "Issued 2025", expiryDate: null },
+  { title: "bizSAFE Level 2 — Risk Management", authority: "Singapore", date: "Issued 2024", expiryDate: null },
 ];
 
 const STATS = [
   ["3+", "Years Experience"],
-  ["15", "Safety Certifications"],
+  ["22", "Safety Certifications"],
   ["150+", "Toolbox Briefings"],
   ["100%", "Compliance Focus"],
 ];
