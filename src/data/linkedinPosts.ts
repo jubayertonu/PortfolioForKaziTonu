@@ -17,9 +17,61 @@ export interface LinkedInPost {
 }
 
 /** ISO date of the last sync, e.g. "2026-10-05" */
-export const postsUpdatedAt = "2026-10-11";
+export const postsUpdatedAt = "2026-10-12";
 
 export const linkedinPosts: LinkedInPost[] = [
+  {
+    id: "7515155934105759744",
+    text: `🔥 YOUR FIRE EXTINGUISHER RUNS OUT IN 10 SECONDS.
+
+Only 10 seconds of powder or foam. And a small site fire can double in size every minute. If you hesitate, those 10 seconds are gone — and the fire is now too big for any extinguisher.
+
+This is how we stay alive around fire on site:
+
+✅ Learn PASS — Pull the pin, Aim low at the BASE of the flames, Squeeze the handle, Sweep side to side.
+✅ Use the right type — dry powder for most site fires, CO₂ for electrical panels. NEVER use water on an electrical fire — it can kill you.
+✅ Stand 2–3 metres back — close enough to reach the flames, far enough to escape.
+✅ Know where it is — the walk to the nearest extinguisher should be no more than 15–23 metres. A blocked or empty extinguisher is useless — check yours monthly.
+✅ Fire watch after hot work — after welding or cutting, watch the area for 30–60 minutes. Sparks can smoulder for an hour before they burst into flame.
+
+🚫 THE RULE: If the fire is taller than you, drop the extinguisher and run. Call 995. Your life is worth more than any machine or material.
+
+When did you last check the fire extinguisher on your site — is it charged, and do you know exactly where it is? Share below, you might remind someone.
+
+#WSH #SafetyCoordinator #SingaporeConstruction #FireSafety #ConstructionSafety #SiteSafety #HotWork #FirePrevention`,
+    image: "/posts/7515155934105759744.jpg",
+    date: "2026-10-12",
+    reactions: null,
+    comments: null,
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7515155934105759744",
+  },
+  {
+    id: "7514908885648879616",
+    text: `The haze is back over Singapore, and our sites feel it first.
+
+Today the 24-hour PSI is unhealthy across all five regions (114–150 as of midday, per NEA), with unhealthy to high unhealthy forecast for the next 24 hours. On Friday the central region hit 192 — the highest reading this year.
+
+For those of us running construction sites, haze is not just uncomfortable — it is an occupational health hazard. Fine particles (PM2.5) go deep into the lungs, and our workers are outdoors in it all day.
+
+What we are doing on site:
+
+• Check the NEA PSI and 1-hour PM2.5 before the shift and through the day — plan work around the readings, not just the sky.
+• N95 masks for outdoor work. A surgical mask or cloth covering does not stop PM2.5.
+• Cut back strenuous tasks during the worst hours. Move heavy work to clearer windows and add rest breaks in sheltered areas.
+• Watch your people. Coughing, breathlessness, eye or throat irritation — stop work, rest, and seek help if it does not ease.
+• Protect the vulnerable first: older workers and anyone with asthma, lung or heart conditions should minimise outdoor exertion.
+
+A toolbox talk on haze takes five minutes. A worker struggling to breathe costs far more.
+
+Stay safe out there.
+
+#HazeSG #WSHSingapore #ConstructionSafety #OccupationalHealth #SafetyCoordinator #ZeroHarm`,
+    image: "/posts/7514908885648879616.jpg",
+    date: "2026-10-11",
+    reactions: 7,
+    comments: null,
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7514908885648879616",
+  },
   {
     id: "7514795882588864512",
     text: `⚠️ THE DRIVER CANNOT SEE YOU BEHIND THAT LORRY.
@@ -194,49 +246,5 @@ They come from small things we walk past every day:
     reactions: 1,
     comments: null,
     url: "https://www.linkedin.com/feed/update/urn:li:activity/7512627460472102912",
-  },
-  {
-    id: "7512258149916209152",
-    text: `In a fire, most people do not die from the flames.
-They die from the smoke. 💨
-Hot toxic smoke can fill a stairwell in minutes. Just a few breaths can make a worker lose their way, collapse — and never get out.
-On a construction site, one blocked exit can turn a small fire into a tragedy:
-🚨 Keep exit routes clear at ALL times — no boxes, materials or bikes blocking the way
-🚨 Every exit door must open freely — a locked door steals seconds that people may not have
-🚨 Make sure exit signs and emergency lights work — smoke takes away your vision fast
-🚨 Do evacuation drills regularly — everyone must know their route BEFORE the emergency
-🚨 Head straight to the assembly point — never go back inside for tools or belongings
-👉 Simple safety rule: If you cannot walk out of your workplace in 60 seconds, something is wrong.
-When was the last time you walked your site's emergency exit route? Be honest — tell me in the comments. 👇
-#WSH #SafetyCoordinator #SingaporeConstruction #FireSafety #EmergencyPreparedness #ConstructionSafety`,
-    image: "/posts/post-2.jpg",
-    date: "2026-10-04",
-    reactions: null,
-    comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7512258149916209152",
-  },
-  {
-    id: "7511894177861791744",
-    text: `Every year, falls from height are the number one killer on construction sites in Singapore. 😔
-And many of these falls start on a badly built scaffold.
-
-Before you step onto any scaffold today, check these 5 points:
-
-1️⃣ Inspection tag — every scaffold must be inspected at least every 7 days. No valid tag on the scaffold, no climb.
-2️⃣ Guardrails — top rail at 1 metre, mid rail, and toe boards at least 150 mm high. Missing rails means missing protection.
-3️⃣ Base and foundation — every standard must stand on a base plate and sole board, on firm and level ground. No bricks, no hollow blocks.
-4️⃣ Tied to the structure — a scaffold must be tied to the building at regular intervals. A free-standing tall scaffold can collapse in strong wind.
-5️⃣ Safe access — use a secured ladder that extends 1 metre above the platform. Never climb the scaffold frame itself.
-
-⛔ MY RULE: If the scaffold has no valid inspection tag, I stop the work. No tag, no go.
-
-👇 QUIZ FOR YOU: You walk onto a site and see workers on a scaffold with no inspection tag. The foreman says "it was checked last month." What do YOU do — stop the work, or let it continue? Comment your answer below! 💬
-
-#WSH #SafetyCoordinator #SingaporeConstruction #ScaffoldSafety #WorkAtHeight #ConstructionSafety #FallProtection #SafetyFirst`,
-    image: "/posts/post-3.jpg",
-    date: "2026-10-03",
-    reactions: 1,
-    comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7511894177861791744",
   },
 ];
