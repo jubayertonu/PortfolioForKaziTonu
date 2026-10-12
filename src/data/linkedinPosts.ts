@@ -17,9 +17,67 @@ export interface LinkedInPost {
 }
 
 /** ISO date of the last sync, e.g. "2026-10-05" */
-export const postsUpdatedAt = "2026-10-12";
+export const postsUpdatedAt = "2026-10-13";
 
 export const linkedinPosts: LinkedInPost[] = [
+  {
+    id: "7515522851118944257",
+    text: `🏗️ A 1-tonne concrete panel is hanging from this crane… and a worker is walking RIGHT under it. 😱
+
+If that sling slips, there is no second chance. Gravity always wins. ⚠️
+
+👀 QUIZ FOR YOU — spot the safety violations in this photo! 👇
+
+1️⃣ 🚫 Worker walking under a suspended load — the drop zone. One slip and there is zero warning.
+
+2️⃣ 🪢 The sling legs hang at a wide angle — wide angles multiply the load on each leg. Keep the sling angle above 60°.
+
+3️⃣ 🏃 No tag line on the load — it can swing into workers or nearby structures.
+
+4️⃣ 🚧 No exclusion zone, no barrier tape — nobody is keeping workers out of the drop zone.
+
+5️⃣ 📢 Where is the signalman? No one is guiding the crane operator from the ground.
+
+The rule of the lift: NEVER stand under a suspended load. No exceptions. 💯
+
+Did you spot all 5? Comment your answer below! 🧡👇
+
+#WSH #SafetyCoordinator #SingaporeConstruction #LiftingSafety #CraneSafety #SafetyFirst #ToolboxTalk`,
+    image: "/posts/7515522851118944257.jpg",
+    date: "2026-10-13",
+    reactions: null,
+    comments: null,
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7515522851118944257",
+  },
+  {
+    id: "7515409339889700864",
+    text: `🏎️ The Singapore F1 night race is done — and what a show it was! 🇸🇬✨
+
+Max Verstappen finally conquered Marina Bay 🏆 — his first-ever win here after 10 attempts! Pole position, sprint win AND race win — a perfect weekend. And all this on his 250th Grand Prix start, with his 73rd career victory. 🤯
+
+But the part that caught my eye as a safety man — look at the safety work running behind this race:
+
+💡 Around 1,600 custom floodlights give about 3,000 lux — 4 times brighter than a sports stadium. Every light was tested and approved by the FIA so drivers get zero glare.
+
+🧱 Concrete walls sit just inches from the racing line, with energy-absorbing barriers at the impact zones. On a street circuit there is almost no run-off — that is why nearly every Singapore GP has seen a safety car.
+
+🔥 Drivers can lose 3–4 kg of body fluid in this heat and humidity. Heat management and hydration are literally part of the race strategy.
+
+🛡️ The halo, HANS device, flameproof suits, and marshals with fire crews stationed around the circuit, ready in seconds.
+
+📋 And my favourite one: Verstappen's radio failed mid-race, so the team went back to the old-school pit board. A backup communication plan — exactly what we preach on site! 👏
+
+The rule of the weekend: no single point of failure. Always have a backup. 💯
+
+Did you watch the race? Who were you cheering for? 🏁
+
+#SingaporeGP #F1NightRace #MarinaBay #Singapore #WSH #SafetyCoordinator #SafetyFirst #SingaporeConstruction`,
+    image: "/posts/7515409339889700864.jpg",
+    date: "2026-10-13",
+    reactions: null,
+    comments: null,
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7515409339889700864",
+  },
   {
     id: "7515155934105759744",
     text: `🔥 YOUR FIRE EXTINGUISHER RUNS OUT IN 10 SECONDS.
@@ -68,7 +126,7 @@ Stay safe out there.
 #HazeSG #WSHSingapore #ConstructionSafety #OccupationalHealth #SafetyCoordinator #ZeroHarm`,
     image: "/posts/7514908885648879616.jpg",
     date: "2026-10-11",
-    reactions: 7,
+    reactions: 9,
     comments: null,
     url: "https://www.linkedin.com/feed/update/urn:li:activity/7514908885648879616",
   },
@@ -131,9 +189,13 @@ One missing tie. One overloaded platform. That is all it takes to send a worker 
 Before you step onto any scaffold, check these 5:
 
 ✅ Tag it — green tag means inspected and safe. No tag = no entry.
+
 ✅ Guardrails — top rail, mid rail and toe board on every open side.
+
 ✅ Tie-ins — the scaffold must be tied to the building as designed. Missing ties = collapse risk.
+
 ✅ 100% tie-off — hook your harness above, and stay hooked while you work at height.
+
 ✅ Load limit — never stack materials on the platform. A scaffold is a work platform, not a storage shelf.
 
 ⚠️ THE RULE: If the scaffold looks wrong, it IS wrong. Stop work and report it.
@@ -143,8 +205,8 @@ Have you ever seen a scaffold without a green tag? What did you do?
 #WSH #SafetyCoordinator #SingaporeConstruction #WorkAtHeight #ScaffoldSafety #ConstructionSafety`,
     image: "/posts/7514069388908462081.jpg",
     date: "2026-10-09",
-    reactions: null,
-    comments: null,
+    reactions: 2,
+    comments: 1,
     url: "https://www.linkedin.com/feed/update/urn:li:activity/7514069388908462081",
   },
   {
@@ -183,6 +245,7 @@ Before ANYONE goes in:
   {
     id: "7513346293147213824",
     text: `A wrench left on a scaffold edge is a loaded weapon.
+
 A 1 kg spanner dropped from 10 metres hits the ground at 50 km/h — faster than a cyclist at full sprint. Your hard hat is rated for small falling objects, not for that. 🏗️
 
 Most dropped-object incidents are not freak accidents. They are somebody's tool, somebody's phone, somebody's bolt:
@@ -203,48 +266,5 @@ Most dropped-object incidents are not freak accidents. They are somebody's tool,
     reactions: null,
     comments: null,
     url: "https://www.linkedin.com/feed/update/urn:li:activity/7513346293147213824",
-  },
-  {
-    id: "7512987136061550592",
-    text: `A suspended load never gives you a second chance. A concrete panel looks calm hanging from a crane hook — until a sling slips, a shackle cracks, or the ground under the crane gives way. Then 2 tonnes of concrete falls in less than one second. 🏗️
-Most crane accidents on site do not come from the crane breaking. They come from what we do under the hook:
-🏗️ Never walk or stand under a suspended load — this one rule saves more lives than any gadget
-🏗️ Watch your sling angle: at 60° you keep 87% of the sling's capacity, at 45° only 71%, and at 30° it drops to 50% — the sharper the angle, the weaker the lift
-🏗️ Check the ground: outriggers must sit on firm, level ground with proper mats — soft or uneven ground is one of the most common causes of crane overturn
-🏗️ One trained signalman gives the signals — everyone else stays clear of the lifting zone, at least 3 metres from the load path
-🏗️ Inspect every sling, hook and shackle before each lift — cut slings, cracked hooks and bent shackles go to the bin, not back on the rack
-👉 Simple safety rule: If the load can fall on you, you are standing in the wrong place.
-❓ QUIZ FOR YOU: A 2-tonne sling is rigged at a sharp 30° angle to lift a 1-tonne load. Safe or not safe? Tell me below. 👇
-#WSH #SafetyCoordinator #SingaporeConstruction #CraneSafety #LiftingSafety #ConstructionSafety #SafetyFirst`,
-    image: "/posts/post-10.jpg",
-    date: "2026-10-06",
-    reactions: 1,
-    comments: 1,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7512987136061550592",
-  },
-  {
-    id: "7512627460472102912",
-    text: `Electricity is the quietest killer on a construction site.
-No noise. No warning. One touch of a live cable can be enough. ⚡
-
-Most electrical accidents on site do not come from big machines.
-They come from small things we walk past every day:
-
-🔌 Cables lying on wet ground — water plus damaged insulation can carry 230 volts straight through you
-🔌 No 30mA RCD protection — a proper residual current device trips in under 0.2 seconds, fast enough to save a life
-🔌 Taped-up plugs and cracked extension leads — tape is not a repair, it is a trap
-🔌 Switchboards with no lockout — live panels must be locked and tagged, no shortcuts
-🔌 No test-before-touch — always prove the circuit is dead with a tested voltage tester
-
-👉 Simple safety rule: If it is plugged in, treat it as LIVE until you prove it is dead.
-
-❓ QUIZ FOR YOU: You see a worker drilling in the rain, extension cable lying in a puddle. What is YOUR first action — stop him, or tell him to finish fast? Tell me below. 👇
-
-#WSH #SafetyCoordinator #SingaporeConstruction #ElectricalSafety #ConstructionSafety #SafetyFirst`,
-    image: "/posts/post-1.jpg",
-    date: "2026-10-05",
-    reactions: 1,
-    comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7512627460472102912",
   },
 ];
