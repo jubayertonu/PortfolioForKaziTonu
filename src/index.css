@@ -101,6 +101,10 @@ html, body {
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
+/* vertical scroll areas (e.g. Experience view on short screens) — hidden bar, native scroll */
+.vscroll { -ms-overflow-style: none; scrollbar-width: none; }
+.vscroll::-webkit-scrollbar { display: none; }
+
 @keyframes floaty {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-12px); }

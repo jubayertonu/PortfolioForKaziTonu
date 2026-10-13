@@ -583,15 +583,15 @@ function AboutView({ goTo }: { goTo: (i: number) => void }) {
 function ExperienceView({ goTo }: { goTo: (i: number) => void }) {
   return (
     <section className="h-[100dvh] relative flex flex-col overflow-hidden">
-      <div className="flex-1 w-full max-w-6xl mx-auto px-6 md:px-12 flex flex-col justify-center pt-16 min-h-0">
-        <Enter><ViewLabel>Experience</ViewLabel></Enter>
-        <Enter delay={0.1}>
+      <div data-vscroll className="flex-1 w-full max-w-6xl mx-auto px-6 md:px-12 flex flex-col justify-[safe_center] pt-16 min-h-0 overflow-y-auto vscroll">
+        <Enter className="shrink-0"><ViewLabel>Experience</ViewLabel></Enter>
+        <Enter delay={0.1} className="shrink-0">
           <h2 className="font-display leading-[0.9] text-[clamp(2.4rem,8vw,5.5rem)] text-white">
             SITE-TESTED<br />
             <span className="text-outline">RECORD.</span>
           </h2>
         </Enter>
-        <Enter delay={0.2} className="min-h-0 mt-5 md:mt-7">
+        <Enter delay={0.2} className="shrink-0 mt-5 md:mt-7">
           <div className="flex md:grid md:grid-cols-3 gap-4 md:gap-5 overflow-x-auto md:overflow-visible no-scrollbar snap-x snap-mandatory pb-2 -mx-6 px-6 md:mx-0 md:px-0">
             {EXPERIENCE.map((e) => (
               <div key={e.role}
@@ -616,7 +616,7 @@ function ExperienceView({ goTo }: { goTo: (i: number) => void }) {
             ))}
           </div>
         </Enter>
-        <Enter delay={0.25} className="mt-5 md:mt-6">
+        <Enter delay={0.25} className="shrink-0 mt-5 md:mt-6">
           <p className="font-grotesk text-[10px] md:text-[11px] font-bold tracking-[0.25em] uppercase text-zinc-500">
             Selected Project Involvement
           </p>
@@ -864,6 +864,15 @@ export default function App() {
 
   const onWheel = (e: WheelEvent) => {
     if (Math.abs(e.deltaY) < 28) return;
+    const t = e.target as HTMLElement;
+    /* a vertical scroll area consumes the wheel unless at its edge */
+    const vs = t.closest("[data-vscroll]") as HTMLElement | null;
+    if (vs) {
+      const atTop = vs.scrollTop <= 0;
+      const atBottom = vs.scrollTop + vs.clientHeight >= vs.scrollHeight - 1;
+      if (e.deltaY > 0 && !atBottom) return;
+      if (e.deltaY < 0 && !atTop) return;
+    }
     goTo(view + (e.deltaY > 0 ? 1 : -1));
   };
 
@@ -878,6 +887,14 @@ export default function App() {
     /* ignore swipes that start on a horizontal carousel */
     const t = e.target as HTMLElement;
     if (t.closest(".no-scrollbar")) return;
+    /* a vertical scroll area consumes the swipe unless at its edge */
+    const vs = t.closest("[data-vscroll]") as HTMLElement | null;
+    if (vs) {
+      const atTop = vs.scrollTop <= 0;
+      const atBottom = vs.scrollTop + vs.clientHeight >= vs.scrollHeight - 1;
+      if (dy > 0 && !atBottom) return;
+      if (dy < 0 && !atTop) return;
+    }
     goTo(view + (dy > 0 ? 1 : -1));
   };
 
