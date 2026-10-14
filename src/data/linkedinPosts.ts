@@ -21,9 +21,40 @@ export interface LinkedInPost {
 }
 
 /** ISO date of the last sync, e.g. "2026-10-05" */
-export const postsUpdatedAt = "2026-10-14";
+export const postsUpdatedAt = "2026-10-15";
 
 export const linkedinPosts: LinkedInPost[] = [
+  {
+    id: "7516252467416838144",
+    text: `🛑 On 28 September, a 22-year-old worker fell from the 12th storey during concrete casting at a BTO site in Tanjong Rhu.
+
+He never went home. 💔
+
+Falls from height are still the number one killer on our construction sites. MOM's mid-year WSH report says more workers died in the first half of 2026 than the same period last year. 📈
+
+Before ANY concreting work at height, these 5 controls must be in place:
+
+🧱 1. Guardrails at every open edge — top rail, mid rail, toe board. No gaps, no missing sections. An open edge is a death trap.
+
+🪜 2. Safe access up and down — ladders must extend at least 1 metre above the landing, tied off, on firm ground. A ladder that slips or falls short of the landing is all it takes.
+
+🪢 3. Harness with 100% tie-off where edges cannot be guarded — and check your fall clearance. A 1.8m shock-absorbing lanyard stretches to over 3.5m in a fall. Without enough clear space below, the harness saves nobody.
+
+🚧 4. Control the pump hose — a concrete pump hose kicks and whips under pressure. Barricade the casting zone, keep workers clear of edges, and never let anyone stand on or straddle the hose.
+
+🛑 5. Stop-work authority is real — after the Tanjong Rhu fall, MOM ordered all concrete casting with the mobile concrete pump to stop on that site. Anyone who sees an unsafe edge can and must stop the work.
+
+⚠️ THE RULE: No edge protection, no harness anchor, no work at height. Full stop. 💪
+
+❓ What is the one fall-protection rule your site never compromises on? Share it below — someone might learn from it. 👇
+
+#wsh #safetycoordinator #singaporeconstruction #fallprotection #workatheight #constructionsafety #stopwork`,
+    image: "/posts/7516252467416838144.jpg",
+    date: "2026-10-15",
+    reactions: null,
+    comments: null,
+    url: "https://www.linkedin.com/feed/update/urn:li:share/7516252467416838144",
+  },
   {
     id: "7515882060960448514",
     text: `🔥 STOP WORK — Hot Work! 🛑
