@@ -21,9 +21,40 @@ export interface LinkedInPost {
 }
 
 /** ISO date of the last sync, e.g. "2026-10-05" */
-export const postsUpdatedAt = "2026-10-15";
+export const postsUpdatedAt = "2026-10-16";
 
 export const linkedinPosts: LinkedInPost[] = [
+  {
+    id: "7516609947795623937",
+    text: `🔒 The switch was OFF.
+The tag was ON.
+Then someone flicked it back on "just for a minute" — and a maintenance worker inside the machine never came home. 😔
+
+Unexpected startup kills. Lockout/Tagout (LOTO) exists for one reason: no machine moves, no energy flows, until EVERY worker is clear. ⚡
+
+👷 As safety people, these are the LOTO rules we drill into every crew:
+
+1️⃣ 🔒 ONE lock, ONE worker, ONE key — your lock is your life. Only the person who put it on takes it off. Never remove someone else's lock, no exceptions.
+
+2️⃣ 📋 Lock out ALL energy sources, not just the main switch — electricity, compressed air, steam, springs, gravity, trapped pressure. A cut power cable does not stop a pressurized line.
+
+3️⃣ ✅ Verify ZERO energy — the "try-start" test. After locking out, try to start the equipment to prove it is dead. Skip this step and the lock is just decoration.
+
+4️⃣ 🏷️ A tag is a WARNING, not a barrier — tags can be ignored, missed, or blown off. The lock is what physically stops the switch. Tag alone = no protection.
+
+5️⃣ 📦 Stored energy kills after shutdown — capacitors, springs, suspended loads, trapped pressure. Bleed it, block it, ground it — before anyone's hands go in.
+
+The rule of LOTO: if it is not locked, tagged, and tried — it is NOT safe to work on. Full stop. 💪
+
+❓ When did your team last run a proper LOTO drill — and did everyone pass? Tell us below. 👇
+
+#wsh #safetycoordinator #singaporeconstruction #loto #lockouttagout #electricalsafety #zeroharm #safetyfirst`,
+    image: "/posts/7516609947795623937.jpg",
+    date: "2026-10-16",
+    reactions: null,
+    comments: null,
+    url: "https://www.linkedin.com/feed/update/urn:li:share/7516609947795623937",
+  },
   {
     id: "7516252467416838144",
     text: `🛑 On 28 September, a 22-year-old worker fell from the 12th storey during concrete casting at a BTO site in Tanjong Rhu.
@@ -238,63 +269,5 @@ Have you ever seen a worker collapse from heat on site? What happened?
     reactions: null,
     comments: null,
     url: "https://www.linkedin.com/feed/update/urn:li:share/7514431415686574080",
-  },
-  {
-    id: "7514069386958143489",
-    text: `A SCAFFOLD CAN COLLAPSE IN SECONDS 🚨
-
-One missing tie. One overloaded platform. That is all it takes to send a worker falling from height — one of the top causes of workplace deaths in construction.
-
-Before you step onto any scaffold, check these 5:
-
-✅ Tag it — green tag means inspected and safe. No tag = no entry.
-✅ Guardrails — top rail, mid rail and toe board on every open side.
-✅ Tie-ins — the scaffold must be tied to the building as designed. Missing ties = collapse risk.
-✅ 100% tie-off — hook your harness above, and stay hooked while you work at height.
-✅ Load limit — never stack materials on the platform. A scaffold is a work platform, not a storage shelf.
-
-⚠️ THE RULE: If the scaffold looks wrong, it IS wrong. Stop work and report it.
-
-Have you ever seen a scaffold without a green tag? What did you do?
-
-#WSH #SafetyCoordinator #SingaporeConstruction #WorkAtHeight #ScaffoldSafety #ConstructionSafety`,
-    image: "/posts/7514069386958143489.jpg",
-    date: "2026-10-09",
-    reactions: 2,
-    comments: 1,
-    url: "https://www.linkedin.com/feed/update/urn:li:share/7514069386958143489",
-  },
-  {
-    id: "7513705566309900288",
-    text: `WHAT'S INSIDE THAT MANHOLE CAN KILL YOU IN 60 SECONDS.
-
-A confined space kills without warning — no fire, no smoke, no sound. Oxygen drops below 19.5% and a worker simply falls asleep… and never wakes up. In Singapore, manhole entry is one of the most tightly controlled works under WSH rules — for a reason.
-
-The 5 silent killers inside a confined space:
-
-☠️ Oxygen too low (below 19.5%) or too high (above 23.5%) — both are deadly
-☠️ Hydrogen sulphide (H2S) — the rotten-egg smell disappears at high concentrations as your nose goes numb
-☠️ Flammable gas — keep it below 10% LEL, or one spark is enough
-☠️ Engulfment — water, sludge or sand can bury you in seconds
-☠️ Carbon monoxide — colourless, odourless, kills silently
-
-Before ANYONE goes in:
-
-✅ Valid confined space entry permit — no permit, no entry, no excuse
-✅ Gas test done and logged BEFORE entry — then continuous monitoring while inside
-✅ Standby man outside, eyes on the entrant at all times, with a radio
-✅ Mechanical ventilation running — never trust natural ventilation alone
-✅ Rescue tripod and retrieval line ready — most confined space deaths are would-be rescuers. Never go in after someone without breathing apparatus.
-
-👉 Simple safety rule: Test before you enter. Ventilate while you work. Watch while your buddy is inside.
-
-❓ QUIZ FOR YOU: You arrive on site and see a worker lowering himself into a manhole. The gas meter is still in the toolbox, untouched. What is YOUR first action? Tell me below. 👇
-
-#WSH #SafetyCoordinator #SingaporeConstruction #ConfinedSpace #WorkplaceSafety #SafetyFirst #ConstructionSafety #ToolboxTalk`,
-    image: "/posts/7513705566309900288.jpg",
-    date: "2026-10-08",
-    reactions: null,
-    comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:share/7513705566309900288",
   },
 ];
