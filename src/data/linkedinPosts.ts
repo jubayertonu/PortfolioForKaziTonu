@@ -20,9 +20,73 @@ export interface LinkedInPost {
 }
 
 /** ISO date of the last sync, e.g. "2026-10-05" */
-export const postsUpdatedAt = "2026-10-17";
+export const postsUpdatedAt = "2026-10-18";
 
 export const linkedinPosts: LinkedInPost[] = [
+  {
+    id: "7517334844247552000",
+    text: `⚠️ EVERY TIME A WORKER GETS HURT, THE FIRST QUESTION IS THE SAME: "WAS HE WEARING HIS PPE?" 😠
+
+But almost nobody asks the second question — the one that could have prevented it: "Why was the hazard still there at all?"
+
+👷 PPE is at the BOTTOM of the hierarchy of controls for a reason. Here is the order Singapore's WSH framework and ISO 45001 demand — and what it looks like on a real site:
+
+1️⃣ 🗑️ Eliminate the hazard — a guardrail on that open edge protects 100% of the workers near it, even the one who forgot his harness. A harness protects only the man wearing it, and only if he is clipped on. Which one would you trust your brother's life to?
+
+2️⃣ 🔧 Engineer it out — Singapore's noise limit is 85 dBA over 8 hours. You can hand out earplugs and hope 15 men wear them correctly all 8 hours — or fit an acoustic enclosure on the machine and protect all 15 at once, with no human behaviour needed.
+
+3️⃣ 👷 PPE last — an N95 mask filters 95% of particles, but only with a perfect seal. One loose strap, one dusty beard-line, one mask pulled down for a chat — and the protection is gone. PPE fails the moment the human fails. That is exactly why it is your LAST line of defence, never your first answer.
+
+💪 THE RULE: Work DOWN the hierarchy — eliminate first, guard second, and keep PPE as your last resort, not your first answer.
+
+❓ Agree or disagree — is PPE culture replacing proper hazard control on our construction sites? Tell me below. 👇
+
+#WSH #SafetyCoordinator #SingaporeConstruction #HierarchyOfControls #PPE #SafetyFirst #ZeroHarm`,
+    image: "/posts/7517334844247552000.jpg",
+    date: "2026-10-18",
+    reactions: null,
+    comments: null,
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7517334844247552000",
+  },
+  {
+    id: "7517038232165879808",
+    text: `🌫️ Singapore is choking right now — the 24-hour PSI crossed 200 in parts of the island this week, and many of us are coughing, with itchy eyes and tight chests. If you work outdoors, this one is for you. 😷
+
+The haze is back, and PM2.5 particles are so tiny they go deep into your lungs and even into your blood. Here is what you SHOULD do and what you should NOT do:
+
+✅ DO check the 1-hour PM2.5 on the myENV app before going out — it is the real guide for the next few hours.
+
+✅ DO wear a well-fitted N95 mask outdoors when the air is bad. A normal surgical mask cannot stop PM2.5.
+
+✅ DO keep windows and doors closed. Use the air-con or air purifier indoors.
+
+✅ DO drink more water and rest in shaded or air-con areas between tasks.
+
+✅ DO look after the vulnerable — elderly workers, anyone with asthma or heart problems should stay indoors.
+
+✅ DO stop work and seek medical help if you feel dizzy, chest tightness or breathing difficulty.
+
+❌ DON'T do heavy outdoor work when PSI is unhealthy — slow down and take breaks.
+
+❌ DON'T think a normal surgical mask protects you from haze. It doesn't.
+
+❌ DON'T open windows wide and let the haze fill your room or rest area.
+
+❌ DON'T ignore early signs — coughing, itchy eyes and sore throat are your body's warning.
+
+❌ DON'T exercise outdoors in the haze to "stay fit" — it does the opposite.
+
+My rule for this week: your lungs cannot be replaced. Protect them first. 💯
+
+How are you coping with the haze at your workplace? 🏗️
+
+#SingaporeHaze #HazeSafety #WSH #SafetyCoordinator #SingaporeConstruction #HealthAndSafety #StaySafe`,
+    image: "/posts/7517038232165879808.jpg",
+    date: "2026-10-17",
+    reactions: null,
+    comments: null,
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7517038232165879808",
+  },
   {
     id: "7516971335592382464",
     text: `🔥 THE WRONG EXTINGUISHER CAN KILL YOU FASTER THAN THE FIRE.
@@ -111,7 +175,7 @@ Before ANY concreting work at height, these 5 controls must be in place:
 #WSH #SafetyCoordinator #SingaporeConstruction #FallProtection #WorkAtHeight #ConstructionSafety #StopWork`,
     image: "/posts/7516252470554071040.jpg",
     date: "2026-10-15",
-    reactions: 2,
+    reactions: 3,
     comments: null,
     url: "https://www.linkedin.com/feed/update/urn:li:activity/7516252470554071040",
   },
@@ -221,57 +285,5 @@ When did you last check the fire extinguisher on your site — is it charged, an
     reactions: null,
     comments: null,
     url: "https://www.linkedin.com/feed/update/urn:li:activity/7515155934105759744",
-  },
-  {
-    id: "7514908885648879616",
-    text: `The haze is back over Singapore, and our sites feel it first.
-
-Today the 24-hour PSI is unhealthy across all five regions (114–150 as of midday, per NEA), with unhealthy to high unhealthy forecast for the next 24 hours. On Friday the central region hit 192 — the highest reading this year.
-
-For those of us running construction sites, haze is not just uncomfortable — it is an occupational health hazard. Fine particles (PM2.5) go deep into the lungs, and our workers are outdoors in it all day.
-
-What we are doing on site:
-
-• Check the NEA PSI and 1-hour PM2.5 before the shift and through the day — plan work around the readings, not just the sky.
-• N95 masks for outdoor work. A surgical mask or cloth covering does not stop PM2.5.
-• Cut back strenuous tasks during the worst hours. Move heavy work to clearer windows and add rest breaks in sheltered areas.
-• Watch your people. Coughing, breathlessness, eye or throat irritation — stop work, rest, and seek help if it does not ease.
-• Protect the vulnerable first: older workers and anyone with asthma, lung or heart conditions should minimise outdoor exertion.
-
-A toolbox talk on haze takes five minutes. A worker struggling to breathe costs far more.
-
-Stay safe out there.
-
-#HazeSG #WSHSingapore #ConstructionSafety #OccupationalHealth #SafetyCoordinator #ZeroHarm`,
-    image: "/posts/7514908885648879616.jpg",
-    date: "2026-10-11",
-    reactions: 9,
-    comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7514908885648879616",
-  },
-  {
-    id: "7514795882588864512",
-    text: `⚠️ THE DRIVER CANNOT SEE YOU BEHIND THAT LORRY.
-
-A reversing tipper lorry has blind spots big enough to hide a grown man. On a noisy site, the driver will not hear you shout either. A loaded tipper can weigh over 30 tonnes — once it rolls over a person, there is no second chance.
-
-This is how we stay alive around moving vehicles:
-
-✅ Use the walkway — stay on the marked pedestrian path, never cut across the vehicle route.
-✅ Eye contact first — never walk behind a lorry until the driver sees you. A wave back means you are seen.
-✅ Banksman for every reverse — no reversing without a trained banksman guiding. If the driver loses sight of the banksman, he must stop.
-✅ Keep your distance — stay at least 5 metres clear of any moving or reversing vehicle.
-✅ Wear your hi-vis vest — on a dusty site at dusk, that vest is what keeps you visible.
-
-🚫 THE RULE: If you cannot see the driver's mirrors, the driver cannot see you. Stop and wait.
-
-Have you ever had a close call with a reversing vehicle on site? Share it below — your story might save someone.
-
-#WSH #SafetyCoordinator #SingaporeConstruction #SiteSafety #ConstructionSafety #WorkplaceSafety`,
-    image: "/posts/7514795882588864512.jpg",
-    date: "2026-10-11",
-    reactions: null,
-    comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7514795882588864512",
   },
 ];
