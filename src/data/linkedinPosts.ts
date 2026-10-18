@@ -20,9 +20,38 @@ export interface LinkedInPost {
 }
 
 /** ISO date of the last sync, e.g. "2026-10-05" */
-export const postsUpdatedAt = "2026-10-18";
+export const postsUpdatedAt = "2026-10-19";
 
 export const linkedinPosts: LinkedInPost[] = [
+  {
+    id: "7517698905627828225",
+    text: `🦺 Almost 3 years as a Safety Coordinator in Singapore construction. 🚧
+
+In all that time, no one on my watch has lost their life — and I do not take that for granted for a single day. 🙏
+
+The site taught me these 5 lessons the hard way. Here they are:
+
+📝 1️⃣ Near misses are FREE lessons — the safety triangle says behind every serious injury, there are hundreds of near misses nobody reported. One reported near miss today can stop one injury tomorrow. Report everything. 📢
+
+🗣️ 2️⃣ Five minutes can save a life — every morning, Mon–Sat, I hold a toolbox meeting with 10–15 workers before work starts. 5 minutes, one topic, everyone speaks. That small habit has stopped more unsafe acts than any rule book. 📋
+
+🛑 3️⃣ "Stop work" is the bravest sentence on site — it costs 2 minutes and zero dollars. An accident costs a family everything. Any worker, any time — if it looks unsafe, stop it and ask. 💬
+
+😴 4️⃣ Fatigue is a silent killer — safety research shows staying awake 17–19 hours can slow your reactions as much as a few drinks behind the wheel. An exhausted worker on a scaffold is as dangerous as a careless one. Rest is a control measure. 🛏️
+
+❤️ 5️⃣ Everyone goes home to somebody — behind every helmet is a father, a son, a brother. I keep that picture in my head every single shift. That is the real reason for every checklist. 👷
+
+💪 THE RULE: No deadline is worth a funeral. Everybody goes home. Every day. 🏠✅
+
+❓ What is the single most valuable safety lesson YOUR career has taught you? Tell me in the comments — I genuinely want to learn from you. 👇
+
+#WSH #SafetyCoordinator #SingaporeConstruction #SafetyLessons #SafetyFirst #ConstructionSafety #ZeroHarm`,
+    image: "/posts/7517698905627828225.jpg",
+    date: "2026-10-19",
+    reactions: null,
+    comments: null,
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7517698905627828225",
+  },
   {
     id: "7517334844247552000",
     text: `⚠️ EVERY TIME A WORKER GETS HURT, THE FIRST QUESTION IS THE SAME: "WAS HE WEARING HIS PPE?" 😠
@@ -82,7 +111,7 @@ How are you coping with the haze at your workplace? 🏗️
 
 #SingaporeHaze #HazeSafety #WSH #SafetyCoordinator #SingaporeConstruction #HealthAndSafety #StaySafe`,
     image: "/posts/7517038232165879808.jpg",
-    date: "2026-10-17",
+    date: "2026-10-18",
     reactions: null,
     comments: null,
     url: "https://www.linkedin.com/feed/update/urn:li:activity/7517038232165879808",
@@ -260,30 +289,5 @@ Did you watch the race? Who were you cheering for? 🏁
     reactions: null,
     comments: null,
     url: "https://www.linkedin.com/feed/update/urn:li:activity/7515409339889700864",
-  },
-  {
-    id: "7515155934105759744",
-    text: `🔥 YOUR FIRE EXTINGUISHER RUNS OUT IN 10 SECONDS.
-
-Only 10 seconds of powder or foam. And a small site fire can double in size every minute. If you hesitate, those 10 seconds are gone — and the fire is now too big for any extinguisher.
-
-This is how we stay alive around fire on site:
-
-✅ Learn PASS — Pull the pin, Aim low at the BASE of the flames, Squeeze the handle, Sweep side to side.
-✅ Use the right type — dry powder for most site fires, CO₂ for electrical panels. NEVER use water on an electrical fire — it can kill you.
-✅ Stand 2–3 metres back — close enough to reach the flames, far enough to escape.
-✅ Know where it is — the walk to the nearest extinguisher should be no more than 15–23 metres. A blocked or empty extinguisher is useless — check yours monthly.
-✅ Fire watch after hot work — after welding or cutting, watch the area for 30–60 minutes. Sparks can smoulder for an hour before they burst into flame.
-
-🚫 THE RULE: If the fire is taller than you, drop the extinguisher and run. Call 995. Your life is worth more than any machine or material.
-
-When did you last check the fire extinguisher on your site — is it charged, and do you know exactly where it is? Share below, you might remind someone.
-
-#WSH #SafetyCoordinator #SingaporeConstruction #FireSafety #ConstructionSafety #SiteSafety #HotWork #FirePrevention`,
-    image: "/posts/7515155934105759744.jpg",
-    date: "2026-10-12",
-    reactions: null,
-    comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7515155934105759744",
   },
 ];
