@@ -20,9 +20,38 @@ export interface LinkedInPost {
 }
 
 /** ISO date of the last sync, e.g. "2026-10-05" */
-export const postsUpdatedAt = "2026-10-19";
+export const postsUpdatedAt = "2026-10-20";
 
 export const linkedinPosts: LinkedInPost[] = [
+  {
+    id: "7518055753891614720",
+    text: `⚡ "THE SPARK YOU CAN BARELY FEEL CAN BURN DOWN A SITE." 🔥
+
+Petrol vapour can ignite from a spark carrying as little as 0.2 millijoules of energy — and a worker walking across the site can build up thousands of volts of static without feeling a thing. One unseen spark during refuelling, and you have a fire nobody planned for.
+
+On our sites we store diesel, we run generators, we dispense fuel into containers every single day. Here is how we do it safely:
+
+1️⃣ 🔗 Bond before you transfer — connect a metal cable between the two containers so the charge is the same on both. No difference in charge, no spark between them.
+
+2️⃣ 🌍 Earth to drain the charge — clamp an earthing cable from the container to a proper earth point. Static needs somewhere to go — give it the ground, not the fuel vapour.
+
+3️⃣ ⛽ Keep the nozzle touching — when filling, keep the nozzle in contact with the container rim the whole time. That contact kills the spark gap before it forms.
+
+4️⃣ 🚗 Never re-enter your vehicle during refuelling — getting in and out builds static on your clothes. Many petrol-station fires start exactly this way. Stand by the nozzle.
+
+5️⃣ 🛢️ Never pour petrol into random plastic containers — plastic cannot be bonded, so the charge has nowhere to go. Use proper approved fuel containers only.
+
+💪 THE RULE: Bond it, earth it, THEN pour. Static is invisible — the fire it starts is not. ⚠️🔥
+
+❓ Have you ever seen earthing clamps used properly on YOUR site? Or is bonding something people skip when they are in a hurry? Tell me below. 👇
+
+#WSH #SafetyCoordinator #SingaporeConstruction #StaticElectricity #FireSafety #ConstructionSafety #ZeroHarm`,
+    image: "/posts/7518055753891614720.jpg",
+    date: "2026-10-20",
+    reactions: null,
+    comments: null,
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7518055753891614720",
+  },
   {
     id: "7517698905627828225",
     text: `🦺 Almost 3 years as a Safety Coordinator in Singapore construction. 🚧
@@ -48,8 +77,8 @@ The site taught me these 5 lessons the hard way. Here they are:
 #WSH #SafetyCoordinator #SingaporeConstruction #SafetyLessons #SafetyFirst #ConstructionSafety #ZeroHarm`,
     image: "/posts/7517698905627828225.jpg",
     date: "2026-10-19",
-    reactions: null,
-    comments: null,
+    reactions: 6,
+    comments: 1,
     url: "https://www.linkedin.com/feed/update/urn:li:activity/7517698905627828225",
   },
   {
@@ -73,7 +102,7 @@ But almost nobody asks the second question — the one that could have prevented
 #WSH #SafetyCoordinator #SingaporeConstruction #HierarchyOfControls #PPE #SafetyFirst #ZeroHarm`,
     image: "/posts/7517334844247552000.jpg",
     date: "2026-10-18",
-    reactions: null,
+    reactions: 1,
     comments: null,
     url: "https://www.linkedin.com/feed/update/urn:li:activity/7517334844247552000",
   },
@@ -260,34 +289,5 @@ Did you spot all 5? Comment your answer below! 🧡👇
     reactions: 3,
     comments: null,
     url: "https://www.linkedin.com/feed/update/urn:li:activity/7515522851118944257",
-  },
-  {
-    id: "7515409339889700864",
-    text: `🏎️ The Singapore F1 night race is done — and what a show it was! 🇸🇬✨
-
-Max Verstappen finally conquered Marina Bay 🏆 — his first-ever win here after 10 attempts! Pole position, sprint win AND race win — a perfect weekend. And all this on his 250th Grand Prix start, with his 73rd career victory. 🤯
-
-But the part that caught my eye as a safety man — look at the safety work running behind this race:
-
-💡 Around 1,600 custom floodlights give about 3,000 lux — 4 times brighter than a sports stadium. Every light was tested and approved by the FIA so drivers get zero glare.
-
-🧱 Concrete walls sit just inches from the racing line, with energy-absorbing barriers at the impact zones. On a street circuit there is almost no run-off — that is why nearly every Singapore GP has seen a safety car.
-
-🔥 Drivers can lose 3–4 kg of body fluid in this heat and humidity. Heat management and hydration are literally part of the race strategy.
-
-🛡️ The halo, HANS device, flameproof suits, and marshals with fire crews stationed around the circuit, ready in seconds.
-
-📋 And my favourite one: Verstappen's radio failed mid-race, so the team went back to the old-school pit board. A backup communication plan — exactly what we preach on site! 👏
-
-The rule of the weekend: no single point of failure. Always have a backup. 💯
-
-Did you watch the race? Who were you cheering for? 🏁
-
-#SingaporeGP #F1NightRace #MarinaBay #Singapore #WSH #SafetyCoordinator #SafetyFirst #SingaporeConstruction`,
-    image: "/posts/7515409339889700864.jpg",
-    date: "2026-10-12",
-    reactions: null,
-    comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7515409339889700864",
   },
 ];
