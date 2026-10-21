@@ -20,278 +20,188 @@ export interface LinkedInPost {
 }
 
 /** ISO date of the last sync, e.g. "2026-10-05" */
-export const postsUpdatedAt = "2026-10-21";
+export const postsUpdatedAt = "2026-10-22";
 
 export const linkedinPosts: LinkedInPost[] = [
   {
+    id: "7518786520301096961",
+    text: `🔥 "A FIRE CAN DOUBLE IN SIZE EVERY 60 SECONDS." ⏱️
+One minute. That is all it takes for a small site fire to become a big one. And the red extinguisher on the wall? If nobody inspected it this month, it might be nothing more than red decoration. On construction sites — hot works, welding sparks, temporary wiring — fire is always one careless moment away. 🥺
+Here is my monthly 60-second extinguisher check. Save this. 📋
+1️⃣ 🟢 Gauge in the GREEN — the needle must sit in the green zone. Red or low pressure = send it for service, do not put it back on the hook.
+2️⃣ 📌 Pin, seal and tamper tag intact — if the pin is missing or the seal is broken, someone may have used it and hung it back empty.
+3️⃣ 🧯 Hose and nozzle clear — no cracks, no blockage, no melted plastic. A blocked nozzle turns the extinguisher into a paperweight.
+4️⃣ 🛡️ Body in good shape — no rust, dents or corrosion, and the label readable. Know your class: A for wood and paper, B for flammable liquids, C for gases — and never water on an electrical fire. ⚡
+5️⃣ 📍 Right place, easy reach — mounted on its bracket, sign visible, path clear. An extinguisher buried behind stacked materials might as well not exist.
+6️⃣ 🗓️ Service date current — monthly visual check by us on site, full service by a competent person every year. An expired service tag means a failed inspection.
+💪 THE RULE: If you cannot confirm it works, assume it does not. Inspect monthly, service yearly — a dead extinguisher is just red decoration on the wall.
+🚫
+❓ When did YOU last check the fire extinguisher nearest your work area? Be honest — tell me below. 👇
+#WSH #SafetyCoordinator #SingaporeConstruction #FireSafety #SafetyFirst #ZeroHarm #ToolboxTalk`,
+    image: "/posts/7518786520301096961.jpg",
+    date: "2026-10-22",
+    reactions: null,
+    comments: null,
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7518786520301096961",
+  },
+  {
     id: "7518426685348872193",
     text: `🔨 "A 1 KG SPANNER DROPPED FROM A 10-STOREY HDB BLOCK HITS THE GROUND AT NEARLY 90 KM/H." 💥
-
-Simple physics: 1 kg × 30 metres of fall = about 90 km/h impact speed and nearly 300 joules of energy. A hard hat is tested with just 3.6 kg dropped from 1.5 metres — it protects against small knocks, not a tool falling ten storeys. Struck-by falling objects is one of construction's classic killers, and it needs no machinery — just a slippery glove and gravity. 😬
-
+Simple physics: 1 kg × 30 metres of fall = about 90 km/h impact speed and nearly 300 joules of energy. A hard hat is tested with just 3.6 kg dropped from 1.5 metres — it protects against small knocks, not a tool falling ten storeys. Struck-by falling objects is one of construction's classic killers, and it needs no machinery — just a slippery glove and gravity. 🥺
 On HDB maintenance works we are up on blocks every day — spanners, bolts, small tools, all with a long way down. Here is how we keep the ground safe:
-
 1️⃣ 🔗 Tether every tool at height — tool lanyards rated for the tool's weight, clipped to your harness or a rated anchor. If it leaves your hand, it stays with you.
-
 2️⃣ 🧱 Fit toe boards on scaffold platforms — at least 3½ inches (89 mm) high. Small parts roll; toe boards stop them at the edge.
-
 3️⃣ 🥅 Use debris nets and catch platforms — nets under open edges and scaffold bays catch what toe boards miss.
-
 4️⃣ 🚧 Barricade the drop zone below — nobody walks under overhead work. Fence it, sign it, enforce it. The exclusion zone is part of the job, not extra.
-
 5️⃣ 📋 Secure materials before hoisting — loose bolts in an open tray become falling objects the moment the load swings.
-
 💪 THE RULE: If it can fall, it must be tethered, netted — or the ground below must be clear. No exceptions. ⚠️
-
 ❓ What is the strangest thing you have ever seen dropped from height on a site? Tell me below. 👇
-
 #WSH #SafetyCoordinator #SingaporeConstruction #DroppedObjects #WorkAtHeight #SafetyFirst #ZeroHarm`,
     image: "/posts/7518426685348872193.jpg",
     date: "2026-10-21",
     reactions: null,
     comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:share/7518426685348872193",
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7518426685348872193",
   },
   {
-    id: "7518055753891614720",
+    id: "7518055751513419776",
     text: `⚡ "THE SPARK YOU CAN BARELY FEEL CAN BURN DOWN A SITE." 🔥
-
 Petrol vapour can ignite from a spark carrying as little as 0.2 millijoules of energy — and a worker walking across the site can build up thousands of volts of static without feeling a thing. One unseen spark during refuelling, and you have a fire nobody planned for.
-
 On our sites we store diesel, we run generators, we dispense fuel into containers every single day. Here is how we do it safely:
-
 1️⃣ 🔗 Bond before you transfer — connect a metal cable between the two containers so the charge is the same on both. No difference in charge, no spark between them.
-
 2️⃣ 🌍 Earth to drain the charge — clamp an earthing cable from the container to a proper earth point. Static needs somewhere to go — give it the ground, not the fuel vapour.
-
 3️⃣ ⛽ Keep the nozzle touching — when filling, keep the nozzle in contact with the container rim the whole time. That contact kills the spark gap before it forms.
-
 4️⃣ 🚗 Never re-enter your vehicle during refuelling — getting in and out builds static on your clothes. Many petrol-station fires start exactly this way. Stand by the nozzle.
-
 5️⃣ 🛢️ Never pour petrol into random plastic containers — plastic cannot be bonded, so the charge has nowhere to go. Use proper approved fuel containers only.
-
 💪 THE RULE: Bond it, earth it, THEN pour. Static is invisible — the fire it starts is not. ⚠️🔥
-
 ❓ Have you ever seen earthing clamps used properly on YOUR site? Or is bonding something people skip when they are in a hurry? Tell me below. 👇
-
 #WSH #SafetyCoordinator #SingaporeConstruction #StaticElectricity #FireSafety #ConstructionSafety #ZeroHarm`,
-    image: "/posts/7518055753891614720.jpg",
+    image: "/posts/7518055751513419776.jpg",
     date: "2026-10-20",
     reactions: null,
     comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7518055753891614720",
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7518055751513419776",
   },
   {
-    id: "7517698905627828225",
+    id: "7517698904470212609",
     text: `🦺 Almost 3 years as a Safety Coordinator in Singapore construction. 🚧
-
 In all that time, no one on my watch has lost their life — and I do not take that for granted for a single day. 🙏
-
 The site taught me these 5 lessons the hard way. Here they are:
-
 📝 1️⃣ Near misses are FREE lessons — the safety triangle says behind every serious injury, there are hundreds of near misses nobody reported. One reported near miss today can stop one injury tomorrow. Report everything. 📢
-
 🗣️ 2️⃣ Five minutes can save a life — every morning, Mon–Sat, I hold a toolbox meeting with 10–15 workers before work starts. 5 minutes, one topic, everyone speaks. That small habit has stopped more unsafe acts than any rule book. 📋
-
 🛑 3️⃣ "Stop work" is the bravest sentence on site — it costs 2 minutes and zero dollars. An accident costs a family everything. Any worker, any time — if it looks unsafe, stop it and ask. 💬
-
 😴 4️⃣ Fatigue is a silent killer — safety research shows staying awake 17–19 hours can slow your reactions as much as a few drinks behind the wheel. An exhausted worker on a scaffold is as dangerous as a careless one. Rest is a control measure. 🛏️
-
-❤️ 5️⃣ Everyone goes home to somebody — behind every helmet is a father, a son, a brother. I keep that picture in my head every single shift. That is the real reason for every checklist. 👷
-
+❤️ 5️⃣ Everyone goes home to somebody — behind every helmet is a father, a son, a brother. I keep that picture in my head every single shift. That is the real reason for every checklist. 🏠
 💪 THE RULE: No deadline is worth a funeral. Everybody goes home. Every day. 🏠✅
-
 ❓ What is the single most valuable safety lesson YOUR career has taught you? Tell me in the comments — I genuinely want to learn from you. 👇
-
 #WSH #SafetyCoordinator #SingaporeConstruction #SafetyLessons #SafetyFirst #ConstructionSafety #ZeroHarm`,
-    image: "/posts/7517698905627828225.jpg",
+    image: "/posts/7517698904470212609.jpg",
     date: "2026-10-19",
     reactions: 6,
-    comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7517698905627828225",
+    comments: 1,
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7517698904470212609",
   },
   {
-    id: "7517334844247552000",
+    id: "7517334842930302976",
     text: `⚠️ EVERY TIME A WORKER GETS HURT, THE FIRST QUESTION IS THE SAME: "WAS HE WEARING HIS PPE?" 😠
-
 But almost nobody asks the second question — the one that could have prevented it: "Why was the hazard still there at all?"
-
 👷 PPE is at the BOTTOM of the hierarchy of controls for a reason. Here is the order Singapore's WSH framework and ISO 45001 demand — and what it looks like on a real site:
-
 1️⃣ 🗑️ Eliminate the hazard — a guardrail on that open edge protects 100% of the workers near it, even the one who forgot his harness. A harness protects only the man wearing it, and only if he is clipped on. Which one would you trust your brother's life to?
-
 2️⃣ 🔧 Engineer it out — Singapore's noise limit is 85 dBA over 8 hours. You can hand out earplugs and hope 15 men wear them correctly all 8 hours — or fit an acoustic enclosure on the machine and protect all 15 at once, with no human behaviour needed.
-
 3️⃣ 👷 PPE last — an N95 mask filters 95% of particles, but only with a perfect seal. One loose strap, one dusty beard-line, one mask pulled down for a chat — and the protection is gone. PPE fails the moment the human fails. That is exactly why it is your LAST line of defence, never your first answer.
-
 💪 THE RULE: Work DOWN the hierarchy — eliminate first, guard second, and keep PPE as your last resort, not your first answer.
-
 ❓ Agree or disagree — is PPE culture replacing proper hazard control on our construction sites? Tell me below. 👇
-
 #WSH #SafetyCoordinator #SingaporeConstruction #HierarchyOfControls #PPE #SafetyFirst #ZeroHarm`,
-    image: "/posts/7517334844247552000.jpg",
+    image: "/posts/7517334842930302976.jpg",
     date: "2026-10-18",
     reactions: 1,
     comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7517334844247552000",
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7517334842930302976",
   },
   {
-    id: "7517038232165879808",
+    id: "7517038231071150080",
     text: `🌫️ Singapore is choking right now — the 24-hour PSI crossed 200 in parts of the island this week, and many of us are coughing, with itchy eyes and tight chests. If you work outdoors, this one is for you. 😷
-
 The haze is back, and PM2.5 particles are so tiny they go deep into your lungs and even into your blood. Here is what you SHOULD do and what you should NOT do:
-
 ✅ DO check the 1-hour PM2.5 on the myENV app before going out — it is the real guide for the next few hours.
-
 ✅ DO wear a well-fitted N95 mask outdoors when the air is bad. A normal surgical mask cannot stop PM2.5.
-
 ✅ DO keep windows and doors closed. Use the air-con or air purifier indoors.
-
 ✅ DO drink more water and rest in shaded or air-con areas between tasks.
-
 ✅ DO look after the vulnerable — elderly workers, anyone with asthma or heart problems should stay indoors.
-
 ✅ DO stop work and seek medical help if you feel dizzy, chest tightness or breathing difficulty.
-
 ❌ DON'T do heavy outdoor work when PSI is unhealthy — slow down and take breaks.
-
 ❌ DON'T think a normal surgical mask protects you from haze. It doesn't.
-
 ❌ DON'T open windows wide and let the haze fill your room or rest area.
-
 ❌ DON'T ignore early signs — coughing, itchy eyes and sore throat are your body's warning.
-
 ❌ DON'T exercise outdoors in the haze to "stay fit" — it does the opposite.
-
 My rule for this week: your lungs cannot be replaced. Protect them first. 💯
-
 How are you coping with the haze at your workplace? 🏗️
-
 #SingaporeHaze #HazeSafety #WSH #SafetyCoordinator #SingaporeConstruction #HealthAndSafety #StaySafe`,
-    image: "/posts/7517038232165879808.jpg",
-    date: "2026-10-18",
-    reactions: null,
-    comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7517038232165879808",
-  },
-  {
-    id: "7516971335592382464",
-    text: `🔥 THE WRONG EXTINGUISHER CAN KILL YOU FASTER THAN THE FIRE.
-
-A worker sees flames on an electrical panel. He grabs the nearest red extinguisher and sprays water straight at it. The water conducts the current right back through the stream — the rescue becomes the second casualty. 💔
-
-Not every red canister fights every fire. Using the wrong one turns a small fire into a disaster. 🧯
-
-👷 Here is what we drill into every crew on site:
-
-1️⃣ 🔥 Know the 5 fire classes — A (wood, paper), B (flammable liquids), C (flammable gases), E (electrical), F (cooking oils). One wrong match and the "rescue" makes it worse.
-
-2️⃣ 💧 NEVER spray water on an electrical fire or burning oil — water conducts electricity, and on burning oil it makes the fire erupt and spread. That is how people die trying to help.
-
-3️⃣ ❄️ CO₂ is the king for electrical fires — no residue, safe on live equipment. But hold the horn by the handle only — the discharge can freeze-burn your hand, and in a small room it pushes oxygen out. Ventilate after.
-
-4️⃣ 🟡 ABC dry powder handles most fires — wood, liquids, gas, electrical. But the powder leaves corrosive residue that wrecks machines and electronics, so don't waste it where CO₂ would do.
-
-5️⃣ 🎯 Remember P.A.S.S. — Pull the pin, Aim LOW at the base of the flames, Squeeze the handle, Sweep side to side. Spray the flames instead of the base and you will empty the whole canister for nothing. A 9kg extinguisher gives you about 20–25 seconds — make them count.
-
-The rule: match the extinguisher to the fire — or don't fight it at all. If it is bigger than a wastebasket, get out and call 995. 💪
-
-❓ When did your team last run a hands-on extinguisher drill — not a briefing, a real pull-the-pin drill? Tell us below. 👇
-
-#WSH #SafetyCoordinator #SingaporeConstruction #FireSafety #FireExtinguisher #EmergencyPreparedness #SafetyFirst #ZeroHarm`,
-    image: "/posts/7516971335592382464.jpg",
+    image: "/posts/7517038231071150080.jpg",
     date: "2026-10-17",
     reactions: null,
     comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7516971335592382464",
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7517038231071150080",
   },
   {
-    id: "7516609949351874560",
+    id: "7516971334279634944",
+    text: `🔥 THE WRONG EXTINGUISHER CAN KILL YOU FASTER THAN THE FIRE.
+A worker sees flames on an electrical panel. He grabs the nearest red extinguisher and sprays water straight at it. The water conducts the current right back through the stream — the rescue becomes the second casualty. 💔
+Not every red canister fights every fire. Using the wrong one turns a small fire into a disaster. 🧯
+👷 Here is what we drill into every crew on site:
+1️⃣ 🔥 Know the 5 fire classes — A (wood, paper), B (flammable liquids), C (flammable gases), E (electrical), F (cooking oils). One wrong match and the "rescue" makes it worse.
+2️⃣ 💧 NEVER spray water on an electrical fire or burning oil — water conducts electricity, and on burning oil it makes the fire erupt and spread. That is how people die trying to help.
+3️⃣ ❄️ CO₂ is the king for electrical fires — no residue, safe on live equipment. But hold the horn by the handle only — the discharge can freeze-burn your hand, and in a small room it pushes oxygen out. Ventilate after.
+4️⃣ 🟡 ABC dry powder handles most fires — wood, liquids, gas, electrical. But the powder leaves corrosive residue that wrecks machines and electronics, so don't waste it where CO₂ would do.
+5️⃣ 🎯 Remember P.A.S.S. — Pull the pin, Aim LOW at the base of the flames, Squeeze the handle, Sweep side to side. Spray the flames instead of the base and you will empty the whole canister for nothing. A 9kg extinguisher gives you about 20–25 seconds — make them count.
+The rule: match the extinguisher to the fire — or don't fight it at all. If it is bigger than a wastebasket, get out and call 995. 💪
+❓ When did your team last run a hands-on extinguisher drill — not a briefing, a real pull-the-pin drill? Tell us below. 👇
+#WSH #SafetyCoordinator #SingaporeConstruction #FireSafety #FireExtinguisher #EmergencyPreparedness #SafetyFirst #ZeroHarm`,
+    image: "/posts/7516971334279634944.jpg",
+    date: "2026-10-17",
+    reactions: null,
+    comments: null,
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7516971334279634944",
+  },
+  {
+    id: "7516609947795623937",
     text: `🔒 The switch was OFF.
 The tag was ON.
-Then someone flicked it back on "just for a minute" — and a maintenance worker inside the machine never came home. 😔
-
+Then someone flicked it back on "just for a minute" — and a maintenance worker inside the machine never came home. 😣
 Unexpected startup kills. Lockout/Tagout (LOTO) exists for one reason: no machine moves, no energy flows, until EVERY worker is clear. ⚡
-
 👷 As safety people, these are the LOTO rules we drill into every crew:
-
 1️⃣ 🔒 ONE lock, ONE worker, ONE key — your lock is your life. Only the person who put it on takes it off. Never remove someone else's lock, no exceptions.
-
 2️⃣ 📋 Lock out ALL energy sources, not just the main switch — electricity, compressed air, steam, springs, gravity, trapped pressure. A cut power cable does not stop a pressurized line.
-
 3️⃣ ✅ Verify ZERO energy — the "try-start" test. After locking out, try to start the equipment to prove it is dead. Skip this step and the lock is just decoration.
-
 4️⃣ 🏷️ A tag is a WARNING, not a barrier — tags can be ignored, missed, or blown off. The lock is what physically stops the switch. Tag alone = no protection.
-
 5️⃣ 📦 Stored energy kills after shutdown — capacitors, springs, suspended loads, trapped pressure. Bleed it, block it, ground it — before anyone's hands go in.
-
 The rule of LOTO: if it is not locked, tagged, and tried — it is NOT safe to work on. Full stop. 💪
-
 ❓ When did your team last run a proper LOTO drill — and did everyone pass? Tell us below. 👇
-
 #WSH #SafetyCoordinator #SingaporeConstruction #LOTO #LockoutTagout #ElectricalSafety #ZeroHarm #SafetyFirst`,
-    image: "/posts/7516609949351874560.jpg",
+    image: "/posts/7516609947795623937.jpg",
     date: "2026-10-16",
     reactions: null,
     comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7516609949351874560",
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7516609947795623937",
   },
   {
-    id: "7516252470554071040",
-    text: `🛑 On 28 September, a 22-year-old worker fell from the 12th storey during concrete casting at a BTO site in Tanjong Rhu.
+    id: "7516252467416838144",
+    text: `🔴 On 28 September, a 22-year-old worker fell from the 12th storey during concrete casting at a BTO site in Tanjong Rhu.
 He never went home. 💔
-
-Falls from height are still the number one killer on our construction sites. MOM's mid-year WSH report says more workers died in the first half of 2026 than the same period last year. 📈
-
+Falls from height are still the number one killer on our construction sites.
+MOM's mid-year WSH report says more workers died in the first half of 2026 than the same period last year. 📈
 Before ANY concreting work at height, these 5 controls must be in place:
-
 🧱 1. Guardrails at every open edge — top rail, mid rail, toe board. No gaps, no missing sections. An open edge is a death trap.
-
 🪜 2. Safe access up and down — ladders must extend at least 1 metre above the landing, tied off, on firm ground. A ladder that slips or falls short of the landing is all it takes.
-
 🪢 3. Harness with 100% tie-off where edges cannot be guarded — and check your fall clearance. A 1.8m shock-absorbing lanyard stretches to over 3.5m in a fall. Without enough clear space below, the harness saves nobody.
-
 🚧 4. Control the pump hose — a concrete pump hose kicks and whips under pressure. Barricade the casting zone, keep workers clear of edges, and never let anyone stand on or straddle the hose.
-
 🛑 5. Stop-work authority is real — after the Tanjong Rhu fall, MOM ordered all concrete casting with the mobile concrete pump to stop on that site. Anyone who sees an unsafe edge can and must stop the work.
-
 ⚠️ THE RULE: No edge protection, no harness anchor, no work at height. Full stop. 💪
-
 ❓ What is the one fall-protection rule your site never compromises on? Share it below — someone might learn from it. 👇
-
 #WSH #SafetyCoordinator #SingaporeConstruction #FallProtection #WorkAtHeight #ConstructionSafety #StopWork`,
-    image: "/posts/7516252470554071040.jpg",
+    image: "/posts/7516252467416838144.jpg",
     date: "2026-10-15",
     reactions: 3,
     comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7516252470554071040",
-  },
-  {
-    id: "7515882062319357952",
-    text: `🔥 STOP WORK — Hot Work! 🛑
-
-The welder finished at 5pm.
-At 11pm, the site was on fire. 😱
-
-Welding sparks are molten metal at 1,600°C. They fly up to 11 metres, land in gaps you never see, and can SMOULDER for hours before bursting into flames — long after everyone went home. ⏳
-
-👷 As safety people, this is what we control before the first spark:
-
-1️⃣ 📋 Hot work PERMIT first — no permit, no welding. It forces you to check the area, the protection, and who is watching.
-2️⃣ 📏 Move everything flammable 11 metres (35 feet) away from the spark zone — that is the standard, not a suggestion.
-3️⃣ 🧯 A fire extinguisher within arm's reach — not across the site, not in the site office.
-4️⃣ 👀 A trained FIRE WATCH on post — watching during the work AND at least 30–60 minutes after the last spark. Sparks die slow.
-5️⃣ 🔍 Check the hidden spots — sparks drop into cable trays, roof seams, and deck gaps. A fire you cannot see is the most dangerous one.
-
-The rule of hot work: the job is NOT done when the welding stops. It is done when the fire watch signs off — a full 30 to 60 minutes after the last spark. 💯
-
-Have you ever seen a fire start hours after hot work ended? Tell us below. 🧡👇
-
-#WSH #SafetyCoordinator #SingaporeConstruction #HotWorkSafety #FireSafety #WeldingSafety #SafetyFirst #ToolboxTalk`,
-    image: "/posts/7515882062319357952.jpg",
-    date: "2026-10-14",
-    reactions: null,
-    comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7515882062319357952",
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7516252467416838144",
   },
 ];
