@@ -20,9 +20,29 @@ export interface LinkedInPost {
 }
 
 /** ISO date of the last sync, e.g. "2026-10-05" */
-export const postsUpdatedAt = "2026-10-22";
+export const postsUpdatedAt = "2026-10-23";
 
 export const linkedinPosts: LinkedInPost[] = [
+  {
+    id: "7519147354365722624",
+    text: `🏗️ "A 12 mm WIRE ROPE SLING CAN LIFT OVER 1 TONNE — UNTIL A BAD SLING ANGLE DOUBLES THE LOAD ON EACH LEG."
+A sling does not break because it is weak. It breaks because someone rigged it at the wrong angle. A two-leg sling pulled flat at 30° puts 100% of the load on EACH leg — and a dropped load does not give second chances. On site, the rigger's angle decision is the lift's safety factor. 😟
+Here is my quick sling-safety check. Save this. 📋
+1️⃣ 📐 Know your SWL — the rule of thumb: SWL (kg) = 8 × D², where D is the rope diameter in mm. A 12 mm rope: 8 × 144 = 1,152 kg ≈ 1.15 tonnes. Never guess the capacity — read the sling tag first. 🏷️
+2️⃣ 📏 Respect the sling angle — the flatter the legs, the harder each leg works. At 60° from horizontal, each leg carries ~58% of the load. At 45°, ~71%. At 30°, each leg carries 100%. Simple rule: never rig below 30°. 📐
+3️⃣ 👀 Inspect before EVERY lift — reject the sling if you see: 10 or more broken wires in one lay length, kinks, birdcaging (strands opening up like a cage), corrosion, or heat damage. One damaged sling is a dropped load waiting to happen. 🚫
+4️⃣ 🛡️ Protect against sharp edges — a sharp corner on the load can slash a wire rope sling's strength. Always use softeners, edge protectors, or packing between the sling and the load. 📦
+5️⃣ 🔖 Trust only a tagged sling — every certified sling carries a legible ID tag with its rated capacity. No readable tag = no lift. Get it re-certified by a competent person first. ✅
+💪 THE RULE: If you cannot read the tag or you cannot keep the angle above 30°, DO NOT LIFT. Re-sling it right — a five-minute re-rig beats a lifetime of regret. 🚫
+❓ When did YOU last check the sling angle on a two-leg lift — did anyone actually measure it, or did it just "look okay"? Tell me below. 👇
+#wsh #safetycoordinator #singaporeconstruction #liftingsafety #riggingsafety #cranesafety #safetyfirst #toolboxtalk`,
+    image: "/posts/7519147354365722624.jpg",
+    date: "2026-10-23",
+    reactions: null,
+    comments: null,
+    url: "https://www.linkedin.com/feed/update/urn:li:activity/7519147354365722624",
+  },
+
   {
     id: "7518786520301096961",
     text: `🔥 "A FIRE CAN DOUBLE IN SIZE EVERY 60 SECONDS." ⏱️
@@ -182,26 +202,5 @@ The rule of LOTO: if it is not locked, tagged, and tried — it is NOT safe to w
     reactions: null,
     comments: null,
     url: "https://www.linkedin.com/feed/update/urn:li:activity/7516609947795623937",
-  },
-  {
-    id: "7516252467416838144",
-    text: `🔴 On 28 September, a 22-year-old worker fell from the 12th storey during concrete casting at a BTO site in Tanjong Rhu.
-He never went home. 💔
-Falls from height are still the number one killer on our construction sites.
-MOM's mid-year WSH report says more workers died in the first half of 2026 than the same period last year. 📈
-Before ANY concreting work at height, these 5 controls must be in place:
-🧱 1. Guardrails at every open edge — top rail, mid rail, toe board. No gaps, no missing sections. An open edge is a death trap.
-🪜 2. Safe access up and down — ladders must extend at least 1 metre above the landing, tied off, on firm ground. A ladder that slips or falls short of the landing is all it takes.
-🪢 3. Harness with 100% tie-off where edges cannot be guarded — and check your fall clearance. A 1.8m shock-absorbing lanyard stretches to over 3.5m in a fall. Without enough clear space below, the harness saves nobody.
-🚧 4. Control the pump hose — a concrete pump hose kicks and whips under pressure. Barricade the casting zone, keep workers clear of edges, and never let anyone stand on or straddle the hose.
-🛑 5. Stop-work authority is real — after the Tanjong Rhu fall, MOM ordered all concrete casting with the mobile concrete pump to stop on that site. Anyone who sees an unsafe edge can and must stop the work.
-⚠️ THE RULE: No edge protection, no harness anchor, no work at height. Full stop. 💪
-❓ What is the one fall-protection rule your site never compromises on? Share it below — someone might learn from it. 👇
-#WSH #SafetyCoordinator #SingaporeConstruction #FallProtection #WorkAtHeight #ConstructionSafety #StopWork`,
-    image: "/posts/7516252467416838144.jpg",
-    date: "2026-10-15",
-    reactions: 3,
-    comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7516252467416838144",
   },
 ];
