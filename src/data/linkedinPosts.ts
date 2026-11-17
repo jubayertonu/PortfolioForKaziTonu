@@ -20,7 +20,7 @@ export interface LinkedInPost {
 }
 
 /** ISO date of the last sync, e.g. "2026-10-05" */
-export const postsUpdatedAt = "2026-10-23";
+export const postsUpdatedAt = "2026-11-18";
 
 export const linkedinPosts: LinkedInPost[] = [
   {
@@ -35,10 +35,10 @@ Here is my quick sling-safety check. Save this. 📋
 5️⃣ 🔖 Trust only a tagged sling — every certified sling carries a legible ID tag with its rated capacity. No readable tag = no lift. Get it re-certified by a competent person first. ✅
 💪 THE RULE: If you cannot read the tag or you cannot keep the angle above 30°, DO NOT LIFT. Re-sling it right — a five-minute re-rig beats a lifetime of regret. 🚫
 ❓ When did YOU last check the sling angle on a two-leg lift — did anyone actually measure it, or did it just "look okay"? Tell me below. 👇
-#wsh #safetycoordinator #singaporeconstruction #liftingsafety #riggingsafety #cranesafety #safetyfirst #toolboxtalk`,
+#WSH #SafetyCoordinator #SingaporeConstruction #LiftingSafety #RiggingSafety #CraneSafety #SafetyFirst #ToolboxTalk`,
     image: "/posts/7519147354365722624.jpg",
     date: "2026-10-23",
-    reactions: null,
+    reactions: 5,
     comments: null,
     url: "https://www.linkedin.com/feed/update/urn:li:activity/7519147354365722624",
   },
@@ -60,7 +60,7 @@ Here is my monthly 60-second extinguisher check. Save this. 📋
 #WSH #SafetyCoordinator #SingaporeConstruction #FireSafety #SafetyFirst #ZeroHarm #ToolboxTalk`,
     image: "/posts/7518786520301096961.jpg",
     date: "2026-10-22",
-    reactions: null,
+    reactions: 2,
     comments: null,
     url: "https://www.linkedin.com/feed/update/urn:li:activity/7518786520301096961",
   },
@@ -111,13 +111,13 @@ The site taught me these 5 lessons the hard way. Here they are:
 🗣️ 2️⃣ Five minutes can save a life — every morning, Mon–Sat, I hold a toolbox meeting with 10–15 workers before work starts. 5 minutes, one topic, everyone speaks. That small habit has stopped more unsafe acts than any rule book. 📋
 🛑 3️⃣ "Stop work" is the bravest sentence on site — it costs 2 minutes and zero dollars. An accident costs a family everything. Any worker, any time — if it looks unsafe, stop it and ask. 💬
 😴 4️⃣ Fatigue is a silent killer — safety research shows staying awake 17–19 hours can slow your reactions as much as a few drinks behind the wheel. An exhausted worker on a scaffold is as dangerous as a careless one. Rest is a control measure. 🛏️
-❤️ 5️⃣ Everyone goes home to somebody — behind every helmet is a father, a son, a brother. I keep that picture in my head every single shift. That is the real reason for every checklist. 🏠
+❤️ 5️⃣ Everyone goes home to somebody — behind every helmet is a father, a son, a brother. I keep that picture in my head every single shift. That is the real reason for every checklist. 👨👩👧
 💪 THE RULE: No deadline is worth a funeral. Everybody goes home. Every day. 🏠✅
 ❓ What is the single most valuable safety lesson YOUR career has taught you? Tell me in the comments — I genuinely want to learn from you. 👇
 #WSH #SafetyCoordinator #SingaporeConstruction #SafetyLessons #SafetyFirst #ConstructionSafety #ZeroHarm`,
     image: "/posts/7517698904470212609.jpg",
     date: "2026-10-19",
-    reactions: 6,
+    reactions: 9,
     comments: 1,
     url: "https://www.linkedin.com/feed/update/urn:li:activity/7517698904470212609",
   },
@@ -140,7 +140,7 @@ But almost nobody asks the second question — the one that could have prevented
   },
   {
     id: "7517038231071150080",
-    text: `🌫️ Singapore is choking right now — the 24-hour PSI crossed 200 in parts of the island this week, and many of us are coughing, with itchy eyes and tight chests. If you work outdoors, this one is for you. 😷
+    text: `🌫️ Singapore is choking right now — the 24-hour PSI crossed 200 in parts of the island this week, and many of us are coughing, with itchy eyes and tight chests. If you work outdoors, this one is for you. 🤧
 The haze is back, and PM2.5 particles are so tiny they go deep into your lungs and even into your blood. Here is what you SHOULD do and what you should NOT do:
 ✅ DO check the 1-hour PM2.5 on the myENV app before going out — it is the real guide for the next few hours.
 ✅ DO wear a well-fitted N95 mask outdoors when the air is bad. A normal surgical mask cannot stop PM2.5.
@@ -158,7 +158,7 @@ How are you coping with the haze at your workplace? 🏗️
 #SingaporeHaze #HazeSafety #WSH #SafetyCoordinator #SingaporeConstruction #HealthAndSafety #StaySafe`,
     image: "/posts/7517038231071150080.jpg",
     date: "2026-10-17",
-    reactions: null,
+    reactions: 1,
     comments: null,
     url: "https://www.linkedin.com/feed/update/urn:li:activity/7517038231071150080",
   },
@@ -181,26 +181,5 @@ The rule: match the extinguisher to the fire — or don't fight it at all. If it
     reactions: null,
     comments: null,
     url: "https://www.linkedin.com/feed/update/urn:li:activity/7516971334279634944",
-  },
-  {
-    id: "7516609947795623937",
-    text: `🔒 The switch was OFF.
-The tag was ON.
-Then someone flicked it back on "just for a minute" — and a maintenance worker inside the machine never came home. 😣
-Unexpected startup kills. Lockout/Tagout (LOTO) exists for one reason: no machine moves, no energy flows, until EVERY worker is clear. ⚡
-👷 As safety people, these are the LOTO rules we drill into every crew:
-1️⃣ 🔒 ONE lock, ONE worker, ONE key — your lock is your life. Only the person who put it on takes it off. Never remove someone else's lock, no exceptions.
-2️⃣ 📋 Lock out ALL energy sources, not just the main switch — electricity, compressed air, steam, springs, gravity, trapped pressure. A cut power cable does not stop a pressurized line.
-3️⃣ ✅ Verify ZERO energy — the "try-start" test. After locking out, try to start the equipment to prove it is dead. Skip this step and the lock is just decoration.
-4️⃣ 🏷️ A tag is a WARNING, not a barrier — tags can be ignored, missed, or blown off. The lock is what physically stops the switch. Tag alone = no protection.
-5️⃣ 📦 Stored energy kills after shutdown — capacitors, springs, suspended loads, trapped pressure. Bleed it, block it, ground it — before anyone's hands go in.
-The rule of LOTO: if it is not locked, tagged, and tried — it is NOT safe to work on. Full stop. 💪
-❓ When did your team last run a proper LOTO drill — and did everyone pass? Tell us below. 👇
-#WSH #SafetyCoordinator #SingaporeConstruction #LOTO #LockoutTagout #ElectricalSafety #ZeroHarm #SafetyFirst`,
-    image: "/posts/7516609947795623937.jpg",
-    date: "2026-10-16",
-    reactions: null,
-    comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7516609947795623937",
   },
 ];
