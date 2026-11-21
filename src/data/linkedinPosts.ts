@@ -20,11 +20,11 @@ export interface LinkedInPost {
 }
 
 /** ISO date of the last sync, e.g. "2026-10-05" */
-export const postsUpdatedAt = "2026-11-18";
+export const postsUpdatedAt = "2026-11-22";
 
 export const linkedinPosts: LinkedInPost[] = [
   {
-    id: "7519147354365722624",
+    id: "7519147355879772162",
     text: `🏗️ "A 12 mm WIRE ROPE SLING CAN LIFT OVER 1 TONNE — UNTIL A BAD SLING ANGLE DOUBLES THE LOAD ON EACH LEG."
 A sling does not break because it is weak. It breaks because someone rigged it at the wrong angle. A two-leg sling pulled flat at 30° puts 100% of the load on EACH leg — and a dropped load does not give second chances. On site, the rigger's angle decision is the lift's safety factor. 😟
 Here is my quick sling-safety check. Save this. 📋
@@ -36,15 +36,15 @@ Here is my quick sling-safety check. Save this. 📋
 💪 THE RULE: If you cannot read the tag or you cannot keep the angle above 30°, DO NOT LIFT. Re-sling it right — a five-minute re-rig beats a lifetime of regret. 🚫
 ❓ When did YOU last check the sling angle on a two-leg lift — did anyone actually measure it, or did it just "look okay"? Tell me below. 👇
 #WSH #SafetyCoordinator #SingaporeConstruction #LiftingSafety #RiggingSafety #CraneSafety #SafetyFirst #ToolboxTalk`,
-    image: "/posts/7519147354365722624.jpg",
+    image: "/posts/7519147355879772162.jpg",
     date: "2026-10-23",
     reactions: 5,
     comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7519147354365722624",
+    url: "https://www.linkedin.com/feed/update/urn:li:activity:7519147355879772162/",
   },
 
   {
-    id: "7518786520301096961",
+    id: "7518786523492782080",
     text: `🔥 "A FIRE CAN DOUBLE IN SIZE EVERY 60 SECONDS." ⏱️
 One minute. That is all it takes for a small site fire to become a big one. And the red extinguisher on the wall? If nobody inspected it this month, it might be nothing more than red decoration. On construction sites — hot works, welding sparks, temporary wiring — fire is always one careless moment away. 🥺
 Here is my monthly 60-second extinguisher check. Save this. 📋
@@ -58,14 +58,14 @@ Here is my monthly 60-second extinguisher check. Save this. 📋
 🚫
 ❓ When did YOU last check the fire extinguisher nearest your work area? Be honest — tell me below. 👇
 #WSH #SafetyCoordinator #SingaporeConstruction #FireSafety #SafetyFirst #ZeroHarm #ToolboxTalk`,
-    image: "/posts/7518786520301096961.jpg",
+    image: "/posts/7518786523492782080.jpg",
     date: "2026-10-22",
     reactions: 2,
     comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7518786520301096961",
+    url: "https://www.linkedin.com/feed/update/urn:li:activity:7518786523492782080/",
   },
   {
-    id: "7518426685348872193",
+    id: "7518426688452657152",
     text: `🔨 "A 1 KG SPANNER DROPPED FROM A 10-STOREY HDB BLOCK HITS THE GROUND AT NEARLY 90 KM/H." 💥
 Simple physics: 1 kg × 30 metres of fall = about 90 km/h impact speed and nearly 300 joules of energy. A hard hat is tested with just 3.6 kg dropped from 1.5 metres — it protects against small knocks, not a tool falling ten storeys. Struck-by falling objects is one of construction's classic killers, and it needs no machinery — just a slippery glove and gravity. 🥺
 On HDB maintenance works we are up on blocks every day — spanners, bolts, small tools, all with a long way down. Here is how we keep the ground safe:
@@ -77,14 +77,14 @@ On HDB maintenance works we are up on blocks every day — spanners, bolts, smal
 💪 THE RULE: If it can fall, it must be tethered, netted — or the ground below must be clear. No exceptions. ⚠️
 ❓ What is the strangest thing you have ever seen dropped from height on a site? Tell me below. 👇
 #WSH #SafetyCoordinator #SingaporeConstruction #DroppedObjects #WorkAtHeight #SafetyFirst #ZeroHarm`,
-    image: "/posts/7518426685348872193.jpg",
+    image: "/posts/7518426688452657152.jpg",
     date: "2026-10-21",
     reactions: null,
     comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7518426685348872193",
+    url: "https://www.linkedin.com/feed/update/urn:li:activity:7518426688452657152/",
   },
   {
-    id: "7518055751513419776",
+    id: "7518055753891614720",
     text: `⚡ "THE SPARK YOU CAN BARELY FEEL CAN BURN DOWN A SITE." 🔥
 Petrol vapour can ignite from a spark carrying as little as 0.2 millijoules of energy — and a worker walking across the site can build up thousands of volts of static without feeling a thing. One unseen spark during refuelling, and you have a fire nobody planned for.
 On our sites we store diesel, we run generators, we dispense fuel into containers every single day. Here is how we do it safely:
@@ -96,14 +96,14 @@ On our sites we store diesel, we run generators, we dispense fuel into container
 💪 THE RULE: Bond it, earth it, THEN pour. Static is invisible — the fire it starts is not. ⚠️🔥
 ❓ Have you ever seen earthing clamps used properly on YOUR site? Or is bonding something people skip when they are in a hurry? Tell me below. 👇
 #WSH #SafetyCoordinator #SingaporeConstruction #StaticElectricity #FireSafety #ConstructionSafety #ZeroHarm`,
-    image: "/posts/7518055751513419776.jpg",
+    image: "/posts/7518055753891614720.jpg",
     date: "2026-10-20",
     reactions: null,
     comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7518055751513419776",
+    url: "https://www.linkedin.com/feed/update/urn:li:activity:7518055753891614720/",
   },
   {
-    id: "7517698904470212609",
+    id: "7517698905627828225",
     text: `🦺 Almost 3 years as a Safety Coordinator in Singapore construction. 🚧
 In all that time, no one on my watch has lost their life — and I do not take that for granted for a single day. 🙏
 The site taught me these 5 lessons the hard way. Here they are:
@@ -115,14 +115,14 @@ The site taught me these 5 lessons the hard way. Here they are:
 💪 THE RULE: No deadline is worth a funeral. Everybody goes home. Every day. 🏠✅
 ❓ What is the single most valuable safety lesson YOUR career has taught you? Tell me in the comments — I genuinely want to learn from you. 👇
 #WSH #SafetyCoordinator #SingaporeConstruction #SafetyLessons #SafetyFirst #ConstructionSafety #ZeroHarm`,
-    image: "/posts/7517698904470212609.jpg",
+    image: "/posts/7517698905627828225.jpg",
     date: "2026-10-19",
     reactions: 9,
     comments: 1,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7517698904470212609",
+    url: "https://www.linkedin.com/feed/update/urn:li:activity:7517698905627828225/",
   },
   {
-    id: "7517334842930302976",
+    id: "7517334844247552000",
     text: `⚠️ EVERY TIME A WORKER GETS HURT, THE FIRST QUESTION IS THE SAME: "WAS HE WEARING HIS PPE?" 😠
 But almost nobody asks the second question — the one that could have prevented it: "Why was the hazard still there at all?"
 👷 PPE is at the BOTTOM of the hierarchy of controls for a reason. Here is the order Singapore's WSH framework and ISO 45001 demand — and what it looks like on a real site:
@@ -132,14 +132,14 @@ But almost nobody asks the second question — the one that could have prevented
 💪 THE RULE: Work DOWN the hierarchy — eliminate first, guard second, and keep PPE as your last resort, not your first answer.
 ❓ Agree or disagree — is PPE culture replacing proper hazard control on our construction sites? Tell me below. 👇
 #WSH #SafetyCoordinator #SingaporeConstruction #HierarchyOfControls #PPE #SafetyFirst #ZeroHarm`,
-    image: "/posts/7517334842930302976.jpg",
+    image: "/posts/7517334844247552000.jpg",
     date: "2026-10-18",
     reactions: 1,
     comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7517334842930302976",
+    url: "https://www.linkedin.com/feed/update/urn:li:activity:7517334844247552000/",
   },
   {
-    id: "7517038231071150080",
+    id: "7517038232165879808",
     text: `🌫️ Singapore is choking right now — the 24-hour PSI crossed 200 in parts of the island this week, and many of us are coughing, with itchy eyes and tight chests. If you work outdoors, this one is for you. 🤧
 The haze is back, and PM2.5 particles are so tiny they go deep into your lungs and even into your blood. Here is what you SHOULD do and what you should NOT do:
 ✅ DO check the 1-hour PM2.5 on the myENV app before going out — it is the real guide for the next few hours.
@@ -156,14 +156,14 @@ The haze is back, and PM2.5 particles are so tiny they go deep into your lungs a
 My rule for this week: your lungs cannot be replaced. Protect them first. 💯
 How are you coping with the haze at your workplace? 🏗️
 #SingaporeHaze #HazeSafety #WSH #SafetyCoordinator #SingaporeConstruction #HealthAndSafety #StaySafe`,
-    image: "/posts/7517038231071150080.jpg",
+    image: "/posts/7517038232165879808.jpg",
     date: "2026-10-17",
     reactions: 1,
     comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7517038231071150080",
+    url: "https://www.linkedin.com/feed/update/urn:li:activity:7517038232165879808/",
   },
   {
-    id: "7516971334279634944",
+    id: "7516971335592382464",
     text: `🔥 THE WRONG EXTINGUISHER CAN KILL YOU FASTER THAN THE FIRE.
 A worker sees flames on an electrical panel. He grabs the nearest red extinguisher and sprays water straight at it. The water conducts the current right back through the stream — the rescue becomes the second casualty. 💔
 Not every red canister fights every fire. Using the wrong one turns a small fire into a disaster. 🧯
@@ -176,10 +176,10 @@ Not every red canister fights every fire. Using the wrong one turns a small fire
 The rule: match the extinguisher to the fire — or don't fight it at all. If it is bigger than a wastebasket, get out and call 995. 💪
 ❓ When did your team last run a hands-on extinguisher drill — not a briefing, a real pull-the-pin drill? Tell us below. 👇
 #WSH #SafetyCoordinator #SingaporeConstruction #FireSafety #FireExtinguisher #EmergencyPreparedness #SafetyFirst #ZeroHarm`,
-    image: "/posts/7516971334279634944.jpg",
+    image: "/posts/7516971335592382464.jpg",
     date: "2026-10-17",
     reactions: null,
     comments: null,
-    url: "https://www.linkedin.com/feed/update/urn:li:activity/7516971334279634944",
+    url: "https://www.linkedin.com/feed/update/urn:li:activity:7516971335592382464/",
   },
 ];
